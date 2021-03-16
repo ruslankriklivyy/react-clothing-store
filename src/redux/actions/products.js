@@ -1,0 +1,37 @@
+import { productsApi } from '../../api/api';
+
+const SET_PRODUCTS = 'SET_PRODUCTS';
+const SET_CATEGORY = 'SET_CATEGORY';
+const SET_PRODUCT_ID = 'SET_PRODUCT_ID';
+const SET_CHOOSEN_PRODUCT = 'SET_CHOOSEN_PRODUCT';
+const SET_CATEGORY_NAME = 'SET_CATEGORY_NAME';
+
+export const getProducts = (type) => async (dispatch) => {
+  const data = await productsApi.getProducts(type);
+  dispatch(setProducts(data));
+};
+
+export const setProductId = (id) => ({
+  type: SET_PRODUCT_ID,
+  payload: id,
+});
+
+export const setChoosenProduct = (item) => ({
+  type: SET_CHOOSEN_PRODUCT,
+  payload: item,
+});
+
+export const setCategoryName = (name) => ({
+  type: SET_CATEGORY_NAME,
+  payload: name,
+});
+
+export const setProducts = (items) => ({
+  type: SET_PRODUCTS,
+  payload: items,
+});
+
+export const setCategory = (type) => ({
+  type: SET_CATEGORY,
+  payload: type,
+});
