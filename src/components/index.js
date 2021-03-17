@@ -6,3 +6,4 @@ export { default as Products } from './Products';
 export { default as Title } from './Title';
 export { default as ProductsWatchItem } from './ProductsWatchItem';
 export { default as Footer } from './Footer';
+export { default as Cart } from './Cart';

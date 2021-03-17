@@ -28,17 +28,29 @@ const categoriesNamesEng = [
 ];
 
 const Home = () => {
+  const [visibleCart, setVisibleCart] = React.useState(false);
+
   return (
     <>
       <Route
         path="/"
         render={() => (
-          <Header categoriesNames={categoriesNames} categoriesNamesEng={categoriesNamesEng} />
+          <Header
+            visibleCart={visibleCart}
+            setVisibleCart={setVisibleCart}
+            categoriesNames={categoriesNames}
+            categoriesNamesEng={categoriesNamesEng}
+          />
         )}
       />
       <Route exact path="/" component={Promo} />
       <Route path="/category" component={Products} />
-      <Route path={`/product/`} component={ProductsWatchItem} />
+      <Route
+        path={`/product/`}
+        render={() => (
+          <ProductsWatchItem visibleCart={visibleCart} setVisibleCart={setVisibleCart} />
+        )}
+      />
       <Route path="/" component={Footer} />
     </>
   );

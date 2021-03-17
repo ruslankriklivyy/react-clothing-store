@@ -73,7 +73,7 @@ const ProductsItem = styled.div`
     border-radius: 29px;
     display: block;
     width: 380px;
-    height: 430px;
+    height: 450px;
     z-index: 100;
     box-shadow: 0 0 15px #e4e5e7;
     margin-bottom: 20px;

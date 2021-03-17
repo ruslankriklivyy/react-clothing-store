@@ -2,11 +2,12 @@ import React from 'react';
 import Slider from 'react-slick';
 import styled from 'styled-components';
 import scrollTop from '../utils/scrollTop';
-
+import Button from './Button';
 import Title from './Title';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setChoosenProduct } from '../redux/actions/products';
+import { addCartItem, setTotalPrice } from '../redux/actions/cart';
 
 const ProductsWatch = styled.div`
   background-color: ${(props) => (props.name && props.name.includes('Black') ? '#000' : '#EBE6E8')};
@@ -30,7 +31,7 @@ const ProductsWatchLeft = styled.div`
     position: relative;
     display: block !important;
     margin: 0 auto !important;
-    width: 500px !important;
+    width: 480px !important;
     height: 570px;
   }
   width: 44%;
@@ -133,9 +134,14 @@ const ProductsWatchDescr = styled.p`
   color: ${(props) => (props.name && props.name.includes('Black') ? '#fff' : '#000')};
 `;
 
-const ProductsWatchItem = () => {
+const ProductsWatchItem = ({ visibleCart, setVisibleCart }) => {
   const dispatch = useDispatch();
   const { choosenProduct } = useSelector(({ products }) => products);
+
+  const onAddToCart = (item) => {
+    dispatch(addCartItem(item));
+    setVisibleCart(!visibleCart);
+  };
 
   React.useEffect(() => {
     const localStorageRef = localStorage.getItem('choosenProduct');
@@ -183,7 +189,7 @@ const ProductsWatchItem = () => {
             <ProductWatchPrice name={choosenProduct && choosenProduct[0].name}>
               {choosenProduct && choosenProduct[0].price.length > 3
                 ? choosenProduct[0].price.charAt(0) + ' ' + choosenProduct[0].price.substr(1)
-                : choosenProduct[0].price}{' '}
+                : choosenProduct && choosenProduct[0].price}{' '}
               RUB
             </ProductWatchPrice>
             <ProductWatchDelivery name={choosenProduct && choosenProduct[0].name}>
@@ -199,6 +205,9 @@ const ProductsWatchItem = () => {
                   {item}
                 </ProductsWatchDescr>
               ))}
+            <Button onClick={() => onAddToCart(choosenProduct && choosenProduct[0])} addToCart>
+              Добавить в корзину
+            </Button>
           </ProductWatchRight>
         </ProductsWatchBlock>
       </Container>

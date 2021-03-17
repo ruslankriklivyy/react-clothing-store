@@ -14,6 +14,13 @@ const Global = createGlobalStyle`
     font-family: 'Roboto Condensed', sans-serif;
     text-decoration: none;
   }
+  html {
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+  }
   body,html {
     margin: 0;
     padding: 0;
