@@ -1,7 +1,8 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import backSvg from '../assets/img/back.svg';
+import { minusCartItem, plusCartItem } from '../redux/actions/cart';
 
 const CartWrapper = styled.div`
   width: 360px;
@@ -11,7 +12,6 @@ const CartWrapper = styled.div`
   top: 0;
   right: ${(props) => (props.show ? '0' : '-400px')};
   z-index: 900;
-  opacity: ${(props) => (props.show ? '1' : '0')};
   visibility: ${(props) => (props.show ? 'visbility' : 'hidden')};
   background: #fff;
   transition: all 0.6s ease;
@@ -80,8 +80,8 @@ const CartItemLeft = styled.div`
   justify-content: center;
   align-items: center;
   img {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 120px;
   }
 `;
 
@@ -93,21 +93,70 @@ const CartItemName = styled.h4`
   margin-bottom: 10px;
 `;
 
-const CartItemPrice = styled.span`
+const CartItemCount = styled.div`
+  display: block;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 13px;
   letter-spacing: 1px;
 `;
 
-const Cart = ({ visibleCart, setVisibleCart, show }) => {
-  const { cartItems } = useSelector(({ cart }) => cart);
+const CartItemPrice = styled.div`
+  display: block;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: #000;
+`;
+
+const CartItemTotalPrice = styled.div`
+  display: block;
+  font-weight: 600;
+  font-size: 24px;
+`;
+
+const Cart = ({ visibleCart, setVisibleCart, show, blockOutRef }) => {
+  const dispatch = useDispatch();
+  const cartBlock = React.useRef();
+  const { cartItems, totalPrice, totalCount } = useSelector(({ cart }) => cart);
   const addedItems = Object.keys(cartItems).map((key) => {
-    return cartItems[key].items[0];
+    return cartItems[key].items && cartItems[key].items[0];
   });
 
+  const onPlus = (id) => {
+    dispatch(plusCartItem(id));
+  };
+
+  const onMinus = (id) => {
+    dispatch(minusCartItem(id));
+  };
+
+  const escapeListener = React.useCallback(
+    (e) => {
+      if (e.key === 'Escape') {
+        setVisibleCart(false);
+      }
+    },
+    [setVisibleCart],
+  );
+  const clickListener = React.useCallback(
+    (e) => {
+      if (e.target.className && e.target.className === blockOutRef.current.className) {
+        setVisibleCart(false);
+      }
+    },
+    [setVisibleCart, blockOutRef],
+  );
+  React.useEffect(() => {
+    document.addEventListener('click', clickListener);
+    document.addEventListener('keyup', escapeListener);
+    return () => {
+      document.removeEventListener('click', clickListener);
+      document.removeEventListener('keyup', escapeListener);
+    };
+  }, [clickListener, escapeListener]);
+
   return (
-    <CartWrapper show={show}>
-      {/* <CartBlockOut></CartBlockOut> */}
+    <CartWrapper ref={cartBlock} show={show}>
       <CartHeader>
         <button onClick={() => setVisibleCart(!visibleCart)}>
           <img src={backSvg} alt="back svg" />
@@ -115,17 +164,24 @@ const Cart = ({ visibleCart, setVisibleCart, show }) => {
         </button>
         <CartTitle>Мои покупки</CartTitle>
       </CartHeader>
-      {addedItems.map((obj) => (
-        <CartItem>
-          <CartItemLeft>
-            <img src={obj.images[0]} alt="product img" />
-          </CartItemLeft>
-          <CartItemRight>
-            <CartItemName>{obj.name}</CartItemName>
-            <CartItemPrice>{obj.price} RUB</CartItemPrice>
-          </CartItemRight>
-        </CartItem>
-      ))}
+      {totalCount &&
+        addedItems.map((obj) => (
+          <CartItem key={obj.id}>
+            <CartItemLeft>
+              <img src={obj.images[0]} alt="product img" />
+            </CartItemLeft>
+            <CartItemRight>
+              <CartItemName>{obj.name}</CartItemName>
+              {console.log(cartItems[obj.id].items.length)}
+              <CartItemCount>
+                <b>{cartItems[obj.id].items.length}</b>
+                <button onClick={() => onPlus(obj.id)}>+</button>
+                <button onClick={() => onMinus(obj.id)}>-</button>
+              </CartItemCount>
+              <CartItemTotalPrice>{cartItems[obj.id].totalPrice} RUB</CartItemTotalPrice>
+            </CartItemRight>
+          </CartItem>
+        ))}
     </CartWrapper>
   );
 };

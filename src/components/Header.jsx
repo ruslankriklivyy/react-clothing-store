@@ -73,6 +73,7 @@ const BlockOut = styled.div`
 
 const Header = ({ categoriesNames, categoriesNamesEng, visibleCart, setVisibleCart }) => {
   const dispatch = useDispatch();
+  const blockOutRef = React.useRef();
   const { category, choosenProduct, categoryName } = useSelector(({ products }) => products);
   const { totalPrice } = useSelector(({ cart }) => cart);
   const onSelectCategory = (type, name) => {
@@ -92,13 +93,8 @@ const Header = ({ categoriesNames, categoriesNamesEng, visibleCart, setVisibleCa
 
   return (
     <>
-      <BlockOut show={visibleCart && 'show'}></BlockOut>
+      <BlockOut ref={blockOutRef} show={visibleCart && 'show'}></BlockOut>
       <HeaderMain name={choosenProduct && choosenProduct[0].name}>
-        <Cart
-          show={visibleCart && 'show'}
-          visibleCart={visibleCart}
-          setVisibleCart={setVisibleCart}
-        />
         <Container>
           <HeaderWrapper>
             <Logo>
@@ -115,6 +111,12 @@ const Header = ({ categoriesNames, categoriesNamesEng, visibleCart, setVisibleCa
                 <img src={shopCart} alt="shop cart" />
                 {totalPrice} RUB
               </span>
+              <Cart
+                blockOutRef={blockOutRef}
+                show={visibleCart && 'show'}
+                visibleCart={visibleCart}
+                setVisibleCart={setVisibleCart}
+              />
             </ShoppingCart>
           </HeaderWrapper>
         </Container>

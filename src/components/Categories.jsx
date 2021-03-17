@@ -27,13 +27,16 @@ const CategoriesWrapper = styled.div`
           background: #fff;
           width: 0;
           height: 1px;
+          opacity: 0;
           transition: all 0.4s ease;
         }
         &:hover::after {
           width: 100%;
+          opacity: 1;
         }
         &.active::after {
           width: 100%;
+          opacity: 1;
         }
       }
     }

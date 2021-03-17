@@ -5,8 +5,10 @@ const ButtonWrapper = styled.button`
   border: ${(props) => (props.product ? '2px solid #F2F4F6' : 'none')};
   outline: none;
   ${(props) => (props.addToCart ? 'margin-top: 30px' : '')};
-  background: ${(props) => (props.addToCart ? '#000' : '#fff')};
-  color: ${(props) => (props.addToCart ? '#fff' : '#000')};
+  ${(props) => (props.addToCart ? 'background: #000' : 'background: #fff')};
+  ${(props) => (props.name && props.name.includes('Black') ? 'background: #fff' : '')};
+  ${(props) => (props.addToCart ? 'color: #fff' : 'color: #000')};
+  ${(props) => (props.name && props.name.includes('Black') ? 'color: #000' : '')};
   font-weight: ${(props) => (props.product || props.moreInfo || props.addToCart ? '300' : '600')};
   font-size: ${(props) => (props.moreInfo || props.addToCart ? '18px' : '21px')};
   text-transform: ${(props) => (props.product || props.moreInfo ? 'none' : 'uppercase')};
@@ -23,9 +25,10 @@ const ButtonWrapper = styled.button`
   ${(props) => (props.moreInfo || props.addToCart ? 'height: 50px' : '')};
 `;
 
-const Button = ({ onClick, children, product, moreInfo, className, addToCart }) => {
+const Button = ({ onClick, children, product, moreInfo, className, name, addToCart }) => {
   return (
     <ButtonWrapper
+      name={name}
       addToCart={addToCart}
       onClick={onClick}
       className={className}
