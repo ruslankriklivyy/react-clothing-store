@@ -7,7 +7,7 @@ import Title from './Title';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setChoosenProduct } from '../redux/actions/products';
-import { addCartItem, plusCartItem, minusCartItem } from '../redux/actions/cart';
+import { addCartItem, setCartItemId } from '../redux/actions/cart';
 
 const ProductsWatch = styled.div`
   background-color: ${(props) => (props.name && props.name.includes('Black') ? '#000' : '#EBE6E8')};
@@ -139,22 +139,14 @@ const ProductWatchBottom = styled.div`
   align-items: center;
 `;
 
-const ProductWatchCount = styled.div``;
-
 const ProductsWatchItem = ({ setVisibleCart }) => {
   const dispatch = useDispatch();
   const { choosenProduct } = useSelector(({ products }) => products);
 
-  const onPlus = (id) => {
-    dispatch(plusCartItem(id));
-  };
-
-  const onMinus = (id) => {
-    dispatch(minusCartItem(id));
-  };
-
   const onAddToCart = (item) => {
     dispatch(addCartItem(item));
+
+    // dispatch(setCartItemId(item.id));
     setVisibleCart(true);
   };
 
@@ -221,11 +213,6 @@ const ProductsWatchItem = ({ setVisibleCart }) => {
                 </ProductsWatchDescr>
               ))}
             <ProductWatchBottom>
-              <ProductWatchCount>
-                <button onClick={() => onPlus(choosenProduct && choosenProduct[0].id)}>+</button>
-                <span>2</span>
-                <button onClick={() => onMinus(choosenProduct && choosenProduct[0].id)}>-</button>
-              </ProductWatchCount>
               <Button
                 name={choosenProduct && choosenProduct[0].name}
                 onClick={() => onAddToCart(choosenProduct && choosenProduct[0])}

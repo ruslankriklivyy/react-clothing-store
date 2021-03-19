@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Route } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -29,6 +29,8 @@ const categoriesNamesEng = [
 
 const Home = () => {
   const [visibleCart, setVisibleCart] = React.useState(false);
+  const dispatch = useDispatch();
+  const { cartItems, totalPrice, totalCount } = useSelector(({ cart }) => cart);
 
   return (
     <>

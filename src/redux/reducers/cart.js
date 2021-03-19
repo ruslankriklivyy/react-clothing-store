@@ -2,12 +2,16 @@ const initialState = {
   cartItems: {},
   totalPrice: 0,
   totalCount: 0,
+  cartIds: [],
 };
 
 const ADD_CART_ITEM = 'ADD_CART_ITEM';
 const SET_TOTAL_PRICE = 'SET_TOTAL_PRICE';
 const PLUS_CART_ITEM = 'PLUS_CART_ITEM';
 const MINUS_CART_ITEM = 'MINUS_CART_ITEM';
+const SET_CART_ITEM = 'SET_CART_ITEM';
+const SET_CART_ITEM_ID = 'SET_CART_ID';
+const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM';
 
 const _get = (obj, path) => {
   const [firstKey, ...keys] = path.split('.');
@@ -51,6 +55,7 @@ export const cart = (state = initialState, action) => {
         cartItems: newItems,
         totalPrice: totalPrice,
         totalCount,
+        cartIds: [...state.cartIds, action.payload.id],
       };
     }
 
@@ -104,6 +109,30 @@ export const cart = (state = initialState, action) => {
         totalCount,
       };
     }
+
+    case REMOVE_CART_ITEM: {
+      const newItems = { ...state.cartItems };
+      const currentTotalPrice = newItems[action.payload].totalPrice;
+      delete newItems[action.payload];
+
+      return {
+        ...state,
+        cartItems: newItems,
+        totalPrice: state.totalPrice - currentTotalPrice,
+      };
+    }
+
+    case SET_CART_ITEM:
+      return {
+        ...state,
+        cartItems: action.payload,
+      };
+
+    case SET_CART_ITEM_ID:
+      return {
+        ...state,
+        cartIds: [...state.cartIds, ...action.payload],
+      };
 
     case SET_TOTAL_PRICE:
       return {
