@@ -1,8 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button, Title } from '.';
-import { setCategory, setChoosenProduct, setProductId } from '../redux/actions/products';
-
+import {
+  setCategory,
+  setCategoryName,
+  setChoosenProduct,
+  setProductId,
+} from '../redux/actions/products';
+import priceConvert from '../utils/priceConvert';
 import arrowSvg from '../assets/img/arrow.svg';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -45,19 +50,21 @@ const ProductItemBlockout = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
     .more-arrow {
+      display: block;
       position: absolute;
-      width: 17px;
-      height: 15px;
+      width: 17px !important;
+      height: 15px !important;
       top: 18px;
       right: -17px;
+      padding: 0;
     }
   }
 `;
 
 const ProductsItem = styled.div`
   background: #fff;
-  margin-right: 20px;
-  margin-left: 20px;
+  margin-right: 13px;
+  margin-left: 13px;
   margin-bottom: 65px;
   &:hover .product-button {
     background: #000;
@@ -72,7 +79,7 @@ const ProductsItem = styled.div`
     position: relative;
     border-radius: 29px;
     display: block;
-    width: 380px;
+    width: 395px;
     height: 450px;
     z-index: 100;
     box-shadow: 0 0 15px #e4e5e7;
@@ -80,14 +87,15 @@ const ProductsItem = styled.div`
     cursor: default;
 
     img {
+      padding: 35px;
       position: absolute;
-      top: 55px;
+      top: 20px;
       left: 50%;
       transform: translate(-50%, 0);
       display: block;
       margin: 0 auto;
-      width: 85%;
-      height: 75%;
+      width: 100%;
+      height: 90%;
     }
 
     span {
@@ -114,10 +122,21 @@ const Products = () => {
   const { items, category, categoryName } = useSelector(({ products }) => products);
 
   React.useEffect(() => {
-    const localStorageRef = localStorage.getItem('category');
+    const categoryNameRef = localStorage.getItem('categoryName');
+    if (categoryNameRef) {
+      dispatch(setCategoryName(JSON.parse(categoryNameRef)));
+    }
+  }, [dispatch]);
+
+  React.useEffect(() => {
+    localStorage.setItem('categoryName', JSON.stringify(categoryName));
+  }, [categoryName]);
+
+  React.useEffect(() => {
+    const categoryRef = localStorage.getItem('category');
 
     if (!category) {
-      dispatch(setCategory(JSON.parse(localStorageRef)));
+      dispatch(setCategory(JSON.parse(categoryRef)));
     }
   }, [dispatch, category]);
 
@@ -145,9 +164,7 @@ const Products = () => {
                       Подробнее <img className="more-arrow" src={arrowSvg} alt="arrow svg" />
                     </Button>
                   </ProductItemBlockout>
-                  <span>
-                    {price.length > 3 ? price.charAt(0) + ' ' + price.substr(1) : price} RUB
-                  </span>
+                  <span>{priceConvert(price)} RUB</span>
                   <img src={images[0]} alt="cloth img" />
                 </Link>
                 <Button className={'product-button'} product>

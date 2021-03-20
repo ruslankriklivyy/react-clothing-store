@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import priceConvert from '../utils/priceConvert';
 import { getProducts, setCategory, setCategoryName } from '../redux/actions/products';
 import logoPng from '../assets/img/logo-2.png';
 import shopCart from '../assets/img/shopping-cart.svg';
@@ -7,53 +8,65 @@ import Categories from './Categories';
 import { useDispatch, useSelector } from 'react-redux';
 import Cart from './Cart';
 
-const Container = styled.div`
-  max-width: 1300px;
-  margin: 0 auto;
-  width: 100%;
-  padding: 0 15px;
-`;
+// const Container = styled.div`
+//   max-width: 1300px;
+//   margin: 0 auto;
+//   width: 100%;
+//   padding: 0 15px;
+// `;
 
 const HeaderWrapper = styled.div`
   padding-top: 25px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-direction: column;
   padding-bottom: 25px;
+  position: relative;
 `;
 
 const HeaderMain = styled.div`
   width: 100%;
-  height: 120px;
+  height: 150px;
   background: #000;
 `;
 
 const Logo = styled.div`
-  width: 180px;
-  height: 60px;
+  width: 100%;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #d7d7d7;
+  height: 62px;
   img {
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    display: block;
+    left: 50%;
+    transform: translate(-50%, 0);
+    margin: 0 auto;
+    width: 190px;
+    height: 64px;
   }
 `;
 
-const ShoppingCart = styled.div`
-  height: 22px;
-  span {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    display: inline-block;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 400;
-    letter-spacing: 1px;
-    img {
-      width: 20px;
-      height: 20px;
-      margin-right: 10px;
-    }
+const ShoppingBlockImage = styled.span`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
   }
+`;
+
+const ShoppingBlock = styled.div`
+  position: absolute;
+  top: 105px;
+  right: 30px;
+  height: 22px;
 `;
 
 const BlockOut = styled.div`
@@ -95,31 +108,31 @@ const Header = ({ categoriesNames, categoriesNamesEng, visibleCart, setVisibleCa
     <>
       <BlockOut ref={blockOutRef} show={visibleCart && 'show'}></BlockOut>
       <HeaderMain name={choosenProduct && choosenProduct[0].name}>
-        <Container>
-          <HeaderWrapper>
-            <Logo>
-              <img src={logoPng} alt="logo png" />
-            </Logo>
-            <Categories
-              onSelectCategory={onSelectCategory}
-              categoryName={categoryName}
-              items={categoriesNames}
-              links={categoriesNamesEng}
+        {/* <Container> */}
+        <HeaderWrapper>
+          <Logo>
+            <img src={logoPng} alt="logo png" />
+          </Logo>
+          <Categories
+            onSelectCategory={onSelectCategory}
+            categoryName={categoryName}
+            items={categoriesNames}
+            links={categoriesNamesEng}
+          />
+          <ShoppingBlock>
+            <ShoppingBlockImage onClick={() => setVisibleCart(!visibleCart)}>
+              <img src={shopCart} alt="shop cart" />
+              {priceConvert(totalPrice)} RUB
+            </ShoppingBlockImage>
+            <Cart
+              blockOutRef={blockOutRef}
+              show={visibleCart && 'show'}
+              visibleCart={visibleCart}
+              setVisibleCart={setVisibleCart}
             />
-            <ShoppingCart>
-              <span onClick={() => setVisibleCart(!visibleCart)}>
-                <img src={shopCart} alt="shop cart" />
-                {totalPrice} RUB
-              </span>
-              <Cart
-                blockOutRef={blockOutRef}
-                show={visibleCart && 'show'}
-                visibleCart={visibleCart}
-                setVisibleCart={setVisibleCart}
-              />
-            </ShoppingCart>
-          </HeaderWrapper>
-        </Container>
+          </ShoppingBlock>
+        </HeaderWrapper>
+        {/* </Container> */}
       </HeaderMain>
     </>
   );

@@ -13,7 +13,7 @@ const CategoriesWrapper = styled.div`
       margin: 0 10px;
       a {
         position: relative;
-        font-size: 19px;
+        font-size: 17px;
         font-weight: 400;
         text-transform: uppercase;
         color: #fff;
@@ -63,7 +63,7 @@ const Categories = ({ items, links, onSelectCategory, categoryName }) => {
               to={`/category/${generateLink(index)}`}
               onClick={() => selectCategory(name, index)}
               key={`${name}-${index}`}
-              className={name === categoryName && 'active'}
+              className={name.toLowerCase() === categoryName.toLowerCase() && 'active'}
               href="/">
               {name}
             </Link>

@@ -95,6 +95,7 @@
         "Состав: 95% cotton, 5% spandex. Плотность 170 г/м²"
       ],
       "price": "950",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "category": "t-shirts",
       "delivery_world_price": "550",
       "delivery_ukraine_price": "50",
@@ -107,6 +108,7 @@
       "id": 8,
       "name": "Black Mirror",
       "price": "1750",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "description": [
         "Тонкая. Легкая.",
         "Футболка линейки B.O.M.J - первая единица контрбрендовой линии одежды. Потрясающие качество в совместительстве с утонченным подходом к деталям, которым не могут похвастаться именитые раздутые фирмы.",
@@ -125,6 +127,7 @@
       "id": 9,
       "name": "White",
       "price": "951",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "category": "t-shirts",
       "description": [
         "Тонкая. Легкая.",
@@ -143,6 +146,7 @@
       "id": 10,
       "name": "Проволока Black",
       "price": "1750",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "description": [
         "Тонкая. Легкая.",
         "Футболка линейки B.O.M.J - первая единица контрбрендовой линии одежды. Потрясающие качество в совместительстве с утонченным подходом к деталям, которым не могут похвастаться именитые раздутые фирмы.",
@@ -161,6 +165,7 @@
       "id": 11,
       "name": "Проволока White",
       "price": "1751",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "delivery_world_price": "550",
       "description": [
         "Тонкая. Легкая.",
@@ -179,6 +184,7 @@
       "id": 12,
       "name": "Marginal White",
       "category": "t-shirts",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "delivery_world_price": "550",
       "delivery_ukraine_price": "50",
       "description": [
@@ -197,6 +203,7 @@
       "id": 13,
       "name": "Govno White",
       "category": "t-shirts",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "delivery_world_price": "550",
       "description": [
         "Тонкая. Легкая.",
@@ -215,6 +222,7 @@
       "id": 14,
       "name": "Marginal Black",
       "delivery_world_price": "550",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "description": [
         "Тонкая. Легкая.",
         "Футболка линейки B.O.M.J - первая единица контрбрендовой линии одежды. Потрясающие качество в совместительстве с утонченным подходом к деталям, которым не могут похвастаться именитые раздутые фирмы.",
@@ -234,6 +242,7 @@
       "name": "Trypka",
       "delivery_world_price": "550",
       "delivery_ukraine_price": "50",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "price": "1750",
       "description": [
         "Тонкая. Легкая.",
@@ -250,6 +259,7 @@
       "id": 16,
       "name": "B.O.M.J White",
       "delivery_world_price": "550",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "delivery_ukraine_price": "50",
       "price": "1751",
       "description": [
@@ -268,6 +278,7 @@
       "id": 17,
       "name": "B.O.M.J Black",
       "delivery_world_price": "550",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "delivery_ukraine_price": "50",
       "description": [
         "Тонкая. Легкая.",
@@ -287,6 +298,7 @@
       "name": "Просто квадрат",
       "delivery_world_price": "550",
       "delivery_ukraine_price": "50",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "description": [
         "Тонкая. Легкая.",
         "Футболка линейки B.O.M.J - первая единица контрбрендовой линии одежды. Потрясающие качество в совместительстве с утонченным подходом к деталям, которым не могут похвастаться именитые раздутые фирмы.",
@@ -303,6 +315,7 @@
       "id": 19,
       "name": "White Mirror",
       "price": "1751",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "delivery_world_price": "550",
       "delivery_ukraine_price": "50",
       "description": [
@@ -320,6 +333,7 @@
       "id": 20,
       "name": "Работяга White",
       "delivery_world_price": "550",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "delivery_ukraine_price": "50",
       "description": [
         "Тонкая. Легкая.",
@@ -337,6 +351,7 @@
       "id": 21,
       "name": "Govno Black",
       "delivery_world_price": "550",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "description": [
         "Тонкая. Легкая.",
         "Футболка линейки B.O.M.J - первая единица контрбрендовой линии одежды. Потрясающие качество в совместительстве с утонченным подходом к деталям, которым не могут похвастаться именитые раздутые фирмы.",
@@ -353,6 +368,7 @@
     {
       "id": 22,
       "name": "Работяга Black",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "delivery_world_price": "550",
       "delivery_ukraine_price": "50",
       "description": [
@@ -371,6 +387,7 @@
     {
       "id": 23,
       "name": "JOLY.SHOT Trypka",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "price": "2550",
       "delivery_world_price": "850",
       "description": [
@@ -387,6 +404,7 @@
     {
       "id": 24,
       "name": "JOLY.SHOT Simple Black",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "price": "1950",
       "category": "sweatshirts",
       "delivery_world_price": "850",
@@ -403,6 +421,7 @@
     {
       "id": 25,
       "name": "JOLY.SHOT Mirror White",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "price": "2551",
       "category": "sweatshirts",
       "description": [
@@ -419,6 +438,7 @@
     {
       "id": 26,
       "name": "JOLY.SHOT Mirror Black",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "price": "2550",
       "category": "sweatshirts",
       "delivery_world_price": "850",
@@ -435,6 +455,7 @@
     {
       "id": 27,
       "name": "Свитшот Работяга",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "price": "2551",
       "category": "sweatshirts",
       "delivery_world_price": "850",
@@ -451,6 +472,7 @@
     {
       "id": 28,
       "name": "JOLY.SHOT B.O.M.J Black",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "price": "2550",
       "description": [
         "Все еще контрбрендово, но только теплее. Согревает не любовь, а ткань.",
@@ -467,6 +489,7 @@
     {
       "id": 29,
       "name": "JOLY.SHOT Simple White",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "price": "1950",
       "category": "sweatshirts",
       "description": [
@@ -484,6 +507,7 @@
     {
       "id": 30,
       "name": "Худи ZIP B.O.M.J Black",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "price": "3900",
       "description": [
         "Все еще контрбрендово, но только теплее. Согревает не любовь, а ткань.",
@@ -511,6 +535,7 @@
       "name": "Худи Simple Black",
       "price": "2350",
       "category": "hoodies",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "delivery_world_price": "850",
       "delivery_ukraine_price": "50",
       "images": [
@@ -522,6 +547,7 @@
       "name": "Худи Simple White",
       "price": "2351",
       "category": "hoodies",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "description": [
         "Все еще контрбрендово, но только теплее. Согревает не любовь, а ткань.",
         "Дизайн принта - Anton Lehin",
@@ -537,6 +563,7 @@
     {
       "id": 33,
       "name": "Худи B.O.M.J White",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "description": [
         "Все еще контрбрендово, но только теплее. Согревает не любовь, а ткань.",
         "Дизайн принта - Anton Lehin",
@@ -556,6 +583,7 @@
       "name": "Худи ZIP Black",
       "price": "3900",
       "delivery_world_price": "850",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "delivery_ukraine_price": "50",
       "description": [
         "Все еще контрбрендово, но только теплее. Согревает не любовь, а ткань.",
@@ -573,6 +601,7 @@
     {
       "id": 35,
       "name": "Худи Marginal Black",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "price": "3300",
       "description": [
         "Все еще контрбрендово, но только теплее. Согревает не любовь, а ткань.",
@@ -589,6 +618,7 @@
     },
     {
       "id": 36,
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "name": "Худи Mirror White",
       "price": "3100",
       "category": "hoodies",
@@ -609,6 +639,7 @@
       "name": "Худи B.O.M.J Black",
       "price": "3300",
       "category": "hoodies",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "description": [
         "Все еще контрбрендово, но только теплее. Согревает не любовь, а ткань.",
         "Дизайн принта - Anton Lehin",
@@ -624,6 +655,7 @@
     {
       "id": 38,
       "name": "Худи Mirror Black",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "price": "3300",
       "category": "hoodies",
       "delivery_world_price": "850",
@@ -641,6 +673,7 @@
     {
       "id": 39,
       "name": "Худи Trypka Black",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "price": "3300",
       "category": "hoodies",
       "delivery_world_price": "850",
@@ -777,6 +810,7 @@
     {
       "id": 44,
       "name": "JOLY.POLO White",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "price": "2251",
       "category": "polo",
       "delivery_world_price": "550",
@@ -798,6 +832,7 @@
     {
       "id": 45,
       "name": "JOLY.POLO Simple Black",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "price": "2250",
       "category": "polo",
       "delivery_world_price": "550",
@@ -818,6 +853,7 @@
     {
       "id": 46,
       "name": "JOLY.POLO Simple White",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "price": "2251",
       "category": "polo",
       "characteristics": null,
@@ -836,6 +872,7 @@
     {
       "id": 47,
       "name": "JOLY.POLO Black",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "price": "2250",
       "delivery_world_price": "550",
       "description": [
@@ -859,6 +896,7 @@
       "name": "M.O.P.S Black",
       "description": ["Ткань сорта пенье", "Состав: 95% cotton, 5% spandex. Плотность 170 г/м²"],
       "price": "1050",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "category": "memes",
       "delivery_world_price": "550",
       "characteristics": null,
@@ -871,6 +909,7 @@
     {
       "id": 49,
       "name": "M.O.P.S White",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "description": ["Ткань сорта пенье", "Состав: 95% cotton, 5% spandex. Плотность 170 г/м²"],
       "price": "1051",
       "category": "memes",
@@ -886,6 +925,7 @@
       "id": 50,
       "name": "Без баб",
       "price": "1500",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "description": ["Ткань сорта пенье", "Состав: 95% cotton, 5% spandex. Плотность 170 г/м²"],
       "category": "memes",
       "delivery_world_price": "550",
@@ -899,6 +939,7 @@
     {
       "id": 51,
       "name": "Без баб",
+      "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
       "price": "1500",
       "description": ["Ткань сорта пенье", "Состав: 95% cotton, 5% spandex. Плотность 170 г/м²"],
       "category": "memes",

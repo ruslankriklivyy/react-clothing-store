@@ -6,8 +6,8 @@ import Button from './Button';
 import Title from './Title';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setChoosenProduct } from '../redux/actions/products';
-import { addCartItem, setCartItemId } from '../redux/actions/cart';
+import { setChoosenProduct, setSize } from '../redux/actions/products';
+import { addCartItem } from '../redux/actions/cart';
 
 const ProductsWatch = styled.div`
   background-color: ${(props) => (props.name && props.name.includes('Black') ? '#000' : '#EBE6E8')};
@@ -139,15 +139,61 @@ const ProductWatchBottom = styled.div`
   align-items: center;
 `;
 
+const ProductWatchTypeName = styled.h4`
+  margin-top: 20px;
+  color: #797a8c;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  font-size: 14px;
+`;
+
+const ProductWatchSizes = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const ProductWatchSize = styled.a`
+  margin-right: 7px;
+  width: 39px;
+  height: 39px;
+  border-radius: 100%;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  background: ${(props) =>
+    props.active
+      ? props.name && props.name.includes('Black')
+        ? '#fff'
+        : '#000'
+      : props.name && props.name.includes('Black')
+      ? '#474852'
+      : '#fff'};
+  color: ${(props) =>
+    props.active
+      ? props.name && props.name.includes('Black')
+        ? '#000'
+        : '#fff'
+      : props.name && props.name.includes('Black')
+      ? '#fff'
+      : '#797a8c'};
+`;
+
 const ProductsWatchItem = ({ setVisibleCart }) => {
   const dispatch = useDispatch();
-  const { choosenProduct } = useSelector(({ products }) => products);
+  const { choosenProduct, sizeType } = useSelector(({ products }) => products);
 
   const onAddToCart = (item) => {
     dispatch(addCartItem(item));
 
-    // dispatch(setCartItemId(item.id));
     setVisibleCart(true);
+  };
+
+  const onSetSize = (size, e) => {
+    e.preventDefault();
+    dispatch(setSize(size));
   };
 
   React.useEffect(() => {
@@ -212,6 +258,21 @@ const ProductsWatchItem = ({ setVisibleCart }) => {
                   {item}
                 </ProductsWatchDescr>
               ))}
+            <ProductWatchTypeName>Выберите размер:</ProductWatchTypeName>
+            <ProductWatchSizes>
+              {choosenProduct &&
+                choosenProduct[0].sizes &&
+                choosenProduct[0].sizes.map((size) => (
+                  <ProductWatchSize
+                    href="/"
+                    name={choosenProduct && choosenProduct[0].name}
+                    active={size === sizeType}
+                    onClick={(e) => onSetSize(size, e)}>
+                    {size}
+                  </ProductWatchSize>
+                ))}
+            </ProductWatchSizes>
+
             <ProductWatchBottom>
               <Button
                 name={choosenProduct && choosenProduct[0].name}

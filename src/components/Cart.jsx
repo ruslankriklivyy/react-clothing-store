@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import priceConvert from '../utils/priceConvert';
 import backSvg from '../assets/img/back.svg';
 import plusSvg from '../assets/img/plus.svg';
 import minusSvg from '../assets/img/remove.svg';
@@ -14,8 +15,9 @@ import {
 } from '../redux/actions/cart';
 
 const CartWrapper = styled.div`
-  width: 360px;
+  width: 380px;
   height: 100%;
+  padding: 0 25px;
   overflow: auto;
   position: fixed;
   top: 0;
@@ -55,14 +57,15 @@ const CartHeader = styled.div`
 const CartTitle = styled.h2`
   font-weight: 400;
   font-size: 36px;
-  padding: 25px 105px 0 25px;
+  padding-top: 25px;
+  padding-bottom: 20px;
+  text-align: left;
   letter-spacing: 1px;
-  text-align: center;
   position: relative;
   &::after {
     content: '';
     position: absolute;
-    top: 68%;
+    top: 54%;
     right: 7px;
     z-index: 100;
     width: 25%;
@@ -73,10 +76,11 @@ const CartTitle = styled.h2`
 `;
 
 const CartItem = styled.div`
-  padding: 10px 25px;
+  padding-top: 25px;
   display: flex;
   justify-content: flex-start;
-  margin-top: 15px;
+  padding-bottom: 20px;
+  border-top: 2px solid #ebeef1;
 `;
 
 const CartItemLeft = styled.div`
@@ -93,28 +97,6 @@ const CartItemLeft = styled.div`
     width: 100px;
     height: 120px;
     z-index: 200;
-  }
-  span {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    top: -10px;
-    left: -10px;
-    z-index: 200;
-    width: 23px;
-    height: 23px;
-    border-radius: 100%;
-    border: 1px solid #ebeef1;
-    background: #fff;
-    z-index: 600;
-    img {
-      display: block;
-      opacity: 0.5;
-      margin: 0 auto;
-      width: 10px;
-      height: 10px;
-    }
   }
 `;
 
@@ -174,7 +156,7 @@ const CartItemBottom = styled.div`
   opacity: 0.8;
   margin-top: 40px;
   border-top: 2px solid #000;
-  padding: 40px 25px 0 25px;
+  padding: 40px 25px;
   span {
     font-size: 19px;
     text-align: left;
@@ -184,6 +166,29 @@ const CartItemBottom = styled.div`
     text-align: right;
     font-size: 32px;
     letter-spacing: 1px;
+  }
+`;
+
+const CartItemRemove = styled.a`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: -10px;
+  left: -10px;
+  z-index: 200;
+  width: 23px;
+  height: 23px;
+  border-radius: 100%;
+  border: 1px solid #ebeef1;
+  background: #fff;
+  z-index: 600;
+  img {
+    display: block;
+    opacity: 0.5;
+    margin: 0 auto;
+    width: 10px;
+    height: 10px;
   }
 `;
 
@@ -205,7 +210,8 @@ const Cart = ({ visibleCart, setVisibleCart, show, blockOutRef }) => {
     dispatch(minusCartItem(id));
   };
 
-  const onRemove = (id) => {
+  const onRemove = (id, e) => {
+    e.preventDefault();
     dispatch(removeCartItem(id));
   };
 
@@ -274,9 +280,9 @@ const Cart = ({ visibleCart, setVisibleCart, show, blockOutRef }) => {
                 <CartItem key={obj.id}>
                   <CartItemLeft>
                     <img src={obj.images[0]} alt="product img" />
-                    <span onClick={() => onRemove(obj.id)}>
+                    <CartItemRemove href="/" onClick={(e) => onRemove(obj.id, e)}>
                       <img src={removeSvg} alt="remove svg" />
-                    </span>
+                    </CartItemRemove>
                   </CartItemLeft>
                   <CartItemRight>
                     <CartItemName>{obj.name}</CartItemName>
@@ -290,14 +296,16 @@ const Cart = ({ visibleCart, setVisibleCart, show, blockOutRef }) => {
                         <img src={minusSvg} alt="minus svg" />
                       </button>
                     </CartItemCount>
-                    <CartItemTotalPrice>{cartItems[obj.id].totalPrice} RUB</CartItemTotalPrice>
+                    <CartItemTotalPrice>
+                      {priceConvert(cartItems[obj.id].totalPrice)} RUB
+                    </CartItemTotalPrice>
                   </CartItemRight>
                 </CartItem>
               </>
             ),
         )}
       <CartItemBottom>
-        <span>Итого:</span> <b>{totalPrice} RUB</b>
+        <span>Итого:</span> <b>{priceConvert(totalPrice)} RUB</b>
       </CartItemBottom>
     </CartWrapper>
   );
