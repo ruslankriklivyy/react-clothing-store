@@ -7,10 +7,29 @@ const SET_CART_ITEMS = 'SET_CART_ITEMS';
 const SET_CART_ITEM = 'SET_CART_ITEM';
 const SET_CART_ITEM_ID = 'SET_CART_ID';
 const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM';
+const SET_SIZE = 'SET_SIZE';
+const SET_STORAGE_SIZE = 'SET_STORAGE_SIZE';
+const REMOVE_STORAGE_SIZE = 'REMOVE_STORAGE_SIZE';
 
 export const setCartItem = (obj) => ({
   type: SET_CART_ITEM,
   payload: obj,
+});
+
+export const removeSize = (id) => ({
+  type: REMOVE_STORAGE_SIZE,
+  payload: id,
+});
+
+export const setStorageSize = (obj) => ({
+  type: SET_STORAGE_SIZE,
+  payload: obj,
+});
+
+export const setSize = (size, id) => ({
+  type: SET_SIZE,
+  size,
+  id,
 });
 
 export const removeCartItem = (id) => ({

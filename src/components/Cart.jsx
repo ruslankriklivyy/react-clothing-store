@@ -10,7 +10,9 @@ import {
   minusCartItem,
   plusCartItem,
   removeCartItem,
+  removeSize,
   setCartItem,
+  setStorageSize,
   setTotalPrice,
 } from '../redux/actions/cart';
 
@@ -192,10 +194,18 @@ const CartItemRemove = styled.a`
   }
 `;
 
+const CartItemParagraph = styled.p`
+  display: block;
+  margin-top: 20px;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 1px;
+`;
+
 const Cart = ({ visibleCart, setVisibleCart, show, blockOutRef }) => {
   const dispatch = useDispatch();
   const cartBlock = React.useRef();
-  const { cartItems, totalPrice } = useSelector(({ cart }) => cart);
+  const { cartItems, totalPrice, sizeTypes } = useSelector(({ cart }) => cart);
   const addedItems =
     cartItems &&
     Object.keys(cartItems).map((key) => {
@@ -213,6 +223,7 @@ const Cart = ({ visibleCart, setVisibleCart, show, blockOutRef }) => {
   const onRemove = (id, e) => {
     e.preventDefault();
     dispatch(removeCartItem(id));
+    dispatch(removeSize(id));
   };
 
   const escapeListener = React.useCallback(
@@ -225,7 +236,7 @@ const Cart = ({ visibleCart, setVisibleCart, show, blockOutRef }) => {
   );
   const clickListener = React.useCallback(
     (e) => {
-      if (e.target.className && e.target.className === blockOutRef.current.className) {
+      if (e.target.className === blockOutRef.current.className) {
         setVisibleCart(false);
       }
     },
@@ -241,20 +252,28 @@ const Cart = ({ visibleCart, setVisibleCart, show, blockOutRef }) => {
   }, [clickListener, escapeListener]);
 
   React.useEffect(() => {
-    const localStorageRef = localStorage.getItem('cartItems');
-    const localStorageRefTotalPrice = localStorage.getItem('totalPrice');
+    const cartItemsRef = localStorage.getItem('cartItems');
+    const totalPriceRef = localStorage.getItem('totalPrice');
 
-    if (localStorageRef) {
-      const itemKeys = Object.keys(JSON.parse(localStorageRef));
+    if (cartItemsRef) {
+      const itemKeys = Object.keys(JSON.parse(cartItemsRef));
       for (let name of itemKeys) {
-        if (JSON.parse(localStorageRef.hasOwnProperty(name))) {
-          dispatch(setCartItem(JSON.parse(localStorageRef)));
+        if (JSON.parse(cartItemsRef.hasOwnProperty(name))) {
+          dispatch(setCartItem(JSON.parse(cartItemsRef)));
         }
       }
     }
 
-    if (localStorageRefTotalPrice) {
-      dispatch(setTotalPrice(JSON.parse(localStorageRefTotalPrice)));
+    if (totalPriceRef) {
+      dispatch(setTotalPrice(JSON.parse(totalPriceRef)));
+    }
+  }, [dispatch]);
+
+  React.useEffect(() => {
+    const sizeTypesRef = localStorage.getItem('sizeTypes');
+
+    if (sizeTypesRef) {
+      dispatch(setStorageSize(JSON.parse(sizeTypesRef)));
     }
   }, [dispatch]);
 
@@ -262,6 +281,10 @@ const Cart = ({ visibleCart, setVisibleCart, show, blockOutRef }) => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
     localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
   }, [cartItems, totalPrice]);
+
+  React.useEffect(() => {
+    localStorage.setItem('sizeTypes', JSON.stringify(sizeTypes));
+  }, [sizeTypes]);
 
   return (
     <CartWrapper ref={cartBlock} show={show}>
@@ -286,8 +309,15 @@ const Cart = ({ visibleCart, setVisibleCart, show, blockOutRef }) => {
                   </CartItemLeft>
                   <CartItemRight>
                     <CartItemName>{obj.name}</CartItemName>
+                    {sizeTypes[obj.id] && (
+                      <>
+                        <CartItemParagraph>Размер:</CartItemParagraph>
+                        <div>{sizeTypes[obj.id].size[0]}</div>
+                      </>
+                    )}
+
                     <CartItemCount>
-                      <p>Количество:</p>
+                      <CartItemParagraph>Количество:</CartItemParagraph>
                       <b>{cartItems[obj.id].items.length}</b>
                       <button onClick={() => onPlus(obj.id)}>
                         <img src={plusSvg} alt="plus svg" />

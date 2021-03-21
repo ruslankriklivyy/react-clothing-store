@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Button, Title} from '.';
+import { Button, Title } from '.';
 import {
   setCategory,
   setCategoryName,
@@ -9,8 +9,8 @@ import {
 } from '../redux/actions/products';
 import priceConvert from '../utils/priceConvert';
 import arrowSvg from '../assets/img/arrow.svg';
-import {Link} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ProductsWrapper = styled.div`
   margin: 20px 0;
@@ -119,30 +119,7 @@ const ProductsItem = styled.div`
 
 const Products = () => {
   const dispatch = useDispatch();
-  const {items, category, categoryName} = useSelector(({products}) => products);
-
-  React.useEffect(() => {
-    const categoryNameRef = localStorage.getItem('categoryName');
-    if (categoryNameRef) {
-      dispatch(setCategoryName(JSON.parse(categoryNameRef)));
-    }
-  }, [dispatch]);
-
-  React.useEffect(() => {
-    localStorage.setItem('categoryName', JSON.stringify(categoryName));
-  }, [categoryName]);
-
-  React.useEffect(() => {
-    const categoryRef = localStorage.getItem('category');
-
-    if (!category) {
-      dispatch(setCategory(JSON.parse(categoryRef)));
-    }
-  }, [dispatch, category]);
-
-  React.useEffect(() => {
-    localStorage.setItem('category', JSON.stringify(category));
-  }, [category]);
+  const { items, categoryName } = useSelector(({ products }) => products);
 
   const onSelectItem = (id) => {
     const newItem = items && items.filter((item) => item.id === id);
@@ -156,22 +133,22 @@ const Products = () => {
         <Title>{categoryName}</Title>
         <ProductsMain>
           {items &&
-          items.map(({name, id, images, price}) => (
-            <ProductsItem key={id}>
-              <Link to={`/product/${id}`} onClick={() => onSelectItem(id)}>
-                <ProductItemBlockout>
-                  <Button moreInfo>
-                    Подробнее <img className="more-arrow" src={arrowSvg} alt="arrow svg"/>
-                  </Button>
-                </ProductItemBlockout>
-                <span>{priceConvert(price)} RUB</span>
-                <img src={images[0]} alt="cloth img"/>
-              </Link>
-              <Button className={'product-button'} product>
-                {name}
-              </Button>
-            </ProductsItem>
-          ))}
+            items.map(({ name, id, images, price }) => (
+              <ProductsItem key={id}>
+                <Link to={`/product/${id}`} onClick={() => onSelectItem(id)}>
+                  <ProductItemBlockout>
+                    <Button moreInfo>
+                      Подробнее <img className="more-arrow" src={arrowSvg} alt="arrow svg" />
+                    </Button>
+                  </ProductItemBlockout>
+                  <span>{priceConvert(price)} RUB</span>
+                  <img src={images[0]} alt="cloth img" />
+                </Link>
+                <Button className={'product-button'} product>
+                  {name}
+                </Button>
+              </ProductsItem>
+            ))}
         </ProductsMain>
       </Container>
     </ProductsWrapper>

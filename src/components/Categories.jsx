@@ -1,6 +1,8 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { setCategory, setCategoryName } from '../redux/actions/products';
 
 const CategoriesWrapper = styled.div`
   ul {
@@ -43,7 +45,9 @@ const CategoriesWrapper = styled.div`
   }
 `;
 
-const Categories = ({ items, links, onSelectCategory, categoryName }) => {
+const Categories = ({ items, category, links, onSelectCategory, categoryName }) => {
+  const dispatch = useDispatch();
+
   const selectCategory = (name, indexItem) => {
     const type = links.filter((name, index) => index === indexItem);
     onSelectCategory(type.join('').toLowerCase(), name);
@@ -53,6 +57,29 @@ const Categories = ({ items, links, onSelectCategory, categoryName }) => {
     const newLinks = links.filter((name, index) => index === indexItem);
     return newLinks.join('').toLowerCase();
   };
+
+  React.useEffect(() => {
+    const categoryNameRef = localStorage.getItem('categoryName');
+    if (categoryNameRef) {
+      dispatch(setCategoryName(JSON.parse(categoryNameRef)));
+    }
+  }, [dispatch]);
+
+  React.useEffect(() => {
+    localStorage.setItem('categoryName', JSON.stringify(categoryName));
+  }, [categoryName]);
+
+  React.useEffect(() => {
+    const categoryRef = localStorage.getItem('category');
+
+    if (categoryRef) {
+      dispatch(setCategory(JSON.parse(categoryRef)));
+    }
+  }, [dispatch]);
+
+  React.useEffect(() => {
+    localStorage.setItem('category', JSON.stringify(category));
+  }, [category]);
 
   return (
     <CategoriesWrapper>
