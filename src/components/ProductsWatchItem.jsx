@@ -5,9 +5,9 @@ import scrollTop from '../utils/scrollTop';
 import Button from './Button';
 import Title from './Title';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { setChoosenProduct, setSize } from '../redux/actions/products';
-import { addCartItem } from '../redux/actions/cart';
+import {useDispatch, useSelector} from 'react-redux';
+import {setChosenProduct, setSize} from '../redux/actions/products';
+import {addCartItem} from '../redux/actions/cart';
 
 const ProductsWatch = styled.div`
   background-color: ${(props) => (props.name && props.name.includes('Black') ? '#000' : '#EBE6E8')};
@@ -164,26 +164,26 @@ const ProductWatchSize = styled.a`
   justify-content: center;
   transition: all 0.3s ease;
   background: ${(props) =>
-    props.active
-      ? props.name && props.name.includes('Black')
-        ? '#fff'
-        : '#000'
-      : props.name && props.name.includes('Black')
-      ? '#474852'
-      : '#fff'};
+  props.active
+    ? props.name && props.name.includes('Black')
+    ? '#fff'
+    : '#000'
+    : props.name && props.name.includes('Black')
+    ? '#474852'
+    : '#fff'};
   color: ${(props) =>
-    props.active
-      ? props.name && props.name.includes('Black')
-        ? '#000'
-        : '#fff'
-      : props.name && props.name.includes('Black')
-      ? '#fff'
-      : '#797a8c'};
+  props.active
+    ? props.name && props.name.includes('Black')
+    ? '#000'
+    : '#fff'
+    : props.name && props.name.includes('Black')
+    ? '#fff'
+    : '#797a8c'};
 `;
 
-const ProductsWatchItem = ({ setVisibleCart }) => {
+const ProductsWatchItem = ({setVisibleCart}) => {
   const dispatch = useDispatch();
-  const { choosenProduct, sizeType } = useSelector(({ products }) => products);
+  const {chosenProduct, sizeType} = useSelector(({products}) => products);
 
   const onAddToCart = (item) => {
     dispatch(addCartItem(item));
@@ -197,16 +197,16 @@ const ProductsWatchItem = ({ setVisibleCart }) => {
   };
 
   React.useEffect(() => {
-    const localStorageRef = localStorage.getItem('choosenProduct');
+    const chosenProductRef = localStorage.getItem('chosenProduct');
 
-    if (!choosenProduct) {
-      dispatch(setChoosenProduct(JSON.parse(localStorageRef)));
+    if (!chosenProduct) {
+      dispatch(setChosenProduct(JSON.parse(chosenProductRef)));
     }
-  }, [dispatch, choosenProduct]);
+  }, [dispatch, chosenProduct]);
 
   React.useEffect(() => {
-    localStorage.setItem('choosenProduct', JSON.stringify(choosenProduct));
-  }, [choosenProduct]);
+    localStorage.setItem('chosenProduct', JSON.stringify(chosenProduct));
+  }, [chosenProduct]);
 
   React.useEffect(() => {
     scrollTop();
@@ -224,59 +224,59 @@ const ProductsWatchItem = ({ setVisibleCart }) => {
   };
 
   return (
-    <ProductsWatch name={choosenProduct && choosenProduct[0].name}>
+    <ProductsWatch name={chosenProduct && chosenProduct[0].name}>
       <Container>
-        <Title name={choosenProduct && choosenProduct[0].name}>
-          {choosenProduct && choosenProduct[0].name}
+        <Title name={chosenProduct && chosenProduct[0].name}>
+          {chosenProduct && chosenProduct[0].name}
         </Title>
         <ProductsWatchBlock>
-          <ProductsWatchLeft name={choosenProduct && choosenProduct[0].name}>
+          <ProductsWatchLeft name={chosenProduct && chosenProduct[0].name}>
             <Slider {...settings}>
-              {choosenProduct &&
-                choosenProduct[0].images.map((url, index) => (
-                  <img key={`${url}-${index}`} src={url} alt="futbolka" />
-                ))}
+              {chosenProduct &&
+              chosenProduct[0].images.map((url, index) => (
+                <img key={`${url}-${index}`} src={url} alt="futbolka"/>
+              ))}
             </Slider>
           </ProductsWatchLeft>
           <ProductWatchRight>
-            <ProductWatchPrice name={choosenProduct && choosenProduct[0].name}>
-              {choosenProduct && choosenProduct[0].price.length > 3
-                ? choosenProduct[0].price.charAt(0) + ' ' + choosenProduct[0].price.substr(1)
-                : choosenProduct && choosenProduct[0].price}{' '}
+            <ProductWatchPrice name={chosenProduct && chosenProduct[0].name}>
+              {chosenProduct && chosenProduct[0].price.length > 3
+                ? chosenProduct[0].price.charAt(0) + ' ' + chosenProduct[0].price.substr(1)
+                : chosenProduct && chosenProduct[0].price}{' '}
               RUB
             </ProductWatchPrice>
-            <ProductWatchDelivery name={choosenProduct && choosenProduct[0].name}>
+            <ProductWatchDelivery name={chosenProduct && chosenProduct[0].name}>
               {`(Доставка по миру - ${
-                choosenProduct && choosenProduct[0].delivery_world_price
+                chosenProduct && chosenProduct[0].delivery_world_price
               } RUB, по Украине - ${
-                choosenProduct && choosenProduct[0].delivery_ukraine_price
+                chosenProduct && chosenProduct[0].delivery_ukraine_price
               } UAH)`}
             </ProductWatchDelivery>
-            {choosenProduct &&
-              choosenProduct[0].description.map((item) => (
-                <ProductsWatchDescr name={choosenProduct && choosenProduct[0].name}>
-                  {item}
-                </ProductsWatchDescr>
-              ))}
+            {chosenProduct &&
+            chosenProduct[0].description.map((item) => (
+              <ProductsWatchDescr name={chosenProduct && chosenProduct[0].name}>
+                {item}
+              </ProductsWatchDescr>
+            ))}
             <ProductWatchTypeName>Выберите размер:</ProductWatchTypeName>
             <ProductWatchSizes>
-              {choosenProduct &&
-                choosenProduct[0].sizes &&
-                choosenProduct[0].sizes.map((size) => (
-                  <ProductWatchSize
-                    href="/"
-                    name={choosenProduct && choosenProduct[0].name}
-                    active={size === sizeType}
-                    onClick={(e) => onSetSize(size, e)}>
-                    {size}
-                  </ProductWatchSize>
-                ))}
+              {chosenProduct &&
+              chosenProduct[0].sizes &&
+              chosenProduct[0].sizes.map((size) => (
+                <ProductWatchSize
+                  href="/"
+                  name={chosenProduct && chosenProduct[0].name}
+                  active={size === sizeType}
+                  onClick={(e) => onSetSize(size, e)}>
+                  {size}
+                </ProductWatchSize>
+              ))}
             </ProductWatchSizes>
 
             <ProductWatchBottom>
               <Button
-                name={choosenProduct && choosenProduct[0].name}
-                onClick={() => onAddToCart(choosenProduct && choosenProduct[0])}
+                name={chosenProduct && chosenProduct[0].name}
+                onClick={() => onAddToCart(chosenProduct && chosenProduct[0])}
                 addToCart>
                 Добавить в корзину
               </Button>

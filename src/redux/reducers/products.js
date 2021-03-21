@@ -2,7 +2,7 @@ const initialState = {
   items: null,
   category: null,
   categoryName: '',
-  choosenProduct: null,
+  chosenProduct: null,
   productId: null,
   sizeType: '',
 };
@@ -10,7 +10,7 @@ const initialState = {
 const SET_PRODUCTS = 'SET_PRODUCTS';
 const SET_CATEGORY = 'SET_CATEGORY';
 const SET_PRODUCT_ID = 'SET_PRODUCT_ID';
-const SET_CHOOSEN_PRODUCT = 'SET_CHOOSEN_PRODUCT';
+const SET_CHOSEN_PRODUCT = 'SET_CHOSEN_PRODUCT';
 const SET_CATEGORY_NAME = 'SET_CATEGORY_NAME';
 const SET_SIZE = 'SET_SIZE';
 
@@ -46,10 +46,10 @@ export const products = (state = initialState, action) => {
         productId: action.payload,
       };
 
-    case SET_CHOOSEN_PRODUCT:
+    case SET_CHOSEN_PRODUCT:
       return {
         ...state,
-        choosenProduct: action.payload,
+        chosenProduct: action.payload,
       };
 
     default:
