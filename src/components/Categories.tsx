@@ -103,7 +103,6 @@ const Categories: React.FC<ICategories> = ({
             <Link
               to={`/category/${generateLink(index)}`}
               onClick={() => selectCategory(name, index)}
-              className={name.toLowerCase() === categoryName.toLowerCase() ? 'active' : ''}
               href="/">
               {name}
             </Link>
