@@ -21,7 +21,8 @@ const Global = createGlobalStyle`
     -ms-overflow-style: none;
     overflow: -moz-scrollbars-none;
   }
-  body,html {
+  body,
+  html {
     margin: 0;
     padding: 0;
     width: 100%;

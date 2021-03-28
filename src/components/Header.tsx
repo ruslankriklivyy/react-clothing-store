@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Cart from './Cart';
 import Login from './Login';
 import userSvg from '../assets/img/user.svg';
+import { RootState } from '../redux/reducers';
 
 const HeaderWrapper = styled.div`
   padding-top: 25px;
@@ -57,13 +58,6 @@ const ShoppingBlockImage = styled.span`
   }
 `;
 
-const ShoppingBlock = styled.div`
-  position: absolute;
-  top: 105px;
-  right: 30px;
-  height: 22px;
-`;
-
 const BlockOut = styled.div`
   position: fixed;
   top: 0;
@@ -74,18 +68,13 @@ const BlockOut = styled.div`
   height: 100%;
   z-index: 700;
   background: rgba(0, 0, 0, 0.5);
-  opacity: ${(props) => (props.show ? '1' : '0')};
-  visibility: ${(props) => (props.show ? 'visibility' : 'hidden')};
+  opacity: ${(props: any) => (props.show ? '1' : '0')};
+  visibility: ${(props: any) => (props.show ? 'visibility' : 'hidden')};
   transition: all 0.3s ease;
 `;
 
 const LoginImg = styled.div`
-  position: absolute;
-  width: 21px;
-  height: 21px;
-  top: 105px;
-  right: 120px;
-  z-index: 1000;
+  margin-right: 20px;
   img {
     display: block;
     width: 19px;
@@ -94,12 +83,34 @@ const LoginImg = styled.div`
   }
 `;
 
-const Header = ({ categoriesNames, categoriesNamesEng, visibleCart, setVisibleCart }) => {
+const HeaderRight = styled.div`
+  display: flex;
+  position: absolute;
+  top: 105px;
+  right: 30px;
+  height: 22px;
+`;
+
+interface IHeader {
+  categoriesNames: Array<string>;
+  categoriesNamesEng: Array<string>;
+  visibleCart: boolean;
+  setVisibleCart: (visible: boolean) => void;
+}
+
+const Header: React.FC<IHeader> = ({
+  categoriesNames,
+  categoriesNamesEng,
+  visibleCart,
+  setVisibleCart,
+}) => {
   const dispatch = useDispatch();
-  const blockOutRef = React.useRef();
-  const { category, chosenProduct, categoryName } = useSelector(({ products }) => products);
-  const { totalPrice } = useSelector(({ cart }) => cart);
-  const onSelectCategory = (type, name) => {
+  const blockOutRef = React.useRef<HTMLDivElement>(null);
+  const { category, chosenProduct, categoryName } = useSelector(
+    (state: RootState) => state.products,
+  );
+  const { totalPrice } = useSelector((state: RootState) => state.cart);
+  const onSelectCategory = (type: string, name: string) => {
     dispatch(setCategory(type));
     dispatch(setCategoryName(name));
   };
@@ -122,9 +133,10 @@ const Header = ({ categoriesNames, categoriesNamesEng, visibleCart, setVisibleCa
         e.target.className === blockOutRef.current.className
       ) {
         setVisibleAuthBlock(false);
+        setVisibleCart(false);
       }
     },
-    [blockOutRef, setVisibleAuthBlock],
+    [blockOutRef, setVisibleAuthBlock, setVisibleCart],
   );
   React.useEffect(() => {
     document.addEventListener('click', clickListener);
@@ -141,15 +153,15 @@ const Header = ({ categoriesNames, categoriesNamesEng, visibleCart, setVisibleCa
 
   React.useEffect(() => {
     visibleCart || visibleAuthBlock
-      ? document.querySelector('body').setAttribute('style', 'overflow: hidden')
-      : document.querySelector('body').setAttribute('style', 'overflow: auto');
+      ? document.querySelector<HTMLElement>('body')?.setAttribute('style', 'overflow: hidden')
+      : document.querySelector<HTMLElement>('body')?.setAttribute('style', 'overflow: auto');
   }, [visibleCart, visibleAuthBlock]);
 
   return (
     <>
       <BlockOut ref={blockOutRef} show={visibleCart || visibleAuthBlock ? 'show' : ''}></BlockOut>
       <HeaderMain name={chosenProduct && chosenProduct[0].name}>
-        <Login show={visibleAuthBlock && 'show'} setVisible={setVisibleAuthBlock} />
+        <Login show={visibleAuthBlock && true} setVisible={setVisibleAuthBlock} />
         <HeaderWrapper>
           <Logo>
             <img src={logoPng} alt="logo png" />
@@ -161,21 +173,23 @@ const Header = ({ categoriesNames, categoriesNamesEng, visibleCart, setVisibleCa
             category={category}
             links={categoriesNamesEng}
           />
-          <LoginImg onClick={() => setVisibleAuthBlock(!visibleAuthBlock)}>
-            <img src={userSvg} alt="user svg" />
-          </LoginImg>
-          <ShoppingBlock>
-            <ShoppingBlockImage onClick={() => setVisibleCart(!visibleCart)}>
-              <img src={shopCart} alt="shop cart" />
-              {priceConvert(totalPrice)} RUB
-            </ShoppingBlockImage>
-            <Cart
-              blockOutRef={blockOutRef}
-              show={visibleCart && 'show'}
-              visibleCart={visibleCart}
-              setVisibleCart={setVisibleCart}
-            />
-          </ShoppingBlock>
+
+          <HeaderRight>
+            <LoginImg onClick={() => setVisibleAuthBlock(!visibleAuthBlock)}>
+              <img src={userSvg} alt="user svg" />
+            </LoginImg>
+            <div>
+              <ShoppingBlockImage onClick={() => setVisibleCart(!visibleCart)}>
+                <img src={shopCart} alt="shop cart" />
+                {priceConvert(totalPrice)} RUB
+              </ShoppingBlockImage>
+              <Cart
+                show={visibleCart && true}
+                visibleCart={visibleCart}
+                setVisibleCart={setVisibleCart}
+              />
+            </div>
+          </HeaderRight>
         </HeaderWrapper>
       </HeaderMain>
     </>

@@ -45,9 +45,7 @@ const Home = () => {
       <Route path="/category" component={Products} />
       <Route
         path={`/product/`}
-        render={() => (
-          <ProductsWatchItem visibleCart={visibleCart} setVisibleCart={setVisibleCart} />
-        )}
+        render={() => <ProductsWatchItem setVisibleCart={setVisibleCart} />}
       />
       <Route path="/" component={Footer} />
     </>

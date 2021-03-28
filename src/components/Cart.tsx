@@ -15,6 +15,7 @@ import {
   setStorageSize,
   setTotalPrice,
 } from '../redux/actions/cart';
+import { RootState } from '../redux/reducers';
 
 const CartWrapper = styled.div`
   width: 380px;
@@ -23,9 +24,9 @@ const CartWrapper = styled.div`
   overflow: auto;
   position: fixed;
   top: 0;
-  right: ${(props) => (props.show ? '0' : '-400px')};
+  right: ${(props: CartProps) => (props.show ? '0' : '-400px')};
   z-index: 900;
-  visibility: ${(props) => (props.show ? 'visbility' : 'hidden')};
+  visibility: ${(props: CartProps) => (props.show ? 'visbility' : 'hidden')};
   background: #fff;
   transition: all 0.6s ease;
 `;
@@ -202,64 +203,45 @@ const CartItemParagraph = styled.p`
   letter-spacing: 1px;
 `;
 
-const Cart = ({ visibleCart, setVisibleCart, show, blockOutRef }) => {
+type CartProps = {
+  visibleCart: boolean;
+  setVisibleCart: (visible: boolean) => void;
+  show: boolean;
+};
+
+const Cart: React.FC<CartProps> = ({ visibleCart, setVisibleCart, show }) => {
   const dispatch = useDispatch();
   const cartBlock = React.useRef();
-  const { cartItems, totalPrice, sizeTypes } = useSelector(({ cart }) => cart);
+  const { cartItems, totalPrice, sizeTypes } = useSelector((state: RootState) => state.cart);
   const addedItems =
     cartItems &&
     Object.keys(cartItems).map((key) => {
-      return cartItems[key].items && cartItems[key].items[0];
+      return cartItems[Number(key)].items && cartItems[Number(key)].items[0];
     });
 
-  const onPlus = (id) => {
+  const onPlus = (id: number) => {
     dispatch(plusCartItem(id));
   };
 
-  const onMinus = (id) => {
+  const onMinus = (id: number) => {
     dispatch(minusCartItem(id));
   };
 
-  const onRemove = (id, e) => {
+  const onRemove = (id: number, e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     dispatch(removeCartItem(id));
     dispatch(removeSize(id));
   };
 
-  const escapeListener = React.useCallback(
-    (e) => {
-      if (e.key === 'Escape') {
-        setVisibleCart(false);
-      }
-    },
-    [setVisibleCart],
-  );
-  const clickListener = React.useCallback(
-    (e) => {
-      if (e.target.className === blockOutRef.current.className) {
-        setVisibleCart(false);
-      }
-    },
-    [setVisibleCart, blockOutRef],
-  );
   React.useEffect(() => {
-    document.addEventListener('click', clickListener);
-    document.addEventListener('keyup', escapeListener);
-    return () => {
-      document.removeEventListener('click', clickListener);
-      document.removeEventListener('keyup', escapeListener);
-    };
-  }, [clickListener, escapeListener]);
-
-  React.useEffect(() => {
-    const cartItemsRef = localStorage.getItem('cartItems');
+    const cartItemsRef = JSON.parse(localStorage.getItem('cartItems') || '{}');
     const totalPriceRef = localStorage.getItem('totalPrice');
 
     if (cartItemsRef) {
-      const itemKeys = Object.keys(JSON.parse(cartItemsRef));
+      const itemKeys = Object.keys(cartItemsRef);
       for (let name of itemKeys) {
-        if (JSON.parse(cartItemsRef.hasOwnProperty(name))) {
-          dispatch(setCartItem(JSON.parse(cartItemsRef)));
+        if (cartItemsRef.hasOwnProperty(Number(name))) {
+          dispatch(setCartItem(cartItemsRef));
         }
       }
     }
@@ -303,7 +285,9 @@ const Cart = ({ visibleCart, setVisibleCart, show, blockOutRef }) => {
                 <CartItem key={obj.id}>
                   <CartItemLeft>
                     <img src={obj.images[0]} alt="product img" />
-                    <CartItemRemove href="/" onClick={(e) => onRemove(obj.id, e)}>
+                    <CartItemRemove
+                      href="/"
+                      onClick={(e: React.MouseEvent<HTMLElement>) => onRemove(obj.id, e)}>
                       <img src={removeSvg} alt="remove svg" />
                     </CartItemRemove>
                   </CartItemLeft>
@@ -315,7 +299,6 @@ const Cart = ({ visibleCart, setVisibleCart, show, blockOutRef }) => {
                         <div>{sizeTypes[obj.id].size[0]}</div>
                       </>
                     )}
-
                     <CartItemCount>
                       <CartItemParagraph>Количество:</CartItemParagraph>
                       <b>{cartItems[obj.id].items.length}</b>

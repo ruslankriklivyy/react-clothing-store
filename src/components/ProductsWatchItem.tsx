@@ -7,11 +7,14 @@ import Title from './Title';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setChosenProduct } from '../redux/actions/products';
-import { addCartItem, setSize, setStorageSize } from '../redux/actions/cart';
+import { addCartItem, setSize } from '../redux/actions/cart';
 import priceConvert from '../utils/priceConvert';
+import { RootState } from '../redux/reducers';
+import { ProductsItem } from '../types/types';
 
 const ProductsWatch = styled.div`
-  background-color: ${(props) => (props.name && props.name.includes('Black') ? '#000' : '#EBE6E8')};
+  background-color: ${(props: ProductsItem) =>
+    props.name && props.name.includes('Black') ? '#000' : '#EBE6E8'};
 `;
 
 const Container = styled.div`
@@ -95,7 +98,8 @@ const ProductsWatchLeft = styled.div`
   .slick-next:before,
   .slick-prev:before {
     font-size: 55px;
-    color: ${(props) => (props.name && props.name.includes('Black') ? '#fff' : '#202020')};
+    color: ${(props: ProductsItem) =>
+      props.name && props.name.includes('Black') ? '#fff' : '#202020'};
     opacity: 1;
   }
 `;
@@ -109,16 +113,18 @@ const ProductWatchRight = styled.div`
 const ProductWatchPrice = styled.span`
   font-size: 28px;
   letter-spacing: 1px;
-  background: ${(props) => (props.name && props.name.includes('Black') ? '#fff' : '#000')};
+  background: ${(props: ProductsItem) =>
+    props.name && props.name.includes('Black') ? '#fff' : '#000'};
   width: 170px;
   text-align: center;
   padding: 8px;
-  color: ${(props) => (props.name && props.name.includes('Black') ? '#000' : '#ebe6e8')};
+  color: ${(props: ProductsItem) =>
+    props.name && props.name.includes('Black') ? '#000' : '#ebe6e8'};
   border-radius: 25px;
 `;
 
 const ProductWatchDelivery = styled.span`
-  color: ${(props) => (props.name && props.name.includes('Black') ? '#fff' : '#000')};
+  color: ${(props: ProductsItem) => (props.name && props.name.includes('Black') ? '#fff' : '#000')};
   opacity: 0.6;
   letter-spacing: 1px;
   font-size: 18px;
@@ -132,7 +138,7 @@ const ProductsWatchDescr = styled.p`
   font-size: 18px;
   letter-spacing: 1px;
   font-weight: 300;
-  color: ${(props) => (props.name && props.name.includes('Black') ? '#fff' : '#000')};
+  color: ${(props: ProductsItem) => (props.name && props.name.includes('Black') ? '#fff' : '#000')};
 `;
 
 const ProductWatchBottom = styled.div`
@@ -164,7 +170,7 @@ const ProductWatchSize = styled.a`
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  background: ${(props) =>
+  background: ${(props: IActive & ProductsItem) =>
     props.active
       ? props.name && props.name.includes('Black')
         ? '#fff'
@@ -172,7 +178,7 @@ const ProductWatchSize = styled.a`
       : props.name && props.name.includes('Black')
       ? '#474852'
       : '#fff'};
-  color: ${(props) =>
+  color: ${(props: IActive & ProductsItem) =>
     props.active
       ? props.name && props.name.includes('Black')
         ? '#000'
@@ -182,27 +188,35 @@ const ProductWatchSize = styled.a`
       : '#797a8c'};
 `;
 
-const ProductsWatchItem = ({ setVisibleCart }) => {
-  const dispatch = useDispatch();
-  const { chosenProduct } = useSelector(({ products }) => products);
-  const { sizeTypes } = useSelector(({ cart }) => cart);
+interface IActive {
+  active: boolean;
+}
 
-  const onAddToCart = (item) => {
+interface IProductsWatchItem {
+  setVisibleCart: (visible: boolean) => void;
+}
+
+const ProductsWatchItem: React.FC<IProductsWatchItem> = ({ setVisibleCart }) => {
+  const dispatch = useDispatch();
+  const { chosenProduct } = useSelector((state: RootState) => state.products);
+  const { sizeTypes } = useSelector((state: RootState) => state.cart);
+
+  const onAddToCart = (item: ProductsItem) => {
     dispatch(addCartItem(item));
 
     setVisibleCart(true);
   };
 
-  const onSetSize = (size, id, e) => {
+  const onSetSize = (size: string, id: number, e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     dispatch(setSize(size, id));
   };
 
   React.useEffect(() => {
-    const chosenProductRef = localStorage.getItem('chosenProduct');
+    const chosenProductRef = JSON.parse(localStorage.getItem('chosenProduct') || '{}');
 
     if (!chosenProduct) {
-      dispatch(setChosenProduct(JSON.parse(chosenProductRef)));
+      dispatch(setChosenProduct(chosenProductRef));
     }
   }, [dispatch, chosenProduct]);
 
@@ -259,7 +273,9 @@ const ProductsWatchItem = ({ setVisibleCart }) => {
                         sizeTypes[chosenProduct[0].id] &&
                         size === sizeTypes[chosenProduct[0].id].size[0]
                       }
-                      onClick={(e) => onSetSize(size, chosenProduct[0].id, e)}>
+                      onClick={(e: React.MouseEvent<HTMLElement>) =>
+                        onSetSize(size, chosenProduct[0].id, e)
+                      }>
                       {size}
                     </ProductWatchSize>
                   ))}

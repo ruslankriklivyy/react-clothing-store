@@ -14,8 +14,9 @@ const LoginWrapper = styled.div`
   min-height: 400px;
   border-radius: 25px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-  opacity: ${(props) => (props.show ? '1' : '0')};
-  transition: all 0.7s ease;
+  visibility: ${(props: ILogin) => (props.show ? 'visible' : 'hidden')};
+  opacity: ${(props: ILogin) => (props.show ? '1' : '0')};
+  transition: all 0.6s ease;
 `;
 
 const LoginContent = styled.div`
@@ -125,7 +126,12 @@ const RegistartionTitle = styled.h2`
   text-align: center;
 `;
 
-const Login = ({ show, setVisible }) => {
+interface ILogin {
+  show: boolean;
+  setVisible: (visible: boolean) => void;
+}
+
+const Login: React.FC<ILogin> = ({ show, setVisible }) => {
   const [visibleLogin, setVisibleLogin] = React.useState(true);
 
   return (
@@ -146,8 +152,10 @@ const Login = ({ show, setVisible }) => {
               <input required type="password" name="password" />
             </LoginFormItem>
             <Button addToCart registration={visibleLogin === false && true} type="text">
-              {visibleLogin ? 'Войти' : 'Зарегистрироваться'}
-              <img className="more-arrow" src={arrowSvg} alt="arrow svg" />
+              <>
+                {visibleLogin ? 'Войти' : 'Зарегистрироваться'}
+                <img className="more-arrow" src={arrowSvg} alt="arrow svg" />
+              </>
             </Button>
             <LoginOrRegistration>или</LoginOrRegistration>
             <LoginRegistrationLink onClick={() => setVisibleLogin(!visibleLogin)}>

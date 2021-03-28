@@ -6,6 +6,7 @@ import priceConvert from '../utils/priceConvert';
 import arrowSvg from '../assets/img/arrow.svg';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../redux/reducers';
 
 const ProductsWrapper = styled.div`
   margin: 20px 0;
@@ -114,12 +115,14 @@ const ProductsItem = styled.div`
 
 const Products = () => {
   const dispatch = useDispatch();
-  const { items, categoryName } = useSelector(({ products }) => products);
+  const { items, categoryName } = useSelector((state: RootState) => state.products);
 
-  const onSelectItem = (id) => {
+  const onSelectItem = (id: number) => {
     const newItem = items && items.filter((item) => item.id === id);
     dispatch(setProductId(id));
-    dispatch(setChosenProduct(newItem));
+    if (newItem) {
+      dispatch(setChosenProduct(newItem));
+    }
   };
 
   return (
@@ -133,7 +136,9 @@ const Products = () => {
                 <Link to={`/product/${id}`} onClick={() => onSelectItem(id)}>
                   <ProductItemBlockout>
                     <Button moreInfo>
-                      Подробнее <img className="more-arrow" src={arrowSvg} alt="arrow svg" />
+                      <>
+                        Подробнее <img className="more-arrow" src={arrowSvg} alt="arrow svg" />
+                      </>
                     </Button>
                   </ProductItemBlockout>
                   <span>{priceConvert(price)} RUB</span>

@@ -45,15 +45,29 @@ const CategoriesWrapper = styled.div`
   }
 `;
 
-const Categories = ({ items, category, links, onSelectCategory, categoryName }) => {
+interface ICategories {
+  items: Array<string>;
+  category: string | null;
+  links: Array<string>;
+  onSelectCategory: (type: string, name: string) => void;
+  categoryName: string;
+}
+
+const Categories: React.FC<ICategories> = ({
+  items,
+  category,
+  links,
+  onSelectCategory,
+  categoryName,
+}) => {
   const dispatch = useDispatch();
 
-  const selectCategory = (name, indexItem) => {
+  const selectCategory = (name: string, indexItem: number) => {
     const type = links.filter((name, index) => index === indexItem);
     onSelectCategory(type.join('').toLowerCase(), name);
   };
 
-  const generateLink = (indexItem) => {
+  const generateLink = (indexItem: number) => {
     const newLinks = links.filter((name, index) => index === indexItem);
     return newLinks.join('').toLowerCase();
   };
@@ -85,12 +99,11 @@ const Categories = ({ items, category, links, onSelectCategory, categoryName }) 
     <CategoriesWrapper>
       <ul>
         {items.map((name, index) => (
-          <li>
+          <li key={`${name}-${index}`}>
             <Link
               to={`/category/${generateLink(index)}`}
               onClick={() => selectCategory(name, index)}
-              key={`${name}-${index}`}
-              className={name.toLowerCase() === categoryName.toLowerCase() && 'active'}
+              className={name.toLowerCase() === categoryName.toLowerCase() ? 'active' : ''}
               href="/">
               {name}
             </Link>

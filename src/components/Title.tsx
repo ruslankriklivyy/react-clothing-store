@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const TitleBase = styled.div`
-  color: ${(props) => (props.name && props.name.includes('Black') ? '#fff' : '#000')};
+  color: ${(props: ITitle) => (props.name && props.name.includes('Black') ? '#fff' : '#000')};
   font-size: 32px;
   text-align: center;
   margin-bottom: 80px;
@@ -12,7 +12,12 @@ const TitleBase = styled.div`
   padding-top: 20px;
 `;
 
-const Title = ({ children, name }) => {
+interface ITitle {
+  children?: (string | Element)[] | React.ReactNode;
+  name?: string;
+}
+
+const Title: React.FC<ITitle> = ({ children, name }) => {
   return <TitleBase name={name}>{children}</TitleBase>;
 };
 

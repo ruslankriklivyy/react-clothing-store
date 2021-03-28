@@ -1,10 +1,15 @@
+import { CartItem, ProductsItem, SizeTypes } from '../../types/types';
+import { ActionTypes } from '../actions/cart';
+
 const initialState = {
-  cartItems: {},
-  totalPrice: 0,
-  totalCount: 0,
-  cartIds: [],
-  sizeTypes: {},
+  cartItems: {} as CartItem,
+  totalPrice: 0 as number,
+  totalCount: 0 as number,
+  cartIds: [] as Array<number>,
+  sizeTypes: {} as SizeTypes,
 };
+
+export type InitialState = typeof initialState;
 
 const ADD_CART_ITEM = 'ADD_CART_ITEM';
 const SET_TOTAL_PRICE = 'SET_TOTAL_PRICE';
@@ -17,26 +22,26 @@ const SET_SIZE = 'SET_SIZE';
 const SET_STORAGE_SIZE = 'SET_STORAGE_SIZE';
 const REMOVE_STORAGE_SIZE = 'REMOVE_STORAGE_SIZE';
 
-const _get = (obj, path) => {
+const _get = (obj: CartItem, path: string | any) => {
   const [firstKey, ...keys] = path.split('.');
-  return keys.reduce((val, key) => {
+  return keys.reduce((val: Array<ProductsItem>, key: number) => {
     return val[key];
   }, obj[firstKey]);
 };
 
-const getTotalSum = (obj, path) => {
+const getTotalSum = (obj: CartItem, path: string | any) => {
   return Object.values(obj).reduce((sum, obj) => {
     const value = _get(obj, path);
     return sum + value;
   }, 0);
 };
 
-const getTotalPrice = (arr) =>
-  arr.reduce((sum, obj) => {
+const getTotalPrice = (arr: Array<ProductsItem>) =>
+  arr.reduce((sum: number, obj: ProductsItem) => {
     return Number(obj.price) + sum;
   }, 0);
 
-export const cart = (state = initialState, action) => {
+export const cart = (state = initialState, action: ActionTypes): InitialState => {
   switch (action.type) {
     case ADD_CART_ITEM: {
       const currentCartItem = !state.cartItems[action.payload.id]
@@ -48,7 +53,7 @@ export const cart = (state = initialState, action) => {
         [action.payload.id]: {
           items: currentCartItem,
           totalPrice: getTotalPrice(currentCartItem),
-          sizeType: state.sizeType,
+          sizeType: state.sizeTypes,
         },
       };
 
@@ -58,7 +63,7 @@ export const cart = (state = initialState, action) => {
       return {
         ...state,
         cartItems: newItems,
-        totalPrice: totalPrice,
+        totalPrice,
         totalCount,
         cartIds: [...state.cartIds, action.payload.id],
       };
@@ -77,7 +82,6 @@ export const cart = (state = initialState, action) => {
           totalPrice: getTotalPrice(newObjItems),
         },
       };
-
       const totalCount = getTotalSum(newItems, 'items.length');
 
       const totalPrice = getTotalSum(newItems, 'totalPrice');
