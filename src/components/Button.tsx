@@ -40,6 +40,7 @@ interface IButton {
   addToCart?: boolean | null;
   props?: any | null;
   type?: string | null;
+  disabled?: boolean | null;
 }
 
 const Button: React.FC<IButton> = ({
@@ -52,6 +53,7 @@ const Button: React.FC<IButton> = ({
   name,
   addToCart,
   type,
+  disabled,
 }) => {
   return (
     <ButtonWrapper

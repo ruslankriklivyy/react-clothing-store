@@ -7,7 +7,7 @@ import shopCart from '../assets/img/shopping-cart.svg';
 import Categories from './Categories';
 import { useDispatch, useSelector } from 'react-redux';
 import Cart from './Cart';
-import Login from './Login';
+import Auth from './Auth';
 import userSvg from '../assets/img/user.svg';
 import { RootState } from '../redux/reducers';
 
@@ -161,7 +161,7 @@ const Header: React.FC<IHeader> = ({
     <>
       <BlockOut ref={blockOutRef} show={visibleCart || visibleAuthBlock ? 'show' : ''}></BlockOut>
       <HeaderMain name={chosenProduct && chosenProduct[0].name}>
-        <Login show={visibleAuthBlock && true} setVisible={setVisibleAuthBlock} />
+        <Auth show={visibleAuthBlock && true} setVisible={setVisibleAuthBlock} />
         <HeaderWrapper>
           <Logo>
             <img src={logoPng} alt="logo png" />
