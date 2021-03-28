@@ -2,35 +2,34 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ButtonWrapper = styled.button`
-  border: ${(props: ButtonProps) => (props.product ? '2px solid #F2F4F6' : 'none')};
+  border: ${(props: IButton) => (props.product ? '2px solid #F2F4F6' : 'none')};
   outline: none;
-  ${(props: ButtonProps) => (props.addToCart ? 'margin-top: 30px' : '')};
-  ${(props: ButtonProps) => (props.addToCart ? 'background: #000' : 'background: #fff')};
-  ${(props: ButtonProps) => (props.name && props.name.includes('Black') ? 'background: #fff' : '')};
-  ${(props: ButtonProps) => (props.addToCart ? 'color: #fff' : 'color: #000')};
-  ${(props: ButtonProps) => (props.name && props.name.includes('Black') ? 'color: #000' : '')};
-  font-weight: ${(props: ButtonProps) =>
+  ${(props: IButton) => (props.addToCart ? 'margin-top: 30px' : '')};
+  ${(props: IButton) => (props.addToCart ? 'background: #000' : 'background: #fff')};
+  ${(props: IButton) => (props.name && props.name.includes('Black') ? 'background: #fff' : '')};
+  ${(props: IButton) => (props.addToCart ? 'color: #fff' : 'color: #000')};
+  ${(props: IButton) => (props.name && props.name.includes('Black') ? 'color: #000' : '')};
+  font-weight: ${(props: IButton) =>
     props.product || props.moreInfo || props.addToCart ? '300' : '600'};
-  font-size: ${(props: ButtonProps) => (props.moreInfo || props.addToCart ? '18px' : '21px')};
-  text-transform: ${(props: ButtonProps) =>
-    props.product || props.moreInfo ? 'none' : 'uppercase'};
+  font-size: ${(props: IButton) => (props.moreInfo || props.addToCart ? '18px' : '21px')};
+  text-transform: ${(props: IButton) => (props.product || props.moreInfo ? 'none' : 'uppercase')};
   cursor: pointer;
-  padding: ${(props: ButtonProps) => (props.moreInfo ? '0' : '6px 30px')};
-  ${(props: ButtonProps) => (props.moreInfo ? 'padding-right: 25px' : '')};
+  padding: ${(props: IButton) => (props.moreInfo ? '0' : '6px 30px')};
+  ${(props: IButton) => (props.moreInfo ? 'padding-right: 25px' : '')};
   transition: all 0.6s ease;
-  border-radius: ${(props: ButtonProps) =>
+  border-radius: ${(props: IButton) =>
     props.product || props.moreInfo || props.addToCart ? '28px' : '15px'};
-  ${(props: ButtonProps) => (props.product ? 'width: 100%' : '')};
-  ${(props: ButtonProps) => (props.registration ? 'width: 100%' : '')};
-  ${(props: ButtonProps) =>
+  ${(props: IButton) => (props.product ? 'width: 100%' : '')};
+  ${(props: IButton) => (props.registration ? 'width: 100%' : '')};
+  ${(props: IButton) =>
     props.registration ? 'width: 100%' : props.moreInfo || props.addToCart ? 'width: 55%' : ''};
-  ${(props: ButtonProps) =>
+  ${(props: IButton) =>
     props.product || props.moreInfo || props.addToCart ? 'letter-spacing: 2px' : ''};
-  ${(props: ButtonProps) => (props.product ? 'height: 55px' : '')};
-  ${(props: ButtonProps) => (props.moreInfo || props.addToCart ? 'height: 50px' : '')};
+  ${(props: IButton) => (props.product ? 'height: 55px' : '')};
+  ${(props: IButton) => (props.moreInfo || props.addToCart ? 'height: 50px' : '')};
 `;
 
-interface ButtonProps {
+interface IButton {
   onClick?: () => void;
   children?: (string | Element)[] | React.ReactNode;
   registration?: boolean | null;
@@ -43,7 +42,7 @@ interface ButtonProps {
   type?: string | null;
 }
 
-const Button: React.FC<ButtonProps> = ({
+const Button: React.FC<IButton> = ({
   onClick,
   children,
   registration,
