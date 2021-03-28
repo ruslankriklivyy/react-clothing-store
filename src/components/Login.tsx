@@ -27,11 +27,12 @@ const LoginContent = styled.div`
   }
   button {
     display: flex;
+    justify-content: center;
     align-items: center;
     margin: 0 auto;
     height: 45px;
     img {
-      margin-left: 20px;
+      margin-left: 10px;
       width: 20px;
       height: 20px;
     }

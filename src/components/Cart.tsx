@@ -24,11 +24,11 @@ const CartWrapper = styled.div`
   overflow: auto;
   position: fixed;
   top: 0;
-  right: ${(props: CartProps) => (props.show ? '0' : '-400px')};
+  right: ${(props: ICart) => (props.show ? '0' : '-400px')};
   z-index: 900;
-  visibility: ${(props: CartProps) => (props.show ? 'visbility' : 'hidden')};
+  visibility: ${(props: ICart) => (props.show ? 'visbility' : 'hidden')};
   background: #fff;
-  transition: all 0.6s ease;
+  transition: all 0.7s ease;
 `;
 
 const CartHeader = styled.div`
@@ -203,13 +203,13 @@ const CartItemParagraph = styled.p`
   letter-spacing: 1px;
 `;
 
-type CartProps = {
+interface ICart {
   visibleCart: boolean;
   setVisibleCart: (visible: boolean) => void;
   show: boolean;
-};
+}
 
-const Cart: React.FC<CartProps> = ({ visibleCart, setVisibleCart, show }) => {
+const Cart: React.FC<ICart> = ({ visibleCart, setVisibleCart, show }) => {
   const dispatch = useDispatch();
   const cartBlock = React.useRef();
   const { cartItems, totalPrice, sizeTypes } = useSelector((state: RootState) => state.cart);
