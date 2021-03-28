@@ -5,6 +5,7 @@ import vkSvg from '../assets/img/vk.svg';
 import instagramSvg from '../assets/img/instagram.svg';
 
 const FooterBlock = styled.footer`
+  margin-top: -122px;
   background-color: #000;
   height: 122px;
   padding-top: 20px;

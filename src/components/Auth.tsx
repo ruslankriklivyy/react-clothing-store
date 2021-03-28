@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import removeSvg from '../assets/img/cancel.svg';
-import MyForm from './InnerForm';
+import MyForm from './MyForm';
 
 const LoginWrapper = styled.div`
   position: absolute;
@@ -44,10 +44,11 @@ const RegistartionTitle = styled.h2`
 
 interface IAuth {
   show: boolean;
+  visibleAuthBlock: boolean;
   setVisible: (visible: boolean) => void;
 }
 
-const Auth: React.FC<IAuth> = ({ show, setVisible }) => {
+const Auth: React.FC<IAuth> = ({ show, setVisible, visibleAuthBlock }) => {
   const [visibleLogin, setVisibleLogin] = React.useState(true);
 
   return (
@@ -56,7 +57,12 @@ const Auth: React.FC<IAuth> = ({ show, setVisible }) => {
         <img src={removeSvg} alt="remove svg" />
       </CloseLoginForm>
       {!visibleLogin && <RegistartionTitle>Регистрация</RegistartionTitle>}
-      <MyForm visibleLogin={visibleLogin} setVisibleLogin={setVisibleLogin} message="Sign up" />
+      <MyForm
+        visibleAuthBlock={visibleAuthBlock}
+        visibleLogin={visibleLogin}
+        setVisibleLogin={setVisibleLogin}
+        message="Sign up"
+      />
     </LoginWrapper>
   );
 };

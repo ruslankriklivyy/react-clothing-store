@@ -104,11 +104,17 @@ interface FormValues {
 interface OtherProps {
   message: string;
   visibleLogin: boolean;
+  visibleAuthBlock: boolean;
   setVisibleLogin: (visible: boolean) => void;
 }
 
 const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
-  const { touched, errors, isSubmitting, visibleLogin, setVisibleLogin } = props;
+  const { touched, errors, isSubmitting, visibleLogin, setVisibleLogin, resetForm } = props;
+
+  const onChangeForm = () => {
+    setVisibleLogin(!visibleLogin);
+    resetForm();
+  };
 
   return (
     <LoginContent>
@@ -134,7 +140,7 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
           <img className="more-arrow" src={arrowSvg} alt="arrow svg" />
         </Button>
         <LoginOrRegistration>или</LoginOrRegistration>
-        <LoginRegistrationLink onClick={() => setVisibleLogin(!visibleLogin)}>
+        <LoginRegistrationLink onClick={() => onChangeForm()}>
           {visibleLogin ? 'Быстрая регистрация' : 'Войти'}
         </LoginRegistrationLink>
       </Form>
@@ -146,6 +152,7 @@ interface MyFormProps {
   initialEmail?: string;
   message: string;
   visibleLogin: boolean;
+  visibleAuthBlock: boolean;
   setVisibleLogin: (visible: boolean) => void;
 }
 

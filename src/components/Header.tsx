@@ -161,7 +161,11 @@ const Header: React.FC<IHeader> = ({
     <>
       <BlockOut ref={blockOutRef} show={visibleCart || visibleAuthBlock ? 'show' : ''}></BlockOut>
       <HeaderMain name={chosenProduct && chosenProduct[0].name}>
-        <Auth show={visibleAuthBlock && true} setVisible={setVisibleAuthBlock} />
+        <Auth
+          show={visibleAuthBlock && true}
+          visibleAuthBlock={visibleAuthBlock}
+          setVisible={setVisibleAuthBlock}
+        />
         <HeaderWrapper>
           <Logo>
             <img src={logoPng} alt="logo png" />

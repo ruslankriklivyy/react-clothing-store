@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '.';
 
 const PromoWrapper = styled.div`
   margin-top: 20px;
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
 `;
 
 const Container = styled.div`
@@ -18,6 +19,7 @@ const PromoMain = styled.div`
   h2 {
     font-weight: 700;
     font-size: 32px;
+    margin-bottom: 45px;
     text-transform: uppercase;
     color: #000;
     text-align: center;
@@ -92,7 +94,9 @@ const Promo = () => {
             <PromoBlockItem key={id}>
               <h4>{title}</h4>
               <p>{text}</p>
-              <Button>Перейти к покупке</Button>
+              <Link to="/category/memes">
+                <Button>Перейти к покупке</Button>
+              </Link>
             </PromoBlockItem>
           ))}
         </PromoBlocks>

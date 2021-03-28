@@ -15,6 +15,7 @@ import { ProductsItem } from '../types/types';
 const ProductsWatch = styled.div`
   background-color: ${(props: ProductsItem) =>
     props.name && props.name.includes('Black') ? '#000' : '#EBE6E8'};
+  padding-bottom: 140px;
 `;
 
 const Container = styled.div`
