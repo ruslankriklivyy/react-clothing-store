@@ -1,12 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button, Title } from '.';
-import {
-  setCategory,
-  setCategoryName,
-  setChosenProduct,
-  setProductId,
-} from '../redux/actions/products';
+import { setChosenProduct, setProductId } from '../redux/actions/products';
 import priceConvert from '../utils/priceConvert';
 import arrowSvg from '../assets/img/arrow.svg';
 import { Link } from 'react-router-dom';

@@ -19,13 +19,24 @@ const ButtonWrapper = styled.button`
   border-radius: ${(props) =>
     props.product || props.moreInfo || props.addToCart ? '28px' : '15px'};
   ${(props) => (props.product ? 'width: 100%' : '')};
-  ${(props) => (props.moreInfo || props.addToCart ? 'width: 55%' : '')};
+  ${(props) => (props.registration ? 'width: 100%' : '')};
+  ${(props) =>
+    props.registration ? 'width: 100%' : props.moreInfo || props.addToCart ? 'width: 55%' : ''};
   ${(props) => (props.product || props.moreInfo || props.addToCart ? 'letter-spacing: 2px' : '')};
   ${(props) => (props.product ? 'height: 55px' : '')};
   ${(props) => (props.moreInfo || props.addToCart ? 'height: 50px' : '')};
 `;
 
-const Button = ({ onClick, children, product, moreInfo, className, name, addToCart }) => {
+const Button = ({
+  onClick,
+  children,
+  registration,
+  product,
+  moreInfo,
+  className,
+  name,
+  addToCart,
+}) => {
   return (
     <ButtonWrapper
       name={name}
@@ -33,6 +44,7 @@ const Button = ({ onClick, children, product, moreInfo, className, name, addToCa
       onClick={onClick}
       className={className}
       moreInfo={moreInfo}
+      registration={registration}
       product={product}>
       {children}
     </ButtonWrapper>

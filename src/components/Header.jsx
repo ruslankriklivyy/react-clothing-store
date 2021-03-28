@@ -8,6 +8,7 @@ import Categories from './Categories';
 import { useDispatch, useSelector } from 'react-redux';
 import Cart from './Cart';
 import Login from './Login';
+import userSvg from '../assets/img/user.svg';
 
 const HeaderWrapper = styled.div`
   padding-top: 25px;
@@ -78,6 +79,21 @@ const BlockOut = styled.div`
   transition: all 0.3s ease;
 `;
 
+const LoginImg = styled.div`
+  position: absolute;
+  width: 21px;
+  height: 21px;
+  top: 105px;
+  right: 120px;
+  z-index: 1000;
+  img {
+    display: block;
+    width: 19px;
+    height: 20px;
+    cursor: pointer;
+  }
+`;
+
 const Header = ({ categoriesNames, categoriesNamesEng, visibleCart, setVisibleCart }) => {
   const dispatch = useDispatch();
   const blockOutRef = React.useRef();
@@ -88,21 +104,52 @@ const Header = ({ categoriesNames, categoriesNamesEng, visibleCart, setVisibleCa
     dispatch(setCategoryName(name));
   };
 
+  const [visibleAuthBlock, setVisibleAuthBlock] = React.useState(false);
+
+  const escapeListener = React.useCallback(
+    (e) => {
+      if (e.key === 'Escape') {
+        setVisibleAuthBlock(false);
+      }
+    },
+    [setVisibleAuthBlock],
+  );
+  const clickListener = React.useCallback(
+    (e) => {
+      if (
+        e.target.className &&
+        blockOutRef.current &&
+        e.target.className === blockOutRef.current.className
+      ) {
+        setVisibleAuthBlock(false);
+      }
+    },
+    [blockOutRef, setVisibleAuthBlock],
+  );
+  React.useEffect(() => {
+    document.addEventListener('click', clickListener);
+    document.addEventListener('keyup', escapeListener);
+    return () => {
+      document.removeEventListener('click', clickListener);
+      document.removeEventListener('keyup', escapeListener);
+    };
+  }, [clickListener, escapeListener]);
+
   React.useEffect(() => {
     dispatch(getProducts(category));
   }, [dispatch, category]);
 
   React.useEffect(() => {
-    visibleCart
+    visibleCart || visibleAuthBlock
       ? document.querySelector('body').setAttribute('style', 'overflow: hidden')
       : document.querySelector('body').setAttribute('style', 'overflow: auto');
-  }, [visibleCart]);
+  }, [visibleCart, visibleAuthBlock]);
 
   return (
     <>
-      <BlockOut ref={blockOutRef} show={visibleCart && 'show'}></BlockOut>
+      <BlockOut ref={blockOutRef} show={visibleCart || visibleAuthBlock ? 'show' : ''}></BlockOut>
       <HeaderMain name={chosenProduct && chosenProduct[0].name}>
-        <Login />
+        <Login show={visibleAuthBlock && 'show'} setVisible={setVisibleAuthBlock} />
         <HeaderWrapper>
           <Logo>
             <img src={logoPng} alt="logo png" />
@@ -114,6 +161,9 @@ const Header = ({ categoriesNames, categoriesNamesEng, visibleCart, setVisibleCa
             category={category}
             links={categoriesNamesEng}
           />
+          <LoginImg onClick={() => setVisibleAuthBlock(!visibleAuthBlock)}>
+            <img src={userSvg} alt="user svg" />
+          </LoginImg>
           <ShoppingBlock>
             <ShoppingBlockImage onClick={() => setVisibleCart(!visibleCart)}>
               <img src={shopCart} alt="shop cart" />

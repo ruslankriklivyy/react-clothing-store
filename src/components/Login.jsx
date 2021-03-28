@@ -1,19 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-import fire from '../utils/fire';
 import Button from './Button';
 import arrowSvg from '../assets/img/arrow-white.svg';
+import removeSvg from '../assets/img/cancel.svg';
 
 const LoginWrapper = styled.div`
   position: absolute;
   top: 140px;
-  right: 40px;
+  right: 100px;
   z-index: 800;
   background: #fff;
   width: 350px;
-  height: 400px;
+  min-height: 400px;
   border-radius: 25px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  opacity: ${(props) => (props.show ? '1' : '0')};
+  transition: all 0.7s ease;
 `;
 
 const LoginContent = styled.div`
@@ -58,116 +60,103 @@ const LoginFormItem = styled.div`
   }
 `;
 
-const Login = () => {
-  const [emailError, setEmailError] = React.useState('');
-  const [passwordError, setPasswordError] = React.useState('');
-  const [user, setUser] = React.useState(null);
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+const LoginOrRegistration = styled.span`
+  position: relative;
+  display: block;
+  letter-spacing: 1px;
+  width: 40px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 20px;
+  color: #000;
+  opacity: 0.7;
+  margin-top: 40px;
+  &::after,
+  &::before {
+    content: '';
+    position: absolute;
+    top: 13px;
+    z-index: 700;
+    width: 15px;
+    height: 1px;
+    background: #000;
+  }
+  &::after {
+    right: -13px;
+  }
+  &::before {
+    left: -13px;
+  }
+`;
 
-  const clearInputs = () => {
-    setEmail('');
-    setPassword('');
-  };
+const LoginRegistrationLink = styled.span`
+  display: block;
+  letter-spacing: 1px;
+  font-weight: 500;
+  width: 200px;
+  margin: 35px auto 0 auto;
+  text-transform: uppercase;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+`;
 
-  const clearErrors = () => {
-    setPasswordError('');
-    setEmailError('');
-  };
+const CloseLoginForm = styled.div`
+  position: absolute;
+  top: 13px;
+  right: 15px;
+  z-index: 800;
+  width: 17px;
+  height: 17px;
+  opacity: 0.8;
+  cursor: pointer;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+`;
 
-  const handleLogin = () => {
-    clearErrors();
-    fire
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .catch((err) => {
-        switch (err.code) {
-          case 'auth/invalid-email':
-          case 'auth/user-disabled':
-          case 'auth/user-not-found':
-            setEmailError(err.message);
-            break;
-          case 'auth/wrong-password':
-            setPasswordError(err.message);
-            break;
-          default:
-            return err;
-        }
-      });
-  };
+const RegistartionTitle = styled.h2`
+  padding-top: 40px;
+  font-weight: 500;
+  font-size: 28px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+`;
 
-  const handleSignUp = () => {
-    clearErrors();
-    fire
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .catch((err) => {
-        switch (err.code) {
-          case 'auth/email-already-in-use':
-          case 'auth/invalid-email':
-            setEmailError(err.message);
-            break;
-          case 'auth/weak-password':
-            setPasswordError(err.message);
-            break;
-          default:
-            return err;
-        }
-      });
-  };
-
-  const handleLogout = () => {
-    fire.auth().signOut();
-  };
-
-  const authListener = () => {
-    fire.auth().onAuthStateChanged((user) => {
-      if (user) {
-        clearInputs();
-        setUser(user);
-      } else {
-        setUser('');
-      }
-    });
-  };
-
-  React.useEffect(() => {
-    authListener();
-  }, []);
+const Login = ({ show, setVisible }) => {
+  const [visibleLogin, setVisibleLogin] = React.useState(true);
 
   return (
-    <LoginWrapper>
-      <LoginContent>
-        <form>
-          <LoginFormItem>
-            <label htmlFor="email">ЭЛ.ПОЧТА</label>
-            <input
-              required
-              autoFocus
-              type="e-mail"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <span>{emailError}</span>
-          </LoginFormItem>
-          <LoginFormItem>
-            <label htmlFor="password">ПАРОЛЬ</label>
-            <input
-              required
-              type="password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <span>{passwordError}</span>
-          </LoginFormItem>
-          <Button addToCart type="text" onClick={() => handleLogin()}>
-            Войти <img className="more-arrow" src={arrowSvg} alt="arrow svg" />
-          </Button>
-        </form>
-      </LoginContent>
-    </LoginWrapper>
+    <>
+      <LoginWrapper show={show}>
+        <CloseLoginForm onClick={() => setVisible(false)}>
+          <img src={removeSvg} alt="remove svg" />
+        </CloseLoginForm>
+        {!visibleLogin && <RegistartionTitle>Регистрация</RegistartionTitle>}
+        <LoginContent>
+          <form>
+            <LoginFormItem>
+              <label htmlFor="email">ЭЛ.ПОЧТА</label>
+              <input required autoFocus type="e-mail" name="email" />
+            </LoginFormItem>
+            <LoginFormItem>
+              <label htmlFor="password">ПАРОЛЬ</label>
+              <input required type="password" name="password" />
+            </LoginFormItem>
+            <Button addToCart registration={visibleLogin === false && true} type="text">
+              {visibleLogin ? 'Войти' : 'Зарегистрироваться'}
+              <img className="more-arrow" src={arrowSvg} alt="arrow svg" />
+            </Button>
+            <LoginOrRegistration>или</LoginOrRegistration>
+            <LoginRegistrationLink onClick={() => setVisibleLogin(!visibleLogin)}>
+              {visibleLogin ? 'Быстрая регистрация' : 'Войти'}
+            </LoginRegistrationLink>
+          </form>
+        </LoginContent>
+      </LoginWrapper>
+    </>
   );
 };
 
