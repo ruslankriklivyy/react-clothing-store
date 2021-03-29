@@ -8,3 +8,4 @@ export { default as ProductsWatchItem } from './ProductsWatchItem';
 export { default as Footer } from './Footer';
 export { default as Cart } from './Cart';
 export { default as Auth } from './Auth';
+export { default as BurgerMenu } from './BurgerMenu';

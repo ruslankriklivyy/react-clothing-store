@@ -10,6 +10,9 @@ import Cart from './Cart';
 import Auth from './Auth';
 import userSvg from '../assets/img/user.svg';
 import { RootState } from '../redux/reducers';
+import { device } from '../utils/deviceMedia';
+import menuBurgerSvg from '../assets/img/menu-burger.svg';
+import { BurgerMenu } from '.';
 
 const HeaderWrapper = styled.div`
   padding-top: 25px;
@@ -25,6 +28,9 @@ const HeaderMain = styled.div`
   width: 100%;
   height: 150px;
   background: #000;
+  @media ${device.laptopL} {
+    height: 73px;
+  }
 `;
 
 const Logo = styled.div`
@@ -41,6 +47,15 @@ const Logo = styled.div`
     width: 190px;
     height: 64px;
   }
+  @media ${device.laptopL} {
+    border-bottom: none;
+    img {
+      width: 120px;
+      height: 35px;
+      top: 20px;
+      left: 70px;
+    }
+  }
 `;
 
 const ShoppingBlockImage = styled.span`
@@ -55,6 +70,19 @@ const ShoppingBlockImage = styled.span`
     width: 20px;
     height: 20px;
     margin-right: 10px;
+  }
+  @media ${device.laptopL} {
+    margin-right: 30px;
+    img {
+      width: 23px;
+      height: 23px;
+      margin-right: 0;
+    }
+
+    font-size: 0;
+  }
+  @media ${device.mobileL} {
+    margin-right: 15px;
   }
 `;
 
@@ -81,14 +109,43 @@ const LoginImg = styled.div`
     height: 20px;
     cursor: pointer;
   }
+  @media ${device.laptopL} {
+    margin-right: 30px;
+    img {
+      width: 22px;
+      height: 22px;
+    }
+  }
+  @media ${device.mobileL} {
+    margin-right: 15px;
+  }
 `;
 
 const HeaderRight = styled.div`
   display: flex;
   position: absolute;
-  top: 105px;
+  top: 109px;
   right: 30px;
   height: 22px;
+  @media ${device.laptopL} {
+    top: 25px;
+    right: 10px;
+    align-items: center;
+  }
+`;
+
+const BurgerMenuButton = styled.div`
+  display: none;
+  width: 30px;
+  cursor: pointer;
+  img {
+    display: block;
+    width: 30px;
+    height: 30px;
+  }
+  @media ${device.laptopL} {
+    display: block;
+  }
 `;
 
 interface IHeader {
@@ -116,14 +173,16 @@ const Header: React.FC<IHeader> = ({
   };
 
   const [visibleAuthBlock, setVisibleAuthBlock] = React.useState(false);
+  const [visibleBurgerMenu, setVisibleBurgerMenu] = React.useState(false);
 
   const escapeListener = React.useCallback(
     (e) => {
       if (e.key === 'Escape') {
         setVisibleAuthBlock(false);
+        setVisibleBurgerMenu(false);
       }
     },
-    [setVisibleAuthBlock],
+    [setVisibleAuthBlock, setVisibleBurgerMenu],
   );
   const clickListener = React.useCallback(
     (e) => {
@@ -134,9 +193,10 @@ const Header: React.FC<IHeader> = ({
       ) {
         setVisibleAuthBlock(false);
         setVisibleCart(false);
+        setVisibleBurgerMenu(false);
       }
     },
-    [blockOutRef, setVisibleAuthBlock, setVisibleCart],
+    [blockOutRef, setVisibleAuthBlock, setVisibleBurgerMenu, setVisibleCart],
   );
   React.useEffect(() => {
     document.addEventListener('click', clickListener);
@@ -152,14 +212,16 @@ const Header: React.FC<IHeader> = ({
   }, [dispatch, category]);
 
   React.useEffect(() => {
-    visibleCart || visibleAuthBlock
+    visibleCart || visibleAuthBlock || visibleBurgerMenu
       ? document.querySelector<HTMLElement>('body')?.setAttribute('style', 'overflow: hidden')
       : document.querySelector<HTMLElement>('body')?.setAttribute('style', 'overflow: auto');
-  }, [visibleCart, visibleAuthBlock]);
+  }, [visibleCart, visibleAuthBlock, visibleBurgerMenu]);
 
   return (
     <>
-      <BlockOut ref={blockOutRef} show={visibleCart || visibleAuthBlock ? 'show' : ''}></BlockOut>
+      <BlockOut
+        ref={blockOutRef}
+        show={visibleCart || visibleAuthBlock || visibleBurgerMenu ? 'show' : ''}></BlockOut>
       <HeaderMain name={chosenProduct && chosenProduct[0].name}>
         <Auth
           show={visibleAuthBlock && true}
@@ -177,7 +239,6 @@ const Header: React.FC<IHeader> = ({
             category={category}
             links={categoriesNamesEng}
           />
-
           <HeaderRight>
             <LoginImg onClick={() => setVisibleAuthBlock(!visibleAuthBlock)}>
               <img src={userSvg} alt="user svg" />
@@ -193,6 +254,18 @@ const Header: React.FC<IHeader> = ({
                 setVisibleCart={setVisibleCart}
               />
             </div>
+            <BurgerMenuButton onClick={() => setVisibleBurgerMenu(!visibleBurgerMenu)}>
+              <img src={menuBurgerSvg} alt="menuBurgerSvg" />
+            </BurgerMenuButton>
+            <BurgerMenu
+              setVisibleBurgerMenu={setVisibleBurgerMenu}
+              onSelectCategory={onSelectCategory}
+              categoryName={categoryName}
+              items={categoriesNames}
+              category={category}
+              links={categoriesNamesEng}
+              show={visibleBurgerMenu}
+            />
           </HeaderRight>
         </HeaderWrapper>
       </HeaderMain>

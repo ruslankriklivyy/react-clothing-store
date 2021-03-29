@@ -3,8 +3,11 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { setCategory, setCategoryName } from '../redux/actions/products';
+import { device } from '../utils/deviceMedia';
 
 const CategoriesWrapper = styled.div`
+  display: block;
+  transition: all 0.4s ease;
   ul {
     display: flex;
     align-items: center;
@@ -43,14 +46,41 @@ const CategoriesWrapper = styled.div`
       }
     }
   }
+  @media ${device.laptopL} {
+    opacity: ${(props: ICategories) => (props.show ? '1' : '0')};
+    visibility: ${(props: ICategories) => (props.show ? 'visibility' : 'hidden')};
+    ul {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 45px;
+      padding: 0;
+      li {
+        width: 100%;
+        margin: 0;
+        border-bottom: 2px solid #f3f3f3;
+        a {
+          display: block;
+          padding: 18px 10px;
+          height: 60px;
+          color: #000;
+          font-size: 20px;
+          &::after {
+            display: none;
+          }
+        }
+      }
+    }
+  }
 `;
 
-interface ICategories {
+export interface ICategories {
+  show?: boolean;
   items: Array<string>;
   category: string | null;
   links: Array<string>;
-  onSelectCategory: (type: string, name: string) => void;
   categoryName: string;
+  onSelectCategory: (type: string, name: string) => void;
+  setVisibleBurgerMenu?: (visible: boolean) => void;
 }
 
 const Categories: React.FC<ICategories> = ({
@@ -59,12 +89,17 @@ const Categories: React.FC<ICategories> = ({
   links,
   onSelectCategory,
   categoryName,
+  setVisibleBurgerMenu,
+  show,
 }) => {
   const dispatch = useDispatch();
 
   const selectCategory = (name: string, indexItem: number) => {
     const type = links.filter((name, index) => index === indexItem);
     onSelectCategory(type.join('').toLowerCase(), name);
+    if (show && setVisibleBurgerMenu) {
+      setVisibleBurgerMenu(false);
+    }
   };
 
   const generateLink = (indexItem: number) => {
@@ -96,7 +131,7 @@ const Categories: React.FC<ICategories> = ({
   }, [category]);
 
   return (
-    <CategoriesWrapper>
+    <CategoriesWrapper show={show}>
       <ul>
         {items.map((name, index) => (
           <li key={`${name}-${index}`}>

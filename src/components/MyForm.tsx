@@ -3,6 +3,7 @@ import { withFormik, FormikProps, FormikErrors, Form, Field } from 'formik';
 import styled from 'styled-components';
 import Button from './Button';
 import arrowSvg from '../assets/img/arrow-white.svg';
+import { device } from '../utils/deviceMedia';
 
 const LoginContent = styled.div`
   padding: 30px;
@@ -21,6 +22,9 @@ const LoginContent = styled.div`
       width: 20px;
       height: 20px;
     }
+  }
+  @media ${device.mobileL} {
+    padding: 35px 10px 10px 10px;
   }
 `;
 
@@ -86,6 +90,10 @@ const LoginRegistrationLink = styled.span`
   font-size: 16px;
   cursor: pointer;
   text-align: center;
+  @media ${device.mobileL} {
+    margin-top: 15px;
+    margin-bottom: 5px;
+  }
 `;
 
 const ValidateErrors = styled.span`

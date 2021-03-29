@@ -16,6 +16,7 @@ import {
   setTotalPrice,
 } from '../redux/actions/cart';
 import { RootState } from '../redux/reducers';
+import { device } from '../utils/deviceMedia';
 
 const CartWrapper = styled.div`
   width: 380px;
@@ -29,6 +30,9 @@ const CartWrapper = styled.div`
   visibility: ${(props: ICart) => (props.show ? 'visbility' : 'hidden')};
   background: #fff;
   transition: all 0.7s ease;
+  @media ${device.mobileL} {
+    width: 100%;
+  }
 `;
 
 const CartHeader = styled.div`

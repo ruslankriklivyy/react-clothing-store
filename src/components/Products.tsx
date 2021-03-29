@@ -7,6 +7,7 @@ import arrowSvg from '../assets/img/arrow.svg';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/reducers';
+import { device } from '../utils/deviceMedia';
 
 const ProductsWrapper = styled.div`
   margin: 20px 0;
@@ -25,6 +26,9 @@ const ProductsMain = styled.div`
   align-items: center;
   flex-wrap: wrap;
   margin-bottom: 130px;
+  @media ${device.laptopL} {
+    justify-content: center;
+  }
 `;
 
 const ProductItemBlockout = styled.div`
@@ -78,9 +82,9 @@ const ProductsItem = styled.div`
     width: 395px;
     height: 450px;
     z-index: 100;
-    box-shadow: 0 0 15px #e4e5e7;
     margin-bottom: 20px;
     cursor: default;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
 
     img {
       padding: 35px;
@@ -109,6 +113,14 @@ const ProductsItem = styled.div`
       font-weight: 500;
       background-color: #000;
       color: #fff;
+    }
+  }
+  @media ${device.mobileL} {
+    margin-right: 0;
+    margin-left: 0;
+    a {
+      width: 300px;
+      height: 350px;
     }
   }
 `;

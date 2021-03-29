@@ -5,7 +5,8 @@ import { Button } from '.';
 
 const PromoWrapper = styled.div`
   margin-top: 20px;
-  /* margin-bottom: 40px; */
+  margin-bottom: 60px;
+  height: 630px;
 `;
 
 const Container = styled.div`
