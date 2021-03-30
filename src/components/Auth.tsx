@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import removeSvg from '../assets/img/cancel.svg';
-import MyForm from './MyForm';
-import { device } from '../utils/deviceMedia';
+import Registration from './Registration';
+import {device} from '../utils/deviceMedia';
+import Login from "./Login";
 
 const LoginWrapper = styled.div`
   position: absolute;
@@ -57,21 +58,30 @@ interface IAuth {
   setVisible: (visible: boolean) => void;
 }
 
-const Auth: React.FC<IAuth> = ({ show, setVisible, visibleAuthBlock }) => {
+const Auth: React.FC<IAuth> = ({show, setVisible, visibleAuthBlock}) => {
   const [visibleLogin, setVisibleLogin] = React.useState(true);
 
   return (
     <LoginWrapper show={show}>
       <CloseLoginForm onClick={() => setVisible(false)}>
-        <img src={removeSvg} alt="remove svg" />
+        <img src={removeSvg} alt="remove svg"/>
       </CloseLoginForm>
       {!visibleLogin && <RegistartionTitle>Регистрация</RegistartionTitle>}
-      <MyForm
-        visibleAuthBlock={visibleAuthBlock}
-        visibleLogin={visibleLogin}
-        setVisibleLogin={setVisibleLogin}
-        message="Sign up"
-      />
+      {
+        !visibleLogin ?
+          <Registration
+            visibleAuthBlock={visibleAuthBlock}
+            visibleLogin={visibleLogin}
+            setVisibleLogin={setVisibleLogin}
+            message="Sign up"
+          /> : <Login
+            visibleAuthBlock={visibleAuthBlock}
+            visibleLogin={visibleLogin}
+            setVisibleLogin={setVisibleLogin}
+            message="Sign up"
+          />
+      }
+
     </LoginWrapper>
   );
 };

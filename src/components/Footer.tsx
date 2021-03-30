@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import { device } from '../utils/deviceMedia';
 import vkSvg from '../assets/img/vk.svg';
 import instagramSvg from '../assets/img/instagram.svg';
 
 const FooterBlock = styled.footer`
   flex: 0 0 auto;
   background-color: #000;
-  height: 122px;
+  min-height: 122px;
   padding-top: 20px;
 `;
 
@@ -21,6 +21,9 @@ const Container = styled.div`
 const FooterBlockWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  @media ${device.mobile} {
+    flex-direction: column;
+  }
 `;
 
 const FooterBlockLeft = styled.div`
@@ -34,6 +37,17 @@ const FooterBlockLeft = styled.div`
         font-size: 24px;
         color: #fff;
         text-transform: uppercase;
+      }
+    }
+  }
+  @media ${device.mobile} {
+    width: 100%;
+    ul {
+      text-align: center;
+      li {
+        a {
+          font-size: 18px;
+        }
       }
     }
   }
@@ -59,6 +73,21 @@ const FooterBlockSocial = styled.div`
         img {
           width: 23px;
           height: 23px;
+        }
+      }
+    }
+  }
+  @media ${device.mobile} {
+    ul {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      justify-content: center;
+      li {
+        a {
+          img {
+            width: 15px;
+            height: 15px;
+          }
         }
       }
     }

@@ -55,8 +55,8 @@ const ProductItemBlockout = styled.div`
       width: 17px !important;
       height: 15px !important;
       top: 18px;
-      right: -17px;
-      padding: 0;
+      left: 70%;
+      padding: 0 !important;
     }
   }
 `;
@@ -87,15 +87,10 @@ const ProductsItem = styled.div`
     box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
 
     img {
-      padding: 35px;
-      position: absolute;
-      top: 20px;
-      left: 50%;
-      transform: translate(-50%, 0);
-      display: block;
-      margin: 0 auto;
+      object-fit: contain;
       width: 100%;
-      height: 90%;
+      height: 100%;
+      padding: 40px;
     }
 
     span {

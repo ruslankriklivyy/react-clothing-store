@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import scrollTop from '../utils/scrollTop';
 import Button from './Button';
 import Title from './Title';
-
+import { device } from '../utils/deviceMedia';
 import { useDispatch, useSelector } from 'react-redux';
 import { setChosenProduct } from '../redux/actions/products';
 import { addCartItem, setSize } from '../redux/actions/cart';
@@ -29,17 +29,29 @@ const ProductsWatchBlock = styled.div`
   display: flex;
   justify-content: space-between;
   padding-bottom: 150px;
+  @media ${device.laptopL} {
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 0;
+  }
 `;
 
 const ProductsWatchLeft = styled.div`
+  width: 44%;
   img {
-    position: relative;
     display: block !important;
     margin: 0 auto !important;
-    width: 480px !important;
+    /* width: 540px !important; */
     height: 570px;
+    object-fit: contain;
   }
-  width: 44%;
+
+  .slick-slide {
+    & > div {
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
   .slick-dots {
     position: absolute;
     top: 0;
@@ -53,7 +65,7 @@ const ProductsWatchLeft = styled.div`
   .slick-arrow {
     position: absolute;
     z-index: 100;
-    right: -35px;
+    right: -25px;
   }
   .slick-prev {
     left: -60px;
@@ -103,12 +115,63 @@ const ProductsWatchLeft = styled.div`
       props.name && props.name.includes('Black') ? '#fff' : '#202020'};
     opacity: 1;
   }
+
+  @media ${device.desktopM} {
+    .slick-prev {
+      left: 130px;
+    }
+    .slick-next {
+      right: 165px;
+    }
+    .slick-arrow {
+      top: 105%;
+    }
+  }
+  @media ${device.laptopL} {
+    margin: 0 auto 40px auto;
+    .slick-prev {
+      left: -60px;
+    }
+    .slick-next {
+      right: -25px;
+    }
+    .slick-arrow {
+      top: 50%;
+    }
+  }
+  @media ${device.mobile} {
+    .slick-prev::before,
+    .slick-next::before {
+      font-size: 35px;
+    }
+
+    .slick-prev {
+      left: 17px;
+    }
+    .slick-next {
+      left: 178px;
+    }
+    .slick-arrow {
+      top: 107%;
+    }
+  }
 `;
 
 const ProductWatchRight = styled.div`
   width: 44%;
   display: flex;
   flex-direction: column;
+  @media ${device.laptopL} {
+    margin: 0 auto;
+    width: 500px;
+    text-align: center;
+  }
+  @media ${device.mobile} {
+    width: 100%;
+    button {
+      width: 100%;
+    }
+  }
 `;
 
 const ProductWatchPrice = styled.span`
@@ -122,6 +185,9 @@ const ProductWatchPrice = styled.span`
   color: ${(props: ProductsItem) =>
     props.name && props.name.includes('Black') ? '#000' : '#ebe6e8'};
   border-radius: 25px;
+  @media ${device.laptopL} {
+    margin: 30px auto 0 auto;
+  }
 `;
 
 const ProductWatchDelivery = styled.span`
@@ -145,6 +211,9 @@ const ProductsWatchDescr = styled.p`
 const ProductWatchBottom = styled.div`
   display: flex;
   align-items: center;
+  @media ${device.laptopL} {
+    justify-content: center;
+  }
 `;
 
 const ProductWatchTypeName = styled.h4`
@@ -159,6 +228,9 @@ const ProductWatchTypeName = styled.h4`
 const ProductWatchSizes = styled.div`
   display: flex;
   align-items: center;
+  @media ${device.laptopL} {
+    justify-content: center;
+  }
 `;
 
 const ProductWatchSize = styled.a`
