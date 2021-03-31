@@ -1,153 +1,27 @@
 import React from 'react';
-import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+
 import priceConvert from '../utils/priceConvert';
 import { getProducts, setCategory, setCategoryName } from '../redux/actions/products';
-import logoPng from '../assets/img/logo-2.png';
-import shopCart from '../assets/img/shopping-cart.svg';
-import Categories from './Categories';
-import { useDispatch, useSelector } from 'react-redux';
-import Cart from './Cart';
-import Auth from './Auth';
-import userSvg from '../assets/img/user.svg';
+import { Auth, Cart, BurgerMenu, Categories, Logout } from '../components';
 import { RootState } from '../redux/reducers';
-import { device } from '../utils/deviceMedia';
+import { setAuth } from '../redux/actions/auth';
+import {
+  BlockOut,
+  BurgerMenuButton,
+  HeaderMain,
+  HeaderRight,
+  HeaderWrapper,
+  LoginImg,
+  Logo,
+  ShoppingBlockImage,
+} from '../styles/HeaderStyle';
+
+import logoPng from '../assets/img/logo-2.png';
+import authSvg from '../assets/img/auth.svg';
+import shopCart from '../assets/img/shopping-cart.svg';
 import menuBurgerSvg from '../assets/img/menu-burger.svg';
-import { BurgerMenu } from '.';
-
-const HeaderWrapper = styled.div`
-  padding-top: 25px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
-  padding-bottom: 25px;
-  position: relative;
-`;
-
-const HeaderMain = styled.div`
-  width: 100%;
-  height: 150px;
-  background: #000;
-  @media ${device.laptopL} {
-    height: 73px;
-  }
-`;
-
-const Logo = styled.div`
-  width: 100%;
-  margin-bottom: 10px;
-  border-bottom: 2px solid #d7d7d7;
-  height: 62px;
-  img {
-    position: absolute;
-    display: block;
-    left: 50%;
-    transform: translate(-50%, 0);
-    margin: 0 auto;
-    width: 190px;
-    height: 64px;
-  }
-  @media ${device.laptopL} {
-    border-bottom: none;
-    img {
-      width: 120px;
-      height: 35px;
-      top: 20px;
-      left: 70px;
-    }
-  }
-`;
-
-const ShoppingBlockImage = styled.span`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 400;
-  letter-spacing: 1px;
-  img {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-  }
-  @media ${device.laptopL} {
-    margin-right: 30px;
-    img {
-      width: 23px;
-      height: 23px;
-      margin-right: 0;
-    }
-
-    font-size: 0;
-  }
-  @media ${device.mobileL} {
-    margin-right: 15px;
-  }
-`;
-
-const BlockOut = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 700;
-  background: rgba(0, 0, 0, 0.5);
-  opacity: ${(props: any) => (props.show ? '1' : '0')};
-  visibility: ${(props: any) => (props.show ? 'visibility' : 'hidden')};
-  transition: all 0.3s ease;
-`;
-
-const LoginImg = styled.div`
-  margin-right: 20px;
-  img {
-    display: block;
-    width: 19px;
-    height: 20px;
-    cursor: pointer;
-  }
-  @media ${device.laptopL} {
-    margin-right: 30px;
-    img {
-      width: 22px;
-      height: 22px;
-    }
-  }
-  @media ${device.mobileL} {
-    margin-right: 15px;
-  }
-`;
-
-const HeaderRight = styled.div`
-  display: flex;
-  position: absolute;
-  top: 109px;
-  right: 30px;
-  height: 22px;
-  @media ${device.laptopL} {
-    top: 25px;
-    right: 10px;
-    align-items: center;
-  }
-`;
-
-const BurgerMenuButton = styled.div`
-  display: none;
-  width: 30px;
-  cursor: pointer;
-  img {
-    display: block;
-    width: 30px;
-    height: 30px;
-  }
-  @media ${device.laptopL} {
-    display: block;
-  }
-`;
-
+import userSvg from '../assets/img/user.svg';
 interface IHeader {
   categoriesNames: Array<string>;
   categoriesNamesEng: Array<string>;
@@ -163,9 +37,11 @@ const Header: React.FC<IHeader> = ({
 }) => {
   const dispatch = useDispatch();
   const blockOutRef = React.useRef<HTMLDivElement>(null);
+
   const { category, chosenProduct, categoryName } = useSelector(
     (state: RootState) => state.products,
   );
+  const { isAuth } = useSelector((state: RootState) => state.auth);
   const { totalPrice } = useSelector((state: RootState) => state.cart);
   const onSelectCategory = (type: string, name: string) => {
     dispatch(setCategory(type));
@@ -174,12 +50,14 @@ const Header: React.FC<IHeader> = ({
 
   const [visibleAuthBlock, setVisibleAuthBlock] = React.useState(false);
   const [visibleBurgerMenu, setVisibleBurgerMenu] = React.useState(false);
+  const [visibleLogout, setVisibleLogout] = React.useState(false);
 
   const escapeListener = React.useCallback(
     (e) => {
       if (e.key === 'Escape') {
         setVisibleAuthBlock(false);
         setVisibleBurgerMenu(false);
+        setVisibleLogout(false);
       }
     },
     [setVisibleAuthBlock, setVisibleBurgerMenu],
@@ -194,6 +72,7 @@ const Header: React.FC<IHeader> = ({
         setVisibleAuthBlock(false);
         setVisibleCart(false);
         setVisibleBurgerMenu(false);
+        setVisibleLogout(false);
       }
     },
     [blockOutRef, setVisibleAuthBlock, setVisibleBurgerMenu, setVisibleCart],
@@ -217,12 +96,24 @@ const Header: React.FC<IHeader> = ({
       : document.querySelector<HTMLElement>('body')?.setAttribute('style', 'overflow: auto');
   }, [visibleCart, visibleAuthBlock, visibleBurgerMenu]);
 
+  React.useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('token') || '{}');
+    if (typeof token === 'string') {
+      dispatch(setAuth(true));
+    } else {
+      dispatch(setAuth(false));
+    }
+  }, [dispatch]);
+
   return (
     <>
       <BlockOut
         ref={blockOutRef}
-        show={visibleCart || visibleAuthBlock || visibleBurgerMenu ? 'show' : ''}></BlockOut>
+        show={
+          visibleCart || visibleAuthBlock || visibleBurgerMenu || visibleLogout ? 'show' : ''
+        }></BlockOut>
       <HeaderMain name={chosenProduct && chosenProduct[0].name}>
+        <Logout show={visibleLogout} setVisibleLogout={setVisibleLogout} />
         <Auth
           show={visibleAuthBlock && true}
           visibleAuthBlock={visibleAuthBlock}
@@ -240,19 +131,21 @@ const Header: React.FC<IHeader> = ({
             links={categoriesNamesEng}
           />
           <HeaderRight>
-            <LoginImg onClick={() => setVisibleAuthBlock(!visibleAuthBlock)}>
-              <img src={userSvg} alt="user svg" />
-            </LoginImg>
+            {!isAuth ? (
+              <LoginImg onClick={() => setVisibleAuthBlock(!visibleAuthBlock)}>
+                <img src={userSvg} alt="user svg" />
+              </LoginImg>
+            ) : (
+              <LoginImg onClick={() => setVisibleLogout(true)}>
+                <img src={authSvg} alt="auth svg" />
+              </LoginImg>
+            )}
             <div>
               <ShoppingBlockImage onClick={() => setVisibleCart(!visibleCart)}>
                 <img src={shopCart} alt="shop cart" />
                 {priceConvert(totalPrice)} RUB
               </ShoppingBlockImage>
-              <Cart
-                show={visibleCart && true}
-                visibleCart={visibleCart}
-                setVisibleCart={setVisibleCart}
-              />
+              <Cart show={visibleCart} visibleCart={visibleCart} setVisibleCart={setVisibleCart} />
             </div>
             <BurgerMenuButton onClick={() => setVisibleBurgerMenu(!visibleBurgerMenu)}>
               <img src={menuBurgerSvg} alt="menuBurgerSvg" />

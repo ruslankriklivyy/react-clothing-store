@@ -4,6 +4,7 @@ import removeSvg from '../assets/img/cancel.svg';
 import Registration from './Registration';
 import {device} from '../utils/deviceMedia';
 import Login from "./Login";
+import {useDispatch} from "react-redux";
 
 const LoginWrapper = styled.div`
   position: absolute;
@@ -60,6 +61,7 @@ interface IAuth {
 
 const Auth: React.FC<IAuth> = ({show, setVisible, visibleAuthBlock}) => {
   const [visibleLogin, setVisibleLogin] = React.useState(true);
+  const dispatch = useDispatch();
 
   return (
     <LoginWrapper show={show}>
@@ -70,12 +72,13 @@ const Auth: React.FC<IAuth> = ({show, setVisible, visibleAuthBlock}) => {
       {
         !visibleLogin ?
           <Registration
-            visibleAuthBlock={visibleAuthBlock}
+            setVisible={setVisible}
             visibleLogin={visibleLogin}
             setVisibleLogin={setVisibleLogin}
             message="Sign up"
           /> : <Login
-            visibleAuthBlock={visibleAuthBlock}
+            dispatch={dispatch}
+            setVisible={setVisible}
             visibleLogin={visibleLogin}
             setVisibleLogin={setVisibleLogin}
             message="Sign up"

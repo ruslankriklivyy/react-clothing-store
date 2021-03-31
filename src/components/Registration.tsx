@@ -15,17 +15,18 @@ import {
 interface FormValues {
   email: string;
   password: string;
+  setVisible: (visible: boolean) => void;
 }
 
 interface OtherProps {
   message: string;
   visibleLogin: boolean;
-  visibleAuthBlock: boolean;
+  setVisible: (visible: boolean) => void;
   setVisibleLogin: (visible: boolean) => void;
 }
 
 const RegistrationForm = (props: OtherProps & FormikProps<FormValues>) => {
-  const {touched, errors, isSubmitting, visibleLogin, setVisibleLogin, resetForm, handleSubmit} = props;
+  const {touched, errors, isSubmitting, setVisibleLogin, resetForm} = props;
 
   const onChangeForm = () => {
     setVisibleLogin(true);
@@ -68,7 +69,7 @@ interface MyFormProps {
   initialEmail?: string;
   message: string;
   visibleLogin: boolean;
-  visibleAuthBlock: boolean;
+  setVisible: (visible: boolean) => void;
   setVisibleLogin: (visible: boolean) => void;
 }
 
@@ -77,6 +78,7 @@ const Registration = withFormik<MyFormProps, FormValues, OtherProps>({
     return {
       email: props.initialEmail || '',
       password: '',
+      setVisible: props.setVisible
     };
   },
 
@@ -92,6 +94,7 @@ const Registration = withFormik<MyFormProps, FormValues, OtherProps>({
   handleSubmit: (values, {resetForm}) => {
     userApi.registration(values.email, values.password)
     resetForm()
+    values.setVisible(false)
   },
 })(RegistrationForm);
 

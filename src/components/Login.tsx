@@ -11,16 +11,19 @@ import {
   LoginOrRegistration,
   LoginRegistrationLink
 } from '../utils/stylesAuthBlock';
+import {setLogin} from "../redux/actions/auth";
+import {Dispatch} from "redux";
 
 interface FormValues {
   email: string;
   password: string;
+  setVisible: (visible: boolean) => void;
 }
 
 interface OtherProps {
   message: string;
   visibleLogin: boolean;
-  visibleAuthBlock: boolean;
+  setVisible: (visible: boolean) => void;
   setVisibleLogin: (visible: boolean) => void;
 }
 
@@ -67,8 +70,9 @@ interface MyFormProps {
   initialEmail?: string;
   message: string;
   visibleLogin: boolean;
-  visibleAuthBlock: boolean;
+  setVisible: (visible: boolean) => void;
   setVisibleLogin: (visible: boolean) => void;
+  dispatch: Dispatch
 }
 
 const Login = withFormik<MyFormProps, FormValues, OtherProps>({
@@ -76,6 +80,7 @@ const Login = withFormik<MyFormProps, FormValues, OtherProps>({
     return {
       email: props.initialEmail || '',
       password: '',
+      setVisible: props.setVisible
     };
   },
 
@@ -88,9 +93,12 @@ const Login = withFormik<MyFormProps, FormValues, OtherProps>({
     return errors;
   },
 
-  handleSubmit: (values, {resetForm}) => {
-    userApi.login(values.email, values.password)
+  handleSubmit: (values, {props, resetForm}) => {
+    // userApi.login(values.email, values.password)
+    // @ts-ignore
+    props.dispatch(setLogin(values.email, values.password))
     resetForm()
+    values.setVisible(false)
   },
 })(LoginForm);
 

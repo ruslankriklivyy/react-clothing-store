@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { ProductsItem } from '../types/types';
-import jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
+import { setAuth } from '../redux/actions/auth';
+import { useDispatch } from 'react-redux';
 
 const instance = axios.create({
   baseURL: 'http://localhost:3001/',
@@ -22,21 +24,28 @@ export const productsApi = {
 
 export const userApi = {
   registration(email: string, password: string): Promise<any> {
-    return axios.post('http://localhost:5000/api/user/registration', {email, password, role: 'ADMIN'}).then(({data}) => {
-      localStorage.setItem('token', data.token)
-      console.log(data)
-      return jwt_decode(data.token)
-    })
+    return axios
+      .post('http://localhost:5000/api/user/registration', {
+        email,
+        password,
+        role: 'ADMIN',
+      })
+      .then(({ data }) => {
+        localStorage.setItem('token', JSON.stringify(data.token));
+        return jwt_decode(data.token);
+      });
   },
   login(email: string, password: string): Promise<any> {
-    return axios.post('http://localhost:5000/api/user/login', {email, password}).then(({data}) => {
-      localStorage.setItem('token', data.token)
-      return jwt_decode(data.token)
-    })
+    return axios
+      .post('http://localhost:5000/api/user/login', { email, password })
+      .then(({ data }) => {
+        localStorage.setItem('token', JSON.stringify(data.token));
+        return jwt_decode(data.token);
+      });
   },
   check(): Promise<any> {
-    return axios.get('http://localhost:5000/api/user/auth').then(({data}) => {
-      return data
-    })
+    return axios.get('http://localhost:5000/api/user/auth').then(({ data }) => {
+      return data;
+    });
   },
-}
+};

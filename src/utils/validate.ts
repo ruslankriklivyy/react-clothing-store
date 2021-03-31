@@ -16,7 +16,7 @@ const validateForm = (isAuth: boolean, errors: any, values: FormValues) => {
       if (!value) {
         errors.password = 'Введите пароль';
       } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/i.test(value)) {
-        errors.password = isAuth ? 'Неверный пароль' : 'Слишком лёгкий пароль';
+        errors.password = isAuth ? 'Неверный пароль или E-mail' : 'Слишком лёгкий пароль';
       }
     },
   };
