@@ -92,6 +92,15 @@ export const CartItemLeft = styled.div`
   }
 `;
 
+export const EmptyCart = styled.div`
+  width: 100%;
+
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+`;
+
 export const CartItemRight = styled.div``;
 
 export const CartItemName = styled.h4`

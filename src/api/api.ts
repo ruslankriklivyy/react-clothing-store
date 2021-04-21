@@ -1,47 +1,13 @@
 import axios from 'axios';
-import { ProductsItem } from '../types/types';
 import jwt_decode from 'jwt-decode';
-
-// const instance = axios.create({
-//   baseURL: 'http://localhost:3000/api/',
-// });
 
 const $host = axios.create({
   baseURL: 'https://607ff3b4a5be5d00176dcb21.mockapi.io/api/',
 });
 
-// const $authHost = axios.create({
-//   baseURL: 'http://localhost:5000/api/',
-//   headers: {
-//     authorization: `Bearer ${JSON.parse(localStorage.getItem('token') || '{}')}`,
-//   },
-// });
-
 export const productsApi = {
   fetchAllCloths(category: string | null) {
     return $host.get(`products${category ? `?category=${category}` : ''}`).then(({ data }) => {
-      return data;
-    });
-  },
-  fetchOneCloth(id: number) {
-    return $host.get(`products/${id}`).then(({ data }) => {
-      // const cloth = [data];
-      return data;
-    });
-  },
-  createCloth(cloth: any) {
-    return $host.post('cloth', cloth).then(({ data }) => {
-      return data;
-    });
-  },
-  createCategory(category: string) {
-    return $host.post('category', { name: category }).then(({ data }) => {
-      return data;
-    });
-  },
-  fetchCategory() {
-    return $host.get('category').then(({ data }) => {
-      console.log(data);
       return data;
     });
   },

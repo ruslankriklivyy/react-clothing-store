@@ -20,7 +20,11 @@ const validateForm = (isAuth: boolean, errors: any, values: FormValues) => {
       }
     },
   };
-  Object.keys(values).forEach((key) => rules[key as keyof FormValues] && rules[key as keyof FormValues](values[key as keyof FormValues]));
+  Object.keys(values).forEach(
+    (key) =>
+      rules[key as keyof FormValues] &&
+      rules[key as keyof FormValues](values[key as keyof FormValues]),
+  );
 };
 
 export default validateForm;

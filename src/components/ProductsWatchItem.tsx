@@ -84,39 +84,36 @@ const ProductsWatchItem: React.FC<IProductsWatchItem> = ({ setVisibleCart }) => 
           <ProductsWatchBlock>
             <ProductsWatchLeft name={chosenProduct.name}>
               <Slider {...settings}>
-                {chosenProduct.images &&
-                  chosenProduct.images.map((url, index) => (
-                    <img key={`${url}-${index}`} src={url} alt="futbolka" />
-                  ))}
+                {chosenProduct.images?.map((url, index) => (
+                  <img key={`${url}-${index}`} src={url} alt="futbolka" />
+                ))}
               </Slider>
             </ProductsWatchLeft>
             <ProductWatchRight>
               <ProductWatchPrice name={chosenProduct.name}>
                 {priceConvert(chosenProduct.price)} RUB
               </ProductWatchPrice>
-              <ProductWatchDelivery name={chosenProduct && chosenProduct.name}>
+              <ProductWatchDelivery name={chosenProduct?.name}>
                 {`(Доставка по миру - ${chosenProduct.delivery_world_price} RUB, по Украине - ${chosenProduct.delivery_ukraine_price} UAH)`}
               </ProductWatchDelivery>
-              {chosenProduct.description &&
-                chosenProduct.description.map((item: any) => (
-                  <ProductsWatchDescr name={chosenProduct.name}>{item}</ProductsWatchDescr>
-                ))}
+              {chosenProduct?.description?.map((item: any) => (
+                <ProductsWatchDescr name={chosenProduct.name}>{item}</ProductsWatchDescr>
+              ))}
               <ProductWatchTypeName>Выберите размер:</ProductWatchTypeName>
               <ProductWatchSizes>
-                {chosenProduct.sizes &&
-                  chosenProduct.sizes.map((size, index) => (
-                    <ProductWatchSize
-                      href="/"
-                      name={chosenProduct.name}
-                      active={
-                        sizeTypes[chosenProduct.id] && size === sizeTypes[chosenProduct.id].size[0]
-                      }
-                      onClick={(e: React.MouseEvent<HTMLElement>) =>
-                        onSetSize(size, chosenProduct.id, e)
-                      }>
-                      {size}
-                    </ProductWatchSize>
-                  ))}
+                {chosenProduct.sizes?.map((size, index) => (
+                  <ProductWatchSize
+                    href="/"
+                    name={chosenProduct.name}
+                    active={
+                      sizeTypes[chosenProduct.id] && size === sizeTypes[chosenProduct.id].size[0]
+                    }
+                    onClick={(e: React.MouseEvent<HTMLElement>) =>
+                      onSetSize(size, chosenProduct.id, e)
+                    }>
+                    {size}
+                  </ProductWatchSize>
+                ))}
               </ProductWatchSizes>
               <ProductWatchBottom>
                 <Button

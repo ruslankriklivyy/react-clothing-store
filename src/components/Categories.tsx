@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { setCategory, setCategoryName } from '../redux/actions/products';
+import { setCategoryName } from '../redux/actions/products';
 
 import { CategoriesWrapper } from '../styles/CategoriesStyle';
 
@@ -19,10 +19,8 @@ export interface ICategories {
 
 const Categories: React.FC<ICategories> = ({
   items,
-  category,
   links,
   onSelectCategory,
-  categoryName,
   setVisibleBurgerMenu,
   show,
   onSelectCloth,
@@ -36,10 +34,12 @@ const Categories: React.FC<ICategories> = ({
   };
 
   const selectCategory = (name: string, id: number, indexItem: number) => {
-    onSelect(id);
     const type = links.filter((name, index) => index === indexItem);
+
+    onSelect(id);
     onSelectCategory(type.join(''), name);
     dispatch(setCategoryName(name));
+
     if (show && setVisibleBurgerMenu) {
       setVisibleBurgerMenu(false);
     }

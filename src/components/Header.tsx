@@ -2,12 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import priceConvert from '../utils/priceConvert';
-import {
-  getAllCloths,
-  setCategory,
-  setCategoryId,
-  setCategoryName,
-} from '../redux/actions/products';
+import { setCategory, setCategoryId, setCategoryName } from '../redux/actions/products';
 import { Auth, Cart, BurgerMenu, Categories, Logout } from '../components';
 import { RootState } from '../redux/reducers';
 import { setAuth } from '../redux/actions/auth';

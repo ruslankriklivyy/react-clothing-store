@@ -37,7 +37,7 @@ const Auth: React.FC<IAuth> = ({ show, setVisible }) => {
           setVisible={setVisible}
           visibleLogin={visibleLogin}
           setVisibleLogin={setVisibleLogin}
-          message="Sign up"
+          message="Log in"
         />
       )}
     </LoginWrapper>

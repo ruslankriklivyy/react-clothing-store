@@ -1,11 +1,10 @@
-import { CartItem, ProductsItem } from '../../types/types';
+import { ProductsItem } from '../../types/types';
 
 const ADD_CART_ITEM = 'ADD_CART_ITEM';
 const PLUS_CART_ITEM = 'PLUS_CART_ITEM';
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
 const SET_TOTAL_PRICE = 'SET_TOTAL_PRICE';
 const MINUS_CART_ITEM = 'MINUS_CART_ITEM';
-const SET_CART_ITEMS = 'SET_CART_ITEMS';
 const SET_CART_ITEM = 'SET_CART_ITEM';
 const SET_CART_ITEM_ID = 'SET_CART_ID';
 const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM';

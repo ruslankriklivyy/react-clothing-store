@@ -5,6 +5,7 @@ import backSvg from '../assets/img/back.svg';
 import plusSvg from '../assets/img/plus.svg';
 import minusSvg from '../assets/img/remove.svg';
 import removeSvg from '../assets/img/cancel.svg';
+import emptyCartSvg from '../assets/img/empty-cart.svg';
 import {
   minusCartItem,
   plusCartItem,
@@ -28,6 +29,7 @@ import {
   CartItemCount,
   CartItemTotalPrice,
   CartItemBottom,
+  EmptyCart,
 } from '../styles/CartStyle';
 
 export interface ICart {
@@ -104,7 +106,7 @@ const Cart: React.FC<ICart> = ({ visibleCart, setVisibleCart, show }) => {
         </button>
         <CartTitle>Мои покупки</CartTitle>
       </CartHeader>
-      {cartItems &&
+      {cartItems && addedItems.length > 0 ? (
         addedItems.map(
           (obj) =>
             obj && (
@@ -143,7 +145,12 @@ const Cart: React.FC<ICart> = ({ visibleCart, setVisibleCart, show }) => {
                 </CartItem>
               </>
             ),
-        )}
+        )
+      ) : (
+        <EmptyCart>
+          <img src={emptyCartSvg} alt="emptyCart svg" />
+        </EmptyCart>
+      )}
       <CartItemBottom>
         <span>Итого:</span> <b>{priceConvert(totalPrice)} RUB</b>
       </CartItemBottom>
