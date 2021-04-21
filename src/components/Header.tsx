@@ -112,10 +112,6 @@ const Header: React.FC<IHeader> = ({
     }
   }, [dispatch]);
 
-  // React.useEffect(() => {
-  //   dispatch(getAllCloths(category));
-  // }, [dispatch, category]);
-
   return (
     <>
       <BlockOut

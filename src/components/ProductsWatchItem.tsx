@@ -52,7 +52,7 @@ const ProductsWatchItem: React.FC<IProductsWatchItem> = ({ setVisibleCart }) => 
   React.useEffect(() => {
     const chosenProductRef = JSON.parse(localStorage.getItem('chosenProduct') || '{}');
 
-    if (chosenProductRef) {
+    if (!chosenProduct) {
       dispatch(setChosenProduct(chosenProductRef));
     }
   }, [dispatch, chosenProduct]);
