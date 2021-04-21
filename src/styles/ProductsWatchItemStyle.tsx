@@ -4,6 +4,7 @@ import { ProductsItem } from '../types/types';
 import { IActive } from '../components/ProductsWatchItem';
 
 export const ProductsWatch = styled.div`
+  min-height: calc(100vh - 122px);
   background-color: ${(props: ProductsItem) =>
     props.name && props.name.includes('Black') ? '#000' : '#EBE6E8'};
   padding-bottom: 140px;
@@ -29,6 +30,7 @@ export const ProductsWatchBlock = styled.div`
 
 export const ProductsWatchLeft = styled.div`
   width: 44%;
+
   img {
     display: block !important;
     margin: 0 auto !important;
@@ -130,16 +132,21 @@ export const ProductsWatchLeft = styled.div`
     }
   }
   @media ${device.mobile} {
+    width: 100%;
+    img {
+      width: 100%;
+      height: 300px;
+    }
     .slick-prev::before,
     .slick-next::before {
       font-size: 35px;
     }
 
     .slick-prev {
-      left: 17px;
+      left: 50px;
     }
     .slick-next {
-      left: 178px;
+      right: 60px;
     }
     .slick-arrow {
       top: 107%;

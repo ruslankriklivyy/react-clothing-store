@@ -88,6 +88,7 @@ export const CartItemLeft = styled.div`
     width: 100px;
     height: 120px;
     z-index: 200;
+    object-fit: contain;
   }
 `;
 

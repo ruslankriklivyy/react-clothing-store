@@ -2,10 +2,14 @@ import styled from 'styled-components';
 import { device } from '../utils/deviceMedia';
 
 export const FooterBlock = styled.footer`
+  /* position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0; */
   flex: 0 0 auto;
   background-color: #000;
   min-height: 122px;
-  padding-top: 20px;
+  padding-top: 30px;
 `;
 
 export const Container = styled.div`
@@ -18,6 +22,7 @@ export const Container = styled.div`
 export const FooterBlockWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+
   @media ${device.mobile} {
     flex-direction: column;
   }

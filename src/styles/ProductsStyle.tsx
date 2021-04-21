@@ -13,6 +13,7 @@ export const Container = styled.div`
 `;
 
 export const ProductsMain = styled.div`
+  min-height: calc(100vh - 122px);
   display: flex;
   justify-content: flex-start;
   align-items: center;

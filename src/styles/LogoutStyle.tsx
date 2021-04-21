@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { ILogout } from '../components/Logout';
+import { device } from '../utils/deviceMedia';
 
 export const LogoutWrapper = styled.div`
   position: absolute;
@@ -20,6 +21,9 @@ export const LogoutWrapper = styled.div`
     font-weight: 500;
     font-size: 24px;
     text-transform: uppercase;
+  }
+  @media ${device.mobile} {
+    width: 90%;
   }
 `;
 

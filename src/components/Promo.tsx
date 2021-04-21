@@ -35,7 +35,7 @@ const Promo = () => {
             <PromoBlockItem key={id}>
               <h4>{title}</h4>
               <p>{text}</p>
-              <Link to="/category/memes">
+              <Link to="/category">
                 <Button>Перейти к покупке</Button>
               </Link>
             </PromoBlockItem>

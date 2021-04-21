@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+import { device } from '../utils/deviceMedia';
 
 export const PromoWrapper = styled.div`
   margin-top: 20px;
-  margin-bottom: 60px;
-  height: 630px;
+  min-height: calc(100vh - 122px);
+  height: 100%;
 `;
 
 export const Container = styled.div`
@@ -27,17 +28,23 @@ export const PromoMain = styled.div`
 export const PromoBlocks = styled.div`
   display: flex;
   justify-content: space-between;
+  height: 100%;
+
+  @media ${device.laptopL} {
+    flex-direction: column;
+  }
 `;
 
 export const PromoBlockItem = styled.div`
   position: relative;
   margin-top: 20px;
   width: 400px;
-  height: 400px;
+  min-height: 400px;
   border-radius: 29px;
   background: #000;
   padding: 20px;
   text-align: center;
+
   h4 {
     padding-top: 140px;
     margin-bottom: 8px;
@@ -59,5 +66,18 @@ export const PromoBlockItem = styled.div`
     left: 50%;
     transform: translate(-50%, 0);
     bottom: 60px;
+  }
+  @media ${device.laptopL} {
+    margin: 0 auto 15px auto;
+  }
+  @media ${device.mobile} {
+    width: 100%;
+    h4 {
+      padding-top: 90px;
+      font-size: 22px;
+    }
+    p {
+      font-size: 16px;
+    }
   }
 `;
