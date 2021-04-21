@@ -21,12 +21,11 @@ export const getProducts = (category: string | null): Thunk => async (dispatch) 
 
 export const getOneCloth = (id: number): Thunk => async (dispatch) => {
   const cloth = await productsApi.fetchOneCloth(id);
-  dispatch(setChosenProduct(cloth));
 };
 
-export const getAllCloths = (id: number): Thunk => async (dispatch) => {
-  const data = await productsApi.fetchAllCloths(id);
-  const newCloths = data.rows.filter((item: any) => item.categoryId === id);
+export const getAllCloths = (category: string | null): Thunk => async (dispatch) => {
+  const data = await productsApi.fetchAllCloths(category);
+  const newCloths = data.filter((item: any) => item.category === category);
   dispatch(setProducts(newCloths));
 };
 
@@ -87,10 +86,10 @@ export const setProductId = (id: number): SetProductId => ({
 
 type SetChosenProduct = {
   type: typeof SET_CHOSEN_PRODUCT;
-  payload: Array<ProductsItem>;
+  payload: ProductsItem | null;
 };
 
-export const setChosenProduct = (item: Array<ProductsItem>): SetChosenProduct => ({
+export const setChosenProduct = (item: ProductsItem | null): SetChosenProduct => ({
   type: SET_CHOSEN_PRODUCT,
   payload: item,
 });

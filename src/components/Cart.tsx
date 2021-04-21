@@ -111,7 +111,7 @@ const Cart: React.FC<ICart> = ({ visibleCart, setVisibleCart, show }) => {
               <>
                 <CartItem key={obj.id}>
                   <CartItemLeft>
-                    <img src={`http://localhost:5000/${obj.img}`} alt="product img" />
+                    <img src={obj.images && obj.images[0]} alt="product img" />
                     <CartItemRemove
                       href="/"
                       onClick={(e: React.MouseEvent<HTMLElement>) => onRemove(obj.id, e)}>

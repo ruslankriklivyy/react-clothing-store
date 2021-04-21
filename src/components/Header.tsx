@@ -8,6 +8,7 @@ import {
   setCategory,
   setCategoryId,
   setCategoryName,
+  setChosenProduct,
 } from '../redux/actions/products';
 import { Auth, Cart, BurgerMenu, Categories, Logout } from '../components';
 import { RootState } from '../redux/reducers';
@@ -113,6 +114,10 @@ const Header: React.FC<IHeader> = ({
     }
   }, [dispatch]);
 
+  React.useEffect(() => {
+    dispatch(getAllCloths(category));
+  }, [dispatch, category]);
+
   return (
     <>
       <BlockOut
@@ -120,7 +125,7 @@ const Header: React.FC<IHeader> = ({
         show={
           visibleCart || visibleAuthBlock || visibleBurgerMenu || visibleLogout ? 'show' : ''
         }></BlockOut>
-      <HeaderMain name={chosenProduct && chosenProduct[0].name}>
+      <HeaderMain name={chosenProduct && chosenProduct.name}>
         <Logout show={visibleLogout} setVisibleLogout={setVisibleLogout} />
         <Auth
           show={visibleAuthBlock}
@@ -133,7 +138,6 @@ const Header: React.FC<IHeader> = ({
               <img src={logoPng} alt="logo png" />
             </Link>
           </Logo>
-
           <Categories
             onSelectCategory={onSelectCategory}
             categoryName={categoryName}

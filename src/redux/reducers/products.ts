@@ -5,7 +5,7 @@ const initialState = {
   items: [] as Array<ProductsItem>,
   category: 'hoodies' as string | null,
   categoryName: '' as string,
-  chosenProduct: null as Array<ProductsItem> | null,
+  chosenProduct: null as ProductsItem | null,
   productId: 0 as number,
   categories: null as any,
   categoryId: 0 as number,

@@ -7,7 +7,7 @@ import jwt_decode from 'jwt-decode';
 // });
 
 const $host = axios.create({
-  baseURL: 'https://mockend.com/org/repo/',
+  baseURL: 'https://607ff3b4a5be5d00176dcb21.mockapi.io/api/',
 });
 
 // const $authHost = axios.create({
@@ -25,8 +25,8 @@ export const productsApi = {
       }
     });
   },
-  fetchAllCloths(id: number) {
-    return $host.get(`products`).then(({ data }) => {
+  fetchAllCloths(category: string | null) {
+    return $host.get(`products${category ? `?category=${category}` : ''}`).then(({ data }) => {
       console.log(data);
       return data;
     });

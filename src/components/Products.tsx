@@ -11,6 +11,7 @@ import {
   setProductId,
   setCategoryId,
   setCategoryName,
+  setChosenProduct,
 } from '../redux/actions/products';
 import {
   ProductItemBlockout,
@@ -24,12 +25,22 @@ import arrowSvg from '../assets/img/arrow.svg';
 
 const Products = () => {
   const dispatch = useDispatch();
-  const { items, categoryName, categoryId } = useSelector((state: RootState) => state.products);
+  const { items, categoryName, categoryId, productId } = useSelector(
+    (state: RootState) => state.products,
+  );
 
   const onSelectItem = (id: number) => {
+    const newItem = items.filter((item) => item.id === id);
+    console.log(newItem);
+    dispatch(setChosenProduct(newItem[0]));
+
     dispatch(setProductId(id));
-    dispatch(getOneCloth(id));
+    // dispatch(getOneCloth(id));
   };
+
+  // React.useEffect(() => {
+
+  // }, [dispatch, items, productId]);
 
   React.useEffect(() => {
     const categoryNameRef = localStorage.getItem('categoryName');
@@ -55,17 +66,13 @@ const Products = () => {
     }
   }, [categoryId]);
 
-  React.useEffect(() => {
-    dispatch(getAllCloths(categoryId));
-  }, [dispatch, categoryId]);
-
   return (
     <ProductsWrapper>
       <Container>
         <Title>{categoryName}</Title>
         <ProductsMain>
           {items &&
-            items.map(({ name, id, img, price }) => (
+            items.map(({ name, id, images, price }) => (
               <ProductsItem key={id}>
                 <Link to={`/product/${id}`} onClick={() => onSelectItem(id)}>
                   <ProductItemBlockout>
@@ -76,7 +83,7 @@ const Products = () => {
                     </Button>
                   </ProductItemBlockout>
                   <span>{priceConvert(price)} RUB</span>
-                  <img src={`http://localhost:5000/${img}`} alt="cloth img" />
+                  <img src={images && images[0]} alt="cloth img" />
                 </Link>
                 <Button className={'product-button'} product>
                   {name}

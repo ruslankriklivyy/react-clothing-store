@@ -77,46 +77,42 @@ const ProductsWatchItem: React.FC<IProductsWatchItem> = ({ setVisibleCart }) => 
   };
 
   return (
-    chosenProduct &&
-    chosenProduct[0] && (
-      <ProductsWatch name={chosenProduct[0].name}>
+    chosenProduct && (
+      <ProductsWatch name={chosenProduct.name}>
         <Container>
-          <Title name={chosenProduct[0].name}>{chosenProduct[0].name}</Title>
+          <Title name={chosenProduct.name}>{chosenProduct.name}</Title>
           <ProductsWatchBlock>
-            <ProductsWatchLeft name={chosenProduct[0].name}>
+            <ProductsWatchLeft name={chosenProduct.name}>
               <Slider {...settings}>
-                <img src={`http://localhost:5000/${chosenProduct[0].img}`} alt="futbolka" />
-                {/* {chosenProduct[0].img.map((url, index) => (
-                  <img key={`${url}-${index}`} src={url} alt="futbolka" />
-                ))} */}
+                {chosenProduct.images &&
+                  chosenProduct.images.map((url, index) => (
+                    <img key={`${url}-${index}`} src={url} alt="futbolka" />
+                  ))}
               </Slider>
             </ProductsWatchLeft>
             <ProductWatchRight>
-              <ProductWatchPrice name={chosenProduct[0].name}>
-                {priceConvert(chosenProduct[0].price)} RUB
+              <ProductWatchPrice name={chosenProduct.name}>
+                {priceConvert(123)} RUB
               </ProductWatchPrice>
-              <ProductWatchDelivery name={chosenProduct[0] && chosenProduct[0].name}>
-                {`(Доставка по миру - ${chosenProduct[0].delivery_world_price} RUB, по Украине - ${chosenProduct[0].delivery_ukraine_price} UAH)`}
+              <ProductWatchDelivery name={chosenProduct && chosenProduct.name}>
+                {`(Доставка по миру - ${chosenProduct.delivery_world_price} RUB, по Украине - ${chosenProduct.delivery_ukraine_price} UAH)`}
               </ProductWatchDelivery>
-              {chosenProduct[0].info &&
-                chosenProduct[0].info.map((item: any) => (
-                  <ProductsWatchDescr name={chosenProduct[0].name}>
-                    {item.description}
-                  </ProductsWatchDescr>
+              {chosenProduct.description &&
+                chosenProduct.description.map((item: any) => (
+                  <ProductsWatchDescr name={chosenProduct.name}>{item}</ProductsWatchDescr>
                 ))}
               <ProductWatchTypeName>Выберите размер:</ProductWatchTypeName>
               <ProductWatchSizes>
-                {chosenProduct[0].sizes &&
-                  chosenProduct[0].sizes.map((size, index) => (
+                {chosenProduct.sizes &&
+                  chosenProduct.sizes.map((size, index) => (
                     <ProductWatchSize
                       href="/"
-                      name={chosenProduct[0].name}
+                      name={chosenProduct.name}
                       active={
-                        sizeTypes[chosenProduct[0].id] &&
-                        size === sizeTypes[chosenProduct[0].id].size[0]
+                        sizeTypes[chosenProduct.id] && size === sizeTypes[chosenProduct.id].size[0]
                       }
                       onClick={(e: React.MouseEvent<HTMLElement>) =>
-                        onSetSize(size, chosenProduct[0].id, e)
+                        onSetSize(size, chosenProduct.id, e)
                       }>
                       {size}
                     </ProductWatchSize>
@@ -124,8 +120,8 @@ const ProductsWatchItem: React.FC<IProductsWatchItem> = ({ setVisibleCart }) => 
               </ProductWatchSizes>
               <ProductWatchBottom>
                 <Button
-                  name={chosenProduct[0].name}
-                  onClick={() => onAddToCart(chosenProduct[0])}
+                  name={chosenProduct.name}
+                  onClick={() => onAddToCart(chosenProduct)}
                   addToCart>
                   Добавить в корзину
                 </Button>

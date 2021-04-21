@@ -2,7 +2,12 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { getCategories, setCategory } from '../redux/actions/products';
+import {
+  getAllCloths,
+  getCategories,
+  setCategory,
+  setCategoryName,
+} from '../redux/actions/products';
 import { RootState } from '../redux/reducers';
 import { Categories as CategoriesType } from '../types/types';
 
@@ -30,7 +35,6 @@ const Categories: React.FC<ICategories> = ({
   onSelectCloth,
 }) => {
   const dispatch = useDispatch();
-  const { categories } = useSelector((state: RootState) => state.products);
 
   const onSelect = (id: number) => {
     if (onSelectCloth) {
@@ -41,8 +45,8 @@ const Categories: React.FC<ICategories> = ({
   const selectCategory = (name: string, id: number, indexItem: number) => {
     onSelect(id);
     const type = links.filter((name, index) => index === indexItem);
-    onSelectCategory(type.join('').toLowerCase(), name);
-
+    onSelectCategory(type.join(''), name);
+    dispatch(setCategoryName(name));
     if (show && setVisibleBurgerMenu) {
       setVisibleBurgerMenu(false);
     }
