@@ -6,7 +6,6 @@ import priceConvert from '../utils/priceConvert';
 import { RootState } from '../redux/reducers';
 import { Button, Title } from '.';
 import {
-  getOneCloth,
   getAllCloths,
   setProductId,
   setCategoryId,
@@ -25,22 +24,15 @@ import arrowSvg from '../assets/img/arrow.svg';
 
 const Products = () => {
   const dispatch = useDispatch();
-  const { items, categoryName, categoryId, productId } = useSelector(
+  const { items, categoryName, categoryId, category } = useSelector(
     (state: RootState) => state.products,
   );
 
   const onSelectItem = (id: number) => {
     const newItem = items.filter((item) => item.id === id);
-    console.log(newItem);
     dispatch(setChosenProduct(newItem[0]));
-
     dispatch(setProductId(id));
-    // dispatch(getOneCloth(id));
   };
-
-  // React.useEffect(() => {
-
-  // }, [dispatch, items, productId]);
 
   React.useEffect(() => {
     const categoryNameRef = localStorage.getItem('categoryName');
@@ -65,6 +57,10 @@ const Products = () => {
       localStorage.setItem('categoryId', JSON.stringify(categoryId));
     }
   }, [categoryId]);
+
+  React.useEffect(() => {
+    dispatch(getAllCloths(category));
+  }, [dispatch, category]);
 
   return (
     <ProductsWrapper>

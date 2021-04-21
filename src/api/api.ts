@@ -18,23 +18,14 @@ const $host = axios.create({
 // });
 
 export const productsApi = {
-  getProducts(category: string | null): Promise<Array<ProductsItem>> {
-    return axios.get(`${category ? `products/category=${category}` : ''}`).then(({ data }) => {
-      if (category) {
-        return data;
-      }
-    });
-  },
   fetchAllCloths(category: string | null) {
     return $host.get(`products${category ? `?category=${category}` : ''}`).then(({ data }) => {
-      console.log(data);
       return data;
     });
   },
   fetchOneCloth(id: number) {
     return $host.get(`products/${id}`).then(({ data }) => {
       // const cloth = [data];
-      console.log(data);
       return data;
     });
   },

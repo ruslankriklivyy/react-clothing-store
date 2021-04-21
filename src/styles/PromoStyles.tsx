@@ -72,6 +72,7 @@ export const PromoBlockItem = styled.div`
   }
   @media ${device.mobile} {
     width: 100%;
+    min-height: 300px;
     h4 {
       padding-top: 90px;
       font-size: 22px;

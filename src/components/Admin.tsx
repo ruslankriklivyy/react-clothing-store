@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 
-import { addCategory, createCloth } from '../redux/actions/products';
+// import { addCategory, createCloth } from '../redux/actions/products';
 import { RootState } from '../redux/reducers';
 import { Categories } from '../types/types';
 import { AdminAvailabelTypes, AdminForm, AdminType, AdminWrapper } from '../styles/AdminStyle';
@@ -23,7 +23,7 @@ const Admin = () => {
   const [file, setFile] = React.useState('');
 
   const onAddCategory = () => {
-    dispatch(addCategory(categoryValue));
+    // dispatch(addCategory(categoryValue));
     setCategoryValue('');
   };
 
@@ -77,7 +77,7 @@ const Admin = () => {
     formData.append('categoryId', `${selectedCat}`);
     console.log(clothInfo);
     formData.append('info', JSON.stringify(clothInfo));
-    dispatch(createCloth(formData));
+    // dispatch(createCloth(formData));
   };
 
   return (

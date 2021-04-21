@@ -1,15 +1,8 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import {
-  getAllCloths,
-  getCategories,
-  setCategory,
-  setCategoryName,
-} from '../redux/actions/products';
-import { RootState } from '../redux/reducers';
-import { Categories as CategoriesType } from '../types/types';
+import { setCategory, setCategoryName } from '../redux/actions/products';
 
 import { CategoriesWrapper } from '../styles/CategoriesStyle';
 
@@ -56,10 +49,6 @@ const Categories: React.FC<ICategories> = ({
     const newLinks = links.filter((name, index) => index === indexItem);
     return newLinks.join('').toLowerCase();
   };
-
-  React.useEffect(() => {
-    dispatch(getCategories());
-  }, [dispatch]);
 
   React.useEffect(() => {
     const categoryRef = localStorage.getItem('category');

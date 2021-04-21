@@ -52,7 +52,7 @@ const ProductsWatchItem: React.FC<IProductsWatchItem> = ({ setVisibleCart }) => 
   React.useEffect(() => {
     const chosenProductRef = JSON.parse(localStorage.getItem('chosenProduct') || '{}');
 
-    if (!chosenProduct) {
+    if (chosenProductRef) {
       dispatch(setChosenProduct(chosenProductRef));
     }
   }, [dispatch, chosenProduct]);
@@ -92,7 +92,7 @@ const ProductsWatchItem: React.FC<IProductsWatchItem> = ({ setVisibleCart }) => 
             </ProductsWatchLeft>
             <ProductWatchRight>
               <ProductWatchPrice name={chosenProduct.name}>
-                {priceConvert(123)} RUB
+                {priceConvert(chosenProduct.price)} RUB
               </ProductWatchPrice>
               <ProductWatchDelivery name={chosenProduct && chosenProduct.name}>
                 {`(Доставка по миру - ${chosenProduct.delivery_world_price} RUB, по Украине - ${chosenProduct.delivery_ukraine_price} UAH)`}

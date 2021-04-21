@@ -4,11 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import priceConvert from '../utils/priceConvert';
 import {
   getAllCloths,
-  getProducts,
   setCategory,
   setCategoryId,
   setCategoryName,
-  setChosenProduct,
 } from '../redux/actions/products';
 import { Auth, Cart, BurgerMenu, Categories, Logout } from '../components';
 import { RootState } from '../redux/reducers';
@@ -114,9 +112,9 @@ const Header: React.FC<IHeader> = ({
     }
   }, [dispatch]);
 
-  React.useEffect(() => {
-    dispatch(getAllCloths(category));
-  }, [dispatch, category]);
+  // React.useEffect(() => {
+  //   dispatch(getAllCloths(category));
+  // }, [dispatch, category]);
 
   return (
     <>

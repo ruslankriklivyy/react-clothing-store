@@ -14,34 +14,10 @@ const SET_ONE_CLOTH = 'SET_ONE_CLOTH';
 
 type Thunk = ThunkAction<Promise<void>, InitialState, unknown, ActionTypes>;
 
-export const getProducts = (category: string | null): Thunk => async (dispatch) => {
-  const data = await productsApi.getProducts(category);
-  dispatch(setProducts(data));
-};
-
-export const getOneCloth = (id: number): Thunk => async (dispatch) => {
-  const cloth = await productsApi.fetchOneCloth(id);
-};
-
 export const getAllCloths = (category: string | null): Thunk => async (dispatch) => {
   const data = await productsApi.fetchAllCloths(category);
   const newCloths = data.filter((item: any) => item.category === category);
   dispatch(setProducts(newCloths));
-};
-
-export const addCategory = (category: string): Thunk => async (dispatch) => {
-  const data = await productsApi.createCategory(category);
-  console.log(data);
-};
-
-export const getCategories = (): Thunk => async (dispatch) => {
-  const data = await productsApi.fetchCategory();
-  dispatch(setCategories(data));
-};
-
-export const createCloth = (cloth: any): Thunk => async (dispatch) => {
-  const data = await productsApi.createCloth(cloth);
-  return data;
 };
 
 type SetOneCloth = {
