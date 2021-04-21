@@ -11,24 +11,30 @@ type SetUser = {
   type: typeof SET_USER;
   email: string;
   password: string;
+  role: string;
 };
 
-export const setUser = (email: string, password: string): SetUser => ({
+export const setUser = (email: string, password: string, role: string): SetUser => ({
   type: SET_USER,
   email,
   password,
+  role,
 });
 
 export const setRegistration = (email: string, password: string): Thunk => async (dispatch) => {
   const data = await userApi.registration(email, password);
-  dispatch(setAuth(data.token && true));
-  dispatch(setUser(email, password));
+  const token = JSON.parse(localStorage.getItem('token') || '{}');
+  dispatch(setUser(email, password, data.role));
+  if (token) {
+    dispatch(setAuth(true));
+  }
 };
 
 export const setLogin = (email: string, password: string): Thunk => async (dispatch) => {
   const data = await userApi.login(email, password);
   const token = JSON.parse(localStorage.getItem('token') || '{}');
-  dispatch(setUser(email, password));
+  localStorage.setItem('role', JSON.stringify(data.role));
+  dispatch(setUser(email, password, data.role));
   if (token) {
     dispatch(setAuth(true));
   }

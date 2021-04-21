@@ -6,16 +6,20 @@ const initialState = {
   category: 'hoodies' as string | null,
   categoryName: '' as string,
   chosenProduct: null as Array<ProductsItem> | null,
-  productId: null as number | null,
+  productId: 0 as number,
+  categories: null as any,
+  categoryId: 0 as number,
 };
 
 export type InitialState = typeof initialState;
 
 const SET_PRODUCTS = 'SET_PRODUCTS';
 const SET_CATEGORY = 'SET_CATEGORY';
+const SET_CATEGORIES = 'SET_CATEGORIES';
 const SET_PRODUCT_ID = 'SET_PRODUCT_ID';
 const SET_CHOSEN_PRODUCT = 'SET_CHOSEN_PRODUCT';
 const SET_CATEGORY_NAME = 'SET_CATEGORY_NAME';
+const SET_CATEGORY_ID = 'SET_CATEGORY_ID';
 
 export const products = (state = initialState, action: ActionTypes): InitialState => {
   switch (action.type) {
@@ -23,6 +27,18 @@ export const products = (state = initialState, action: ActionTypes): InitialStat
       return {
         ...state,
         items: action.payload,
+      };
+
+    case SET_CATEGORY_ID:
+      return {
+        ...state,
+        categoryId: action.payload,
+      };
+
+    case SET_CATEGORIES:
+      return {
+        ...state,
+        categories: action.payload,
       };
 
     case SET_CATEGORY:

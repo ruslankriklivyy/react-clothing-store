@@ -1,7 +1,9 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Route } from 'react-router-dom';
 
-import { Header, Promo, Products, ProductsWatchItem, Footer } from '../components';
+import { Header, Promo, Products, ProductsWatchItem, Footer, Admin } from '../components';
+import { RootState } from '../redux/reducers';
 
 const categoriesNames = [
   'Memes.Jolybell',
@@ -41,6 +43,9 @@ const Home = () => {
           />
         )}
       />
+      {JSON.parse(localStorage.getItem('role') || '{}') === 'ADMIN' && (
+        <Route exact path="/admin" render={() => <Admin />} />
+      )}
       <Route exact path="/" component={Promo} />
       <Route path="/category" component={Products} />
       <Route

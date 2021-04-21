@@ -1,14 +1,15 @@
-import {ActionTypes} from '../actions/auth';
+import { ActionTypes } from '../actions/auth';
 
 interface IUser {
-  email: '' | string,
-  password: '' | string
+  email: '' | string;
+  password: '' | string;
+  role: '' | string;
 }
 
 const initialState = {
   user: {} as IUser,
-  isAuth: false as boolean
-}
+  isAuth: false as boolean,
+};
 
 export type InitialState = typeof initialState;
 
@@ -22,17 +23,18 @@ export const auth = (state = initialState, action: ActionTypes): InitialState =>
         ...state,
         user: {
           email: action.email,
-          password: action.password
-        }
-      }
+          password: action.password,
+          role: action.role,
+        },
+      };
 
     case SET_AUTH:
       return {
         ...state,
-        isAuth: action.isAuth
-      }
+        isAuth: action.isAuth,
+      };
 
     default:
-      return state
+      return state;
   }
-}
+};

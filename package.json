@@ -16,6 +16,7 @@
     "@types/styled-components": "^5.1.9",
     "@types/yup": "^0.29.11",
     "axios": "^0.21.1",
+    "classnames": "^2.3.0",
     "formik": "^2.2.6",
     "json-server": "^0.16.3",
     "jwt-decode": "^3.1.2",

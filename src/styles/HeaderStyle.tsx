@@ -88,7 +88,7 @@ export const BlockOut = styled.div`
   transition: all 0.3s ease;
 `;
 
-export const LoginImg = styled.div`
+export const HeaderImg = styled.div`
   margin-right: 20px;
   img {
     display: block;

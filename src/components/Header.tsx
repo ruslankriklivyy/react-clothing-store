@@ -2,7 +2,13 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import priceConvert from '../utils/priceConvert';
-import { getProducts, setCategory, setCategoryName } from '../redux/actions/products';
+import {
+  getAllCloths,
+  getProducts,
+  setCategory,
+  setCategoryId,
+  setCategoryName,
+} from '../redux/actions/products';
 import { Auth, Cart, BurgerMenu, Categories, Logout } from '../components';
 import { RootState } from '../redux/reducers';
 import { setAuth } from '../redux/actions/auth';
@@ -12,16 +18,18 @@ import {
   HeaderMain,
   HeaderRight,
   HeaderWrapper,
-  LoginImg,
+  HeaderImg,
   Logo,
   ShoppingBlockImage,
 } from '../styles/HeaderStyle';
 
+import adminSvg from '../assets/img/admin.svg';
 import logoPng from '../assets/img/logo-2.png';
 import authSvg from '../assets/img/auth.svg';
 import shopCart from '../assets/img/shopping-cart.svg';
 import menuBurgerSvg from '../assets/img/menu-burger.svg';
 import userSvg from '../assets/img/user.svg';
+import { Link } from 'react-router-dom';
 interface IHeader {
   categoriesNames: Array<string>;
   categoriesNamesEng: Array<string>;
@@ -41,7 +49,7 @@ const Header: React.FC<IHeader> = ({
   const { category, chosenProduct, categoryName } = useSelector(
     (state: RootState) => state.products,
   );
-  const { isAuth } = useSelector((state: RootState) => state.auth);
+  const { isAuth, user } = useSelector((state: RootState) => state.auth);
   const { totalPrice } = useSelector((state: RootState) => state.cart);
   const onSelectCategory = (type: string, name: string) => {
     dispatch(setCategory(type));
@@ -51,6 +59,10 @@ const Header: React.FC<IHeader> = ({
   const [visibleAuthBlock, setVisibleAuthBlock] = React.useState(false);
   const [visibleBurgerMenu, setVisibleBurgerMenu] = React.useState(false);
   const [visibleLogout, setVisibleLogout] = React.useState(false);
+
+  const onSelectCloth = (id: number) => {
+    dispatch(setCategoryId(id));
+  };
 
   const escapeListener = React.useCallback(
     (e) => {
@@ -87,10 +99,6 @@ const Header: React.FC<IHeader> = ({
   }, [clickListener, escapeListener]);
 
   React.useEffect(() => {
-    dispatch(getProducts(category));
-  }, [dispatch, category]);
-
-  React.useEffect(() => {
     visibleCart || visibleAuthBlock || visibleBurgerMenu
       ? document.querySelector<HTMLElement>('body')?.setAttribute('style', 'overflow: hidden')
       : document.querySelector<HTMLElement>('body')?.setAttribute('style', 'overflow: auto');
@@ -115,30 +123,43 @@ const Header: React.FC<IHeader> = ({
       <HeaderMain name={chosenProduct && chosenProduct[0].name}>
         <Logout show={visibleLogout} setVisibleLogout={setVisibleLogout} />
         <Auth
-          show={visibleAuthBlock && true}
+          show={visibleAuthBlock}
           visibleAuthBlock={visibleAuthBlock}
           setVisible={setVisibleAuthBlock}
         />
         <HeaderWrapper>
           <Logo>
-            <img src={logoPng} alt="logo png" />
+            <Link to="/">
+              <img src={logoPng} alt="logo png" />
+            </Link>
           </Logo>
+
           <Categories
             onSelectCategory={onSelectCategory}
             categoryName={categoryName}
             items={categoriesNames}
             category={category}
             links={categoriesNamesEng}
+            onSelectCloth={onSelectCloth}
           />
           <HeaderRight>
-            {!isAuth ? (
-              <LoginImg onClick={() => setVisibleAuthBlock(!visibleAuthBlock)}>
-                <img src={userSvg} alt="user svg" />
-              </LoginImg>
+            {user.role || JSON.parse(localStorage.getItem('role') || '{}') === 'ADMIN' ? (
+              <Link to="/admin">
+                <HeaderImg>
+                  <img src={adminSvg} alt="admin svg" />
+                </HeaderImg>
+              </Link>
             ) : (
-              <LoginImg onClick={() => setVisibleLogout(true)}>
+              ''
+            )}
+            {!isAuth ? (
+              <HeaderImg onClick={() => setVisibleAuthBlock(!visibleAuthBlock)}>
+                <img src={userSvg} alt="user svg" />
+              </HeaderImg>
+            ) : (
+              <HeaderImg onClick={() => setVisibleLogout(true)}>
                 <img src={authSvg} alt="auth svg" />
-              </LoginImg>
+              </HeaderImg>
             )}
             <div>
               <ShoppingBlockImage onClick={() => setVisibleCart(!visibleCart)}>

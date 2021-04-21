@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
 import priceConvert from '../utils/priceConvert';
 import backSvg from '../assets/img/back.svg';
 import plusSvg from '../assets/img/plus.svg';
@@ -16,198 +15,22 @@ import {
   setTotalPrice,
 } from '../redux/actions/cart';
 import { RootState } from '../redux/reducers';
-import { device } from '../utils/deviceMedia';
+import {
+  CartHeader,
+  CartItem,
+  CartItemRemove,
+  CartTitle,
+  CartWrapper,
+  CartItemLeft,
+  CartItemRight,
+  CartItemName,
+  CartItemParagraph,
+  CartItemCount,
+  CartItemTotalPrice,
+  CartItemBottom,
+} from '../styles/CartStyle';
 
-const CartWrapper = styled.div`
-  width: 380px;
-  height: 100%;
-  padding: 0 25px;
-  overflow: auto;
-  position: fixed;
-  top: 0;
-  right: ${(props: ICart) => (props.show ? '0' : '-400px')};
-  z-index: 900;
-  visibility: ${(props: ICart) => (props.show ? 'visbility' : 'hidden')};
-  background: #fff;
-  transition: all 0.7s ease;
-  @media ${device.mobileL} {
-    width: 100%;
-  }
-`;
-
-const CartHeader = styled.div`
-  button {
-    justify-content: center;
-    align-items: center;
-    font-weight: 300;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-size: 17px;
-    text-align: center;
-    display: flex;
-    width: 100%;
-    height: 120px;
-    background: transparent;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    border-bottom: 2px solid #ebeef1;
-    img {
-      width: 30px;
-      height: 30px;
-      transform: rotate(-180deg);
-      margin-right: 15px;
-    }
-  }
-`;
-
-const CartTitle = styled.h2`
-  font-weight: 400;
-  font-size: 36px;
-  padding-top: 25px;
-  padding-bottom: 20px;
-  text-align: left;
-  letter-spacing: 1px;
-  position: relative;
-  &::after {
-    content: '';
-    position: absolute;
-    top: 54%;
-    right: 7px;
-    z-index: 100;
-    width: 25%;
-    margin: 0 auto;
-    height: 2px;
-    background: #000;
-  }
-`;
-
-const CartItem = styled.div`
-  padding-top: 25px;
-  display: flex;
-  justify-content: flex-start;
-  padding-bottom: 20px;
-  border-top: 2px solid #ebeef1;
-`;
-
-const CartItemLeft = styled.div`
-  position: relative;
-  margin-right: 20px;
-  width: 120px;
-  height: 160px;
-  border: 2px solid #ebeef1;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  img {
-    width: 100px;
-    height: 120px;
-    z-index: 200;
-  }
-`;
-
-const CartItemRight = styled.div``;
-
-const CartItemName = styled.h4`
-  font-weight: 500;
-  font-size: 16px;
-  margin-bottom: 10px;
-`;
-
-const CartItemCount = styled.div`
-  display: block;
-  margin-top: 20px;
-  font-weight: 400;
-  font-size: 13px;
-  letter-spacing: 1px;
-  b {
-    font-weight: 400;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    padding-right: 8px;
-    font-size: 14px;
-    border-right: 2px solid #c1c1c1;
-  }
-  button {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    background: transparent;
-    border: none;
-    outline: none;
-    width: 15px;
-    height: 15px;
-    margin-left: 6px;
-    cursor: pointer;
-    img {
-      width: 8px !important;
-      height: 8px !important;
-    }
-  }
-`;
-
-const CartItemTotalPrice = styled.div`
-  display: block;
-  font-weight: 400;
-  font-size: 19px;
-  margin-top: 10px;
-  letter-spacing: 1px;
-  text-align: right;
-`;
-
-const CartItemBottom = styled.div`
-  height: 100px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  opacity: 0.8;
-  margin-top: 40px;
-  border-top: 2px solid #000;
-  padding: 40px 25px;
-  span {
-    font-size: 19px;
-    text-align: left;
-    color: #000;
-  }
-  b {
-    text-align: right;
-    font-size: 32px;
-    letter-spacing: 1px;
-  }
-`;
-
-const CartItemRemove = styled.a`
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: -10px;
-  left: -10px;
-  z-index: 200;
-  width: 23px;
-  height: 23px;
-  border-radius: 100%;
-  border: 1px solid #ebeef1;
-  background: #fff;
-  z-index: 600;
-  img {
-    display: block;
-    opacity: 0.5;
-    margin: 0 auto;
-    width: 10px;
-    height: 10px;
-  }
-`;
-
-const CartItemParagraph = styled.p`
-  display: block;
-  margin-top: 20px;
-  font-weight: 400;
-  font-size: 13px;
-  letter-spacing: 1px;
-`;
-
-interface ICart {
+export interface ICart {
   visibleCart: boolean;
   setVisibleCart: (visible: boolean) => void;
   show: boolean;
@@ -288,7 +111,7 @@ const Cart: React.FC<ICart> = ({ visibleCart, setVisibleCart, show }) => {
               <>
                 <CartItem key={obj.id}>
                   <CartItemLeft>
-                    <img src={obj.images[0]} alt="product img" />
+                    <img src={`http://localhost:5000/${obj.img}`} alt="product img" />
                     <CartItemRemove
                       href="/"
                       onClick={(e: React.MouseEvent<HTMLElement>) => onRemove(obj.id, e)}>
