@@ -36,7 +36,7 @@
   "scripts": {
     "start": "react-scripts start",
     "server": "json-server --watch  public/db.json --port=3001",
-    "build": "npm run build",
+    "build": "yarn build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
