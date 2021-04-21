@@ -50,6 +50,7 @@ const Header: React.FC<IHeader> = ({
   );
   const { isAuth, user } = useSelector((state: RootState) => state.auth);
   const { totalPrice } = useSelector((state: RootState) => state.cart);
+
   const onSelectCategory = (type: string, name: string) => {
     dispatch(setCategory(type));
     dispatch(setCategoryName(name));

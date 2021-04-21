@@ -11,6 +11,7 @@ import {
   setCategoryId,
   setCategoryName,
   setChosenProduct,
+  setCategory,
 } from '../redux/actions/products';
 import {
   ProductItemBlockout,
@@ -35,6 +36,18 @@ const Products = () => {
   };
 
   React.useEffect(() => {
+    const categoryRef = localStorage.getItem('category');
+
+    if (categoryRef) {
+      dispatch(setCategory(JSON.parse(categoryRef)));
+    }
+  }, [dispatch]);
+
+  React.useEffect(() => {
+    localStorage.setItem('category', JSON.stringify(category));
+  }, [category]);
+
+  React.useEffect(() => {
     const categoryNameRef = localStorage.getItem('categoryName');
     if (categoryNameRef) {
       dispatch(setCategoryName(JSON.parse(categoryNameRef)));
@@ -47,7 +60,7 @@ const Products = () => {
 
   React.useEffect(() => {
     const categoryIdRef = JSON.parse(localStorage.getItem('categoryId') || 'number');
-    if (categoryId === 0) {
+    if (categoryIdRef) {
       dispatch(setCategoryId(categoryIdRef));
     }
   }, [dispatch, categoryId]);

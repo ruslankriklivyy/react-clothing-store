@@ -50,18 +50,6 @@ const Categories: React.FC<ICategories> = ({
     return newLinks.join('').toLowerCase();
   };
 
-  React.useEffect(() => {
-    const categoryRef = localStorage.getItem('category');
-
-    if (categoryRef) {
-      dispatch(setCategory(JSON.parse(categoryRef)));
-    }
-  }, [dispatch]);
-
-  React.useEffect(() => {
-    localStorage.setItem('category', JSON.stringify(category));
-  }, [category]);
-
   return (
     <CategoriesWrapper show={show}>
       <ul>
