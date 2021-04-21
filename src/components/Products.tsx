@@ -63,12 +63,10 @@ const Products = () => {
     if (categoryIdRef) {
       dispatch(setCategoryId(categoryIdRef));
     }
-  }, [dispatch, categoryId]);
+  }, [dispatch]);
 
   React.useEffect(() => {
-    if (categoryId !== 0) {
-      localStorage.setItem('categoryId', JSON.stringify(categoryId));
-    }
+    localStorage.setItem('categoryId', JSON.stringify(categoryId));
   }, [categoryId]);
 
   React.useEffect(() => {

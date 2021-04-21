@@ -57,8 +57,7 @@ const Categories: React.FC<ICategories> = ({
           <li key={`${item}-${index}`}>
             <Link
               to={`/category/${generateLink(index)}`}
-              onClick={() => selectCategory(item, index, index)}
-              href="/">
+              onClick={() => selectCategory(item, index, index)}>
               {item}
             </Link>
           </li>

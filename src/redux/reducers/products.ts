@@ -4,7 +4,7 @@ import { ActionTypes } from '../actions/products';
 const initialState = {
   items: [] as Array<ProductsItem>,
   category: 'hoodies' as string,
-  categoryName: '' as string,
+  categoryName: 'Худи' as string,
   chosenProduct: null as ProductsItem | null,
   productId: 0 as number,
   categories: null as any,
