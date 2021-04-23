@@ -38,7 +38,6 @@ const Categories: React.FC<ICategories> = ({
 
     onSelect(id);
     onSelectCategory(type.join(''), name);
-    dispatch(setCategoryName(name));
 
     if (show && setVisibleBurgerMenu) {
       setVisibleBurgerMenu(false);

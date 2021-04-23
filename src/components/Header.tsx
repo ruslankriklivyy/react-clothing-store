@@ -100,6 +100,29 @@ const Header: React.FC<IHeader> = ({
   }, [visibleCart, visibleAuthBlock, visibleBurgerMenu]);
 
   React.useEffect(() => {
+    const categoryNameRef = localStorage.getItem('categoryName');
+    if (categoryNameRef) {
+      dispatch(setCategoryName(JSON.parse(categoryNameRef)));
+    }
+  }, [dispatch]);
+
+  React.useEffect(() => {
+    const categoryRef = localStorage.getItem('category');
+
+    if (categoryRef) {
+      dispatch(setCategory(JSON.parse(categoryRef)));
+    }
+  }, [dispatch]);
+
+  React.useEffect(() => {
+    localStorage.setItem('category', JSON.stringify(category));
+  }, [category]);
+
+  React.useEffect(() => {
+    localStorage.setItem('categoryName', JSON.stringify(categoryName));
+  }, [categoryName]);
+
+  React.useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token') || '{}');
     if (typeof token === 'string') {
       dispatch(setAuth(true));

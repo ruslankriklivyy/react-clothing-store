@@ -99,7 +99,7 @@ const ProductsWatchItem: React.FC<IProductsWatchItem> = ({ setVisibleCart }) => 
               {chosenProduct?.description?.map((item: any) => (
                 <ProductsWatchDescr name={chosenProduct.name}>{item}</ProductsWatchDescr>
               ))}
-              <ProductWatchTypeName>Выберите размер:</ProductWatchTypeName>
+              {chosenProduct.sizes && <ProductWatchTypeName>Выберите размер:</ProductWatchTypeName>}
               <ProductWatchSizes>
                 {chosenProduct.sizes?.map((size, index) => (
                   <ProductWatchSize

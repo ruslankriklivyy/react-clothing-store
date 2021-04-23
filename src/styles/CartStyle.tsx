@@ -72,6 +72,9 @@ export const CartItem = styled.div`
   justify-content: flex-start;
   padding-bottom: 20px;
   border-top: 2px solid #ebeef1;
+  transition: all 2s ease;
+  ${({ state }: any) =>
+    state === 'entering' || state === 'entered' ? 'opacity: 0' : 'opacity: 1'};
 `;
 
 export const CartItemLeft = styled.div`
@@ -97,7 +100,9 @@ export const EmptyCart = styled.div`
 
   img {
     display: block;
-    margin: 0 auto;
+    width: 100%;
+    margin: 40px auto;
+    opacity: 0.5;
   }
 `;
 

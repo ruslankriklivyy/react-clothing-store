@@ -5,7 +5,7 @@ import backSvg from '../assets/img/back.svg';
 import plusSvg from '../assets/img/plus.svg';
 import minusSvg from '../assets/img/remove.svg';
 import removeSvg from '../assets/img/cancel.svg';
-import emptyCartSvg from '../assets/img/empty-cart.svg';
+import emptyCartSvg from '../assets/img/empty-cart.png';
 import {
   minusCartItem,
   plusCartItem,
@@ -41,6 +41,7 @@ export interface ICart {
 const Cart: React.FC<ICart> = ({ visibleCart, setVisibleCart, show }) => {
   const dispatch = useDispatch();
   const cartBlock = React.useRef();
+  const [animate, setAnimate] = React.useState(false);
   const { cartItems, totalPrice, sizeTypes } = useSelector((state: RootState) => state.cart);
   const addedItems =
     cartItems &&
@@ -56,8 +57,16 @@ const Cart: React.FC<ICart> = ({ visibleCart, setVisibleCart, show }) => {
     dispatch(minusCartItem(id));
   };
 
+  const doAnimate = React.useCallback(() => {
+    setAnimate(true);
+    setTimeout(() => {
+      setAnimate(false);
+    }, 3000);
+  }, []);
+
   const onRemove = (id: number, e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
+    doAnimate();
     dispatch(removeCartItem(id));
     dispatch(removeSize(id));
   };
@@ -106,46 +115,43 @@ const Cart: React.FC<ICart> = ({ visibleCart, setVisibleCart, show }) => {
         </button>
         <CartTitle>Мои покупки</CartTitle>
       </CartHeader>
-      {cartItems && addedItems.length > 0 ? (
-        addedItems.map(
-          (obj) =>
-            obj && (
-              <>
-                <CartItem key={obj.id}>
-                  <CartItemLeft>
-                    <img src={obj.images && obj.images[0]} alt="product img" />
-                    <CartItemRemove
-                      href="/"
-                      onClick={(e: React.MouseEvent<HTMLElement>) => onRemove(obj.id, e)}>
-                      <img src={removeSvg} alt="remove svg" />
-                    </CartItemRemove>
-                  </CartItemLeft>
-                  <CartItemRight>
-                    <CartItemName>{obj.name}</CartItemName>
-                    {sizeTypes[obj.id] && (
-                      <>
-                        <CartItemParagraph>Размер:</CartItemParagraph>
-                        <div>{sizeTypes[obj.id].size[0]}</div>
-                      </>
-                    )}
-                    <CartItemCount>
-                      <CartItemParagraph>Количество:</CartItemParagraph>
-                      <b>{cartItems[obj.id].items.length}</b>
-                      <button onClick={() => onPlus(obj.id)}>
-                        <img src={plusSvg} alt="plus svg" />
-                      </button>
-                      <button onClick={() => onMinus(obj.id)}>
-                        <img src={minusSvg} alt="minus svg" />
-                      </button>
-                    </CartItemCount>
-                    <CartItemTotalPrice>
-                      {priceConvert(cartItems[obj.id].totalPrice)} RUB
-                    </CartItemTotalPrice>
-                  </CartItemRight>
-                </CartItem>
-              </>
-            ),
-        )
+      {addedItems?.length > 0 ? (
+        addedItems?.map((obj) => (
+          <>
+            <CartItem key={obj.id}>
+              <CartItemLeft>
+                <img src={obj.images && obj.images[0]} alt="product img" />
+                <CartItemRemove
+                  href="/"
+                  onClick={(e: React.MouseEvent<HTMLElement>) => onRemove(obj.id, e)}>
+                  <img src={removeSvg} alt="remove svg" />
+                </CartItemRemove>
+              </CartItemLeft>
+              <CartItemRight>
+                <CartItemName>{obj.name}</CartItemName>
+                {sizeTypes[obj.id] && (
+                  <>
+                    <CartItemParagraph>Размер:</CartItemParagraph>
+                    <div>{sizeTypes[obj.id].size[0]}</div>
+                  </>
+                )}
+                <CartItemCount>
+                  <CartItemParagraph>Количество:</CartItemParagraph>
+                  <b>{cartItems[obj.id].items.length}</b>
+                  <button onClick={() => onPlus(obj.id)}>
+                    <img src={plusSvg} alt="plus svg" />
+                  </button>
+                  <button onClick={() => onMinus(obj.id)}>
+                    <img src={minusSvg} alt="minus svg" />
+                  </button>
+                </CartItemCount>
+                <CartItemTotalPrice>
+                  {priceConvert(cartItems[obj.id].totalPrice)} RUB
+                </CartItemTotalPrice>
+              </CartItemRight>
+            </CartItem>
+          </>
+        ))
       ) : (
         <EmptyCart>
           <img src={emptyCartSvg} alt="emptyCart svg" />
