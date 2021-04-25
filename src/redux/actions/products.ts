@@ -16,7 +16,7 @@ type Thunk = ThunkAction<Promise<void>, InitialState, unknown, ActionTypes>;
 
 export const getAllCloths = (category: string | null): Thunk => async (dispatch) => {
   const data = await productsApi.fetchAllCloths(category);
-  const newCloths = data.filter((item: any) => item.category === category);
+  const newCloths = data.filter((item: ProductsItem) => item.category === category);
   dispatch(setProducts(newCloths));
 };
 

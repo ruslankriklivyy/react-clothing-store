@@ -1,8 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-import { setCategoryName } from '../redux/actions/products';
 
 import { CategoriesWrapper } from '../styles/CategoriesStyle';
 
@@ -17,16 +14,14 @@ export interface ICategories {
   onSelectCloth?: (id: number) => void;
 }
 
-const Categories: React.FC<ICategories> = ({
+const Categories: React.FC<ICategories> = React.memo(function Categories({
   items,
   links,
   onSelectCategory,
   setVisibleBurgerMenu,
   show,
   onSelectCloth,
-}) => {
-  const dispatch = useDispatch();
-
+}) {
   const onSelect = (id: number) => {
     if (onSelectCloth) {
       onSelectCloth(id);
@@ -44,10 +39,13 @@ const Categories: React.FC<ICategories> = ({
     }
   };
 
-  const generateLink = (indexItem: number) => {
-    const newLinks = links.filter((name, index) => index === indexItem);
-    return newLinks.join('').toLowerCase();
-  };
+  const generateLink = React.useCallback(
+    (indexItem: number) => {
+      const newLinks = links.filter((name, index) => index === indexItem);
+      return newLinks.join('').toLowerCase();
+    },
+    [links],
+  );
 
   return (
     <CategoriesWrapper show={show}>
@@ -64,6 +62,6 @@ const Categories: React.FC<ICategories> = ({
       </ul>
     </CategoriesWrapper>
   );
-};
+});
 
 export default Categories;

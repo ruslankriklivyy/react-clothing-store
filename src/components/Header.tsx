@@ -31,12 +31,12 @@ interface IHeader {
   setVisibleCart: (visible: boolean) => void;
 }
 
-const Header: React.FC<IHeader> = ({
+const Header: React.FC<IHeader> = React.memo(function Header({
   categoriesNames,
   categoriesNamesEng,
   visibleCart,
   setVisibleCart,
-}) => {
+}) {
   const dispatch = useDispatch();
   const blockOutRef = React.useRef<HTMLDivElement>(null);
 
@@ -202,6 +202,6 @@ const Header: React.FC<IHeader> = ({
       </HeaderMain>
     </>
   );
-};
+});
 
 export default Header;

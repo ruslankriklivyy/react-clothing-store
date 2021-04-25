@@ -57,16 +57,8 @@ const Cart: React.FC<ICart> = ({ visibleCart, setVisibleCart, show }) => {
     dispatch(minusCartItem(id));
   };
 
-  const doAnimate = React.useCallback(() => {
-    setAnimate(true);
-    setTimeout(() => {
-      setAnimate(false);
-    }, 3000);
-  }, []);
-
   const onRemove = (id: number, e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    doAnimate();
     dispatch(removeCartItem(id));
     dispatch(removeSize(id));
   };
