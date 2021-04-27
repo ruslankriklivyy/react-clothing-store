@@ -1,11 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import priceConvert from '../utils/priceConvert';
-import backSvg from '../assets/img/back.svg';
-import plusSvg from '../assets/img/plus.svg';
-import minusSvg from '../assets/img/remove.svg';
-import removeSvg from '../assets/img/cancel.svg';
-import emptyCartSvg from '../assets/img/empty-cart.png';
 import {
   minusCartItem,
   plusCartItem,
@@ -32,6 +28,12 @@ import {
   EmptyCart,
 } from '../styles/CartStyle';
 
+import backSvg from '../assets/img/back.svg';
+import plusSvg from '../assets/img/plus.svg';
+import minusSvg from '../assets/img/remove.svg';
+import removeSvg from '../assets/img/cancel.svg';
+import emptyCartSvg from '../assets/img/empty-cart.png';
+
 export interface ICart {
   visibleCart: boolean;
   setVisibleCart: (visible: boolean) => void;
@@ -41,7 +43,6 @@ export interface ICart {
 const Cart: React.FC<ICart> = ({ visibleCart, setVisibleCart, show }) => {
   const dispatch = useDispatch();
   const cartBlock = React.useRef();
-  const [animate, setAnimate] = React.useState(false);
   const { cartItems, totalPrice, sizeTypes } = useSelector((state: RootState) => state.cart);
   const addedItems =
     cartItems &&

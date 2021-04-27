@@ -17,7 +17,6 @@ import {
   ShoppingBlockImage,
 } from '../styles/HeaderStyle';
 
-import adminSvg from '../assets/img/admin.svg';
 import logoPng from '../assets/img/logo-2.png';
 import authSvg from '../assets/img/auth.svg';
 import shopCart from '../assets/img/shopping-cart.svg';
@@ -160,15 +159,6 @@ const Header: React.FC<IHeader> = React.memo(function Header({
             onSelectCloth={onSelectCloth}
           />
           <HeaderRight>
-            {user.role || JSON.parse(localStorage.getItem('role') || '{}') === 'ADMIN' ? (
-              <Link to="/admin">
-                <HeaderImg>
-                  <img src={adminSvg} alt="admin svg" />
-                </HeaderImg>
-              </Link>
-            ) : (
-              ''
-            )}
             {!isAuth ? (
               <HeaderImg onClick={() => setVisibleAuthBlock(!visibleAuthBlock)}>
                 <img src={userSvg} alt="user svg" />
