@@ -22,9 +22,9 @@ const SET_SIZE = 'SET_SIZE';
 const SET_STORAGE_SIZE = 'SET_STORAGE_SIZE';
 const REMOVE_STORAGE_SIZE = 'REMOVE_STORAGE_SIZE';
 
-const _get = (obj: CartItem, path: string) => {
-  const [firstKey, ...keys]: Array<string> = path.split('.');
-  return keys.reduce((val: any, key: string) => {
+const _get = (obj: any, path: string) => {
+  const [firstKey, ...keys] = path.split('.');
+  return keys.reduce((val, key) => {
     return val[key];
   }, obj[Number(firstKey)]);
 };
