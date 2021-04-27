@@ -26,7 +26,7 @@ const _get = (obj: any, path: string) => {
   const [firstKey, ...keys] = path.split('.');
   return keys.reduce((val, key) => {
     return val[key];
-  }, obj[Number(firstKey)]);
+  }, obj[firstKey]);
 };
 
 const getTotalSum = (obj: CartItem, path: string) => {
