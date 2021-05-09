@@ -1,27 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import priceConvert from '../utils/priceConvert';
 import { RootState } from '../redux/reducers';
-import { Button, Title } from '.';
 import {
   getAllCloths,
   setProductId,
   setCategoryId,
-  setCategoryName,
   setChosenProduct,
-  setCategory,
+  setIsFetching,
 } from '../redux/actions/products';
-import {
-  ProductItemBlockout,
-  ProductsItem,
-  ProductsMain,
-  ProductsWrapper,
-} from '../styles/ProductsStyle';
+import { ProductsMain, ProductsWrapper } from '../styles/ProductsStyle';
 import { Container } from '../styles/FooterStyle';
-
-import arrowSvg from '../assets/img/arrow.svg';
+import { Title, ProductsItem } from '.';
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -49,23 +39,15 @@ const Products = () => {
         <Title>{categoryName}</Title>
         <ProductsMain>
           {items &&
-            items.map(({ name, id, images, price }) => (
-              <ProductsItem key={id}>
-                <Link to={`/product/${id}`} onClick={() => onSelectItem(id)}>
-                  <ProductItemBlockout>
-                    <Button moreInfo>
-                      <>
-                        Подробнее <img className="more-arrow" src={arrowSvg} alt="arrow svg" />
-                      </>
-                    </Button>
-                  </ProductItemBlockout>
-                  <span>{priceConvert(price)} RUB</span>
-                  <img src={images && images[0]} alt="cloth img" />
-                </Link>
-                <Button className={'product-button'} product>
-                  {name}
-                </Button>
-              </ProductsItem>
+            items.map(({ id, name, price, images }) => (
+              <ProductsItem
+                key={id}
+                id={id}
+                name={name}
+                price={price}
+                images={images}
+                onSelectItem={onSelectItem}
+              />
             ))}
         </ProductsMain>
       </Container>

@@ -9,6 +9,7 @@ const initialState = {
   productId: 0 as number,
   categories: null as any,
   categoryId: 0 as number,
+  isFetching: false as boolean,
 };
 
 export type InitialState = typeof initialState;
@@ -20,6 +21,7 @@ const SET_PRODUCT_ID = 'SET_PRODUCT_ID';
 const SET_CHOSEN_PRODUCT = 'SET_CHOSEN_PRODUCT';
 const SET_CATEGORY_NAME = 'SET_CATEGORY_NAME';
 const SET_CATEGORY_ID = 'SET_CATEGORY_ID';
+const SET_IS_FETCHING = 'SET_IS_FETCHING';
 
 export const products = (state = initialState, action: ActionTypes): InitialState => {
   switch (action.type) {
@@ -27,6 +29,12 @@ export const products = (state = initialState, action: ActionTypes): InitialStat
       return {
         ...state,
         items: action.payload,
+      };
+
+    case SET_IS_FETCHING:
+      return {
+        ...state,
+        isFetching: action.payload,
       };
 
     case SET_CATEGORY_ID:

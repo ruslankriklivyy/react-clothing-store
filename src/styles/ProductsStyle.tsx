@@ -54,7 +54,7 @@ export const ProductItemBlockout = styled.div`
   }
 `;
 
-export const ProductsItem = styled.div`
+export const ProductsItemWrapper = styled.div`
   background: #fff;
   margin-right: 13px;
   margin-left: 13px;

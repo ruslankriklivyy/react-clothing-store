@@ -10,3 +10,4 @@ export { default as Cart } from './Cart';
 export { default as Auth } from './Auth';
 export { default as BurgerMenu } from './BurgerMenu';
 export { default as Logout } from './Logout';
+export { default as ProductsItem } from './ProductsItem';

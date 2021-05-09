@@ -11,13 +11,16 @@ const SET_CHOSEN_PRODUCT = 'SET_CHOSEN_PRODUCT';
 const SET_CATEGORY_NAME = 'SET_CATEGORY_NAME';
 const SET_CATEGORY_ID = 'SET_CATEGORY_ID';
 const SET_ONE_CLOTH = 'SET_ONE_CLOTH';
+const SET_IS_FETCHING = 'SET_IS_FETCHING';
 
 type Thunk = ThunkAction<Promise<void>, InitialState, unknown, ActionTypes>;
 
 export const getAllCloths = (category: string | null): Thunk => async (dispatch) => {
+  dispatch(setIsFetching(false));
   const data = await productsApi.fetchAllCloths(category);
   const newCloths = data.filter((item: ProductsItem) => item.category === category);
   dispatch(setProducts(newCloths));
+  dispatch(setIsFetching(true));
 };
 
 type SetOneCloth = {
@@ -28,6 +31,16 @@ type SetOneCloth = {
 export const setOneCloth = (obj: ProductsItem): SetOneCloth => ({
   type: SET_ONE_CLOTH,
   payload: obj,
+});
+
+type SetIsFetching = {
+  type: typeof SET_IS_FETCHING;
+  payload: boolean;
+};
+
+export const setIsFetching = (isFetching: boolean): SetIsFetching => ({
+  type: SET_IS_FETCHING,
+  payload: isFetching,
 });
 
 type SetCategories = {
@@ -108,4 +121,5 @@ export type ActionTypes =
   | SetProductId
   | SetCategories
   | SetCategoryId
-  | SetOneCloth;
+  | SetOneCloth
+  | SetIsFetching;
