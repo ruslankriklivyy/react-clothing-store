@@ -36,15 +36,8 @@ const Products = () => {
   };
 
   React.useEffect(() => {
-    const categoryIdRef = JSON.parse(localStorage.getItem('categoryId') || 'number');
-    if (categoryIdRef) {
-      dispatch(setCategoryId(categoryIdRef));
-    }
-  }, [dispatch]);
-
-  React.useEffect(() => {
-    localStorage.setItem('categoryId', JSON.stringify(categoryId));
-  }, [categoryId]);
+    dispatch(setCategoryId(categoryId));
+  }, [dispatch, categoryId]);
 
   React.useEffect(() => {
     dispatch(getAllCloths(category));
