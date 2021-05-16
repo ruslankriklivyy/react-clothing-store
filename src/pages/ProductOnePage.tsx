@@ -3,10 +3,10 @@ import Slider from 'react-slick';
 import { useDispatch, useSelector } from 'react-redux';
 
 import scrollTop from '../utils/scrollTop';
-import Button from './Button';
-import Title from './Title';
+import Button from '../components/Button';
+import Title from '../components/Title';
 import { setChosenProduct } from '../redux/actions/products';
-import { addCartItem, setSize } from '../redux/actions/cart';
+import { addCartItem, setSize, setVisibleCart } from '../redux/actions/cart';
 import priceConvert from '../utils/priceConvert';
 import { RootState } from '../redux/reducers';
 import { ProductsItem } from '../types/types';
@@ -22,18 +22,14 @@ import {
   ProductWatchSize,
   ProductWatchSizes,
   ProductWatchTypeName,
-} from '../styles/ProductsWatchItemStyle';
+} from '../styles/ProductOnePageStyle';
 import { Container } from '../styles/ProductsStyle';
 
 export interface IActive {
   active: boolean;
 }
 
-export interface IProductsWatchItem {
-  setVisibleCart: (visible: boolean) => void;
-}
-
-const ProductsWatchItem: React.FC<IProductsWatchItem> = ({ setVisibleCart }) => {
+const ProductOnePage = () => {
   const dispatch = useDispatch();
   const { chosenProduct } = useSelector((state: RootState) => state.products);
   const { sizeTypes } = useSelector((state: RootState) => state.cart);
@@ -41,7 +37,7 @@ const ProductsWatchItem: React.FC<IProductsWatchItem> = ({ setVisibleCart }) => 
   const onAddToCart = (item: ProductsItem) => {
     dispatch(addCartItem(item));
 
-    setVisibleCart(true);
+    dispatch(setVisibleCart(true));
   };
 
   const onSetSize = (size: string, id: number, e: React.MouseEvent<HTMLElement>) => {
@@ -131,4 +127,4 @@ const ProductsWatchItem: React.FC<IProductsWatchItem> = ({ setVisibleCart }) => 
   );
 };
 
-export default ProductsWatchItem;
+export default ProductOnePage;

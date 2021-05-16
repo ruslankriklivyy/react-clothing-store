@@ -6,38 +6,17 @@ import { BurgerMenuClose, BurgerMenuWrapper } from '../styles/BurgerMenuStyle';
 
 export interface IBurgerMenu {
   show: boolean;
-  items: Array<string>;
-  category: string | null;
-  links: Array<string>;
-  categoryName: string;
-  onSelectCategory: (type: string, name: string) => void;
   setVisibleBurgerMenu: (visible: boolean) => void;
 }
 
-const BurgerMenu: React.FC<IBurgerMenu> = ({
-  onSelectCategory,
-  categoryName,
-  items,
-  category,
-  links,
-  show,
-  setVisibleBurgerMenu,
-}) => {
+const BurgerMenu: React.FC<IBurgerMenu> = ({ show, setVisibleBurgerMenu }) => {
   return (
     <BurgerMenuWrapper show={show}>
       <BurgerMenuClose onClick={() => setVisibleBurgerMenu(false)}>
         скрыть
         <img src={cancelSvg} alt="cancel svg" />
       </BurgerMenuClose>
-      <Categories
-        show={show}
-        onSelectCategory={onSelectCategory}
-        setVisibleBurgerMenu={setVisibleBurgerMenu}
-        categoryName={categoryName}
-        items={items}
-        category={category}
-        links={links}
-      />
+      <Categories show={show} setVisibleBurgerMenu={setVisibleBurgerMenu} />
     </BurgerMenuWrapper>
   );
 };

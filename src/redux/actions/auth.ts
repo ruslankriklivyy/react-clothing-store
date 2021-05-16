@@ -1,9 +1,7 @@
 import { userApi } from '../../api/api';
 import { ThunkAction } from 'redux-thunk';
 import { InitialState } from '../reducers/auth';
-
-const SET_USER = 'SET_USER';
-const SET_AUTH = 'SET_AUTH';
+import { SET_AUTH, SET_USER, SET_VISIBLE_AUTH } from '../../actionsTypes/actionsTypes';
 
 export type Thunk = ThunkAction<Promise<void>, InitialState, unknown, ActionTypes>;
 
@@ -50,4 +48,14 @@ export const setAuth = (isAuth: boolean): SetAuth => ({
   isAuth,
 });
 
-export type ActionTypes = SetUser | SetAuth;
+type SetVisibleAuth = {
+  type: typeof SET_VISIBLE_AUTH;
+  payload: boolean;
+};
+
+export const setVisibleAuth = (visible: boolean): SetVisibleAuth => ({
+  type: SET_VISIBLE_AUTH,
+  payload: visible,
+});
+
+export type ActionTypes = SetUser | SetAuth | SetVisibleAuth;

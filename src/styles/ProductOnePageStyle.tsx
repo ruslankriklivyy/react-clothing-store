@@ -1,7 +1,7 @@
 import { device } from '../utils/deviceMedia';
 import styled from 'styled-components';
 import { ProductsItem } from '../types/types';
-import { IActive } from '../components/ProductsWatchItem';
+import { IActive } from '../pages/ProductOnePage';
 
 export const ProductsWatch = styled.div`
   min-height: calc(100vh - 122px);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Button } from '.';
+import { Button } from '../components';
 import { Container } from '../styles/ProductsStyle';
 import { PromoBlockItem, PromoBlocks, PromoMain, PromoWrapper } from '../styles/PromoStyles';
 
@@ -23,7 +23,7 @@ const promoItems = [
   },
 ];
 
-const Promo = () => {
+const PromoPage = () => {
   return (
     <PromoWrapper>
       <Container>
@@ -46,4 +46,4 @@ const Promo = () => {
   );
 };
 
-export default Promo;
+export default PromoPage;

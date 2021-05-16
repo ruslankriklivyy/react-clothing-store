@@ -1,38 +1,33 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { setCategory, setCategoryId, setCategoryName } from '../redux/actions/products';
+import { RootState } from '../redux/reducers';
 
 import { CategoriesWrapper } from '../styles/CategoriesStyle';
 
 export interface ICategories {
   show?: boolean;
-  items: Array<string>;
-  category: string | null;
-  links: Array<string>;
-  categoryName: string;
-  onSelectCategory: (type: string, name: string) => void;
   setVisibleBurgerMenu?: (visible: boolean) => void;
-  onSelectCloth?: (id: number) => void;
 }
 
 const Categories: React.FC<ICategories> = React.memo(function Categories({
-  items,
-  links,
-  onSelectCategory,
   setVisibleBurgerMenu,
   show,
-  onSelectCloth,
 }) {
+  const dispatch = useDispatch();
+  const { categoriesNames, categoriesNamesEng } = useSelector((state: RootState) => state.products);
+
   const onSelect = (id: number) => {
-    if (onSelectCloth) {
-      onSelectCloth(id);
-    }
+    dispatch(setCategoryId(id));
   };
 
   const selectCategory = (name: string, id: number, indexItem: number) => {
-    const type = links.filter((name, index) => index === indexItem);
+    const type = categoriesNamesEng.filter((name, index) => index === indexItem);
 
     onSelect(id);
-    onSelectCategory(type.join(''), name);
+    dispatch(setCategory(type.join('')));
+    dispatch(setCategoryName(name));
 
     if (show && setVisibleBurgerMenu) {
       setVisibleBurgerMenu(false);
@@ -41,16 +36,16 @@ const Categories: React.FC<ICategories> = React.memo(function Categories({
 
   const generateLink = React.useCallback(
     (indexItem: number) => {
-      const newLinks = links.filter((name, index) => index === indexItem);
+      const newLinks = categoriesNamesEng.filter((name, index) => index === indexItem);
       return newLinks.join('').toLowerCase();
     },
-    [links],
+    [categoriesNamesEng],
   );
 
   return (
     <CategoriesWrapper show={show}>
       <ul>
-        {items?.map((item: string, index: number) => (
+        {categoriesNames?.map((item: string, index: number) => (
           <li key={`${item}-${index}`}>
             <Link
               to={`/category/${generateLink(index)}`}

@@ -10,6 +10,26 @@ const initialState = {
   categories: null as any,
   categoryId: 0 as number,
   isFetching: false as boolean,
+  categoriesNames: [
+    'Memes.Jolybell',
+    'Шапки',
+    'Футболки',
+    'Свитшоты',
+    'Худи',
+    'Рюкзаки',
+    'Поло',
+    'FQA',
+  ],
+  categoriesNamesEng: [
+    'memes',
+    'hats',
+    't-shirts',
+    'sweatshirts',
+    'hoodies',
+    'bags',
+    'polo',
+    'fqa',
+  ],
 };
 
 export type InitialState = typeof initialState;

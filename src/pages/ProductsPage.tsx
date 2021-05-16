@@ -7,13 +7,12 @@ import {
   setProductId,
   setCategoryId,
   setChosenProduct,
-  setIsFetching,
 } from '../redux/actions/products';
 import { ProductsMain, ProductsWrapper } from '../styles/ProductsStyle';
 import { Container } from '../styles/FooterStyle';
-import { Title, ProductsItem } from '.';
+import { Title, ProductsItem } from '../components';
 
-const Products = () => {
+const ProductsPage = () => {
   const dispatch = useDispatch();
   const { items, categoryName, categoryId, category } = useSelector(
     (state: RootState) => state.products,
@@ -55,4 +54,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default ProductsPage;

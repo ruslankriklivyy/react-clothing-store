@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Registration from './Registration';
 import Login from './Login';
@@ -7,19 +7,24 @@ import Login from './Login';
 import removeSvg from '../assets/img/cancel.svg';
 
 import { CloseLoginForm, LoginWrapper, RegistartionTitle } from '../styles/AuthStyle';
+import { RootState } from '../redux/reducers';
+import { setVisibleAuth } from '../redux/actions/auth';
 
 export interface IAuth {
   show: boolean;
-  visibleAuthBlock: boolean;
-  setVisible: (visible: boolean) => void;
 }
 
-const Auth: React.FC<IAuth> = ({ show, setVisible }) => {
-  const [visibleLogin, setVisibleLogin] = React.useState(true);
+const Auth = () => {
   const dispatch = useDispatch();
+  const { visibleAuth } = useSelector((state: RootState) => state.auth);
+  const [visibleLogin, setVisibleLogin] = React.useState(true);
+
+  const setVisible = (visible: boolean) => {
+    dispatch(setVisibleAuth(visible));
+  };
 
   return (
-    <LoginWrapper show={show}>
+    <LoginWrapper show={visibleAuth}>
       <CloseLoginForm onClick={() => setVisible(false)}>
         <img src={removeSvg} alt="remove svg" />
       </CloseLoginForm>
@@ -44,4 +49,4 @@ const Auth: React.FC<IAuth> = ({ show, setVisible }) => {
   );
 };
 
-export default Auth;
+export default React.memo(Auth);

@@ -1,52 +1,18 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import { ProductOnePage, PromoPage, ProductsPage } from '.';
 
-import { Header, Promo, Products, ProductsWatchItem, Footer } from '../components';
-
-const categoriesNames = [
-  'Memes.Jolybell',
-  'Шапки',
-  'Футболки',
-  'Свитшоты',
-  'Худи',
-  'Рюкзаки',
-  'Поло',
-  'FQA',
-];
-
-const categoriesNamesEng = [
-  'memes',
-  'hats',
-  't-shirts',
-  'sweatshirts',
-  'hoodies',
-  'bags',
-  'polo',
-  'fqa',
-];
+import { Header, Footer } from '../components';
 
 const Home = () => {
-  const [visibleCart, setVisibleCart] = React.useState(false);
+  // const [visibleCart, setVisibleCart] = React.useState(false);
 
   return (
     <>
-      <Route
-        path="/"
-        render={() => (
-          <Header
-            visibleCart={visibleCart}
-            setVisibleCart={setVisibleCart}
-            categoriesNames={categoriesNames}
-            categoriesNamesEng={categoriesNamesEng}
-          />
-        )}
-      />
-      <Route exact path="/" component={Promo} />
-      <Route path="/category" component={Products} />
-      <Route
-        path={`/product/`}
-        render={() => <ProductsWatchItem setVisibleCart={setVisibleCart} />}
-      />
+      <Route path="/" render={() => <Header />} />
+      <Route exact path="/" component={PromoPage} />
+      <Route path="/category" component={ProductsPage} />
+      <Route path={`/product/`} render={() => <ProductOnePage />} />
       <Route path="/" component={Footer} />
     </>
   );

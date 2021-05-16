@@ -1,3 +1,4 @@
+import { SET_AUTH, SET_USER, SET_VISIBLE_AUTH } from '../../actionsTypes/actionsTypes';
 import { ActionTypes } from '../actions/auth';
 
 interface IUser {
@@ -9,12 +10,10 @@ interface IUser {
 const initialState = {
   user: {} as IUser,
   isAuth: false as boolean,
+  visibleAuth: false as boolean,
 };
 
 export type InitialState = typeof initialState;
-
-const SET_AUTH = 'SET_AUTH';
-const SET_USER = 'SET_USER';
 
 export const auth = (state = initialState, action: ActionTypes): InitialState => {
   switch (action.type) {
@@ -32,6 +31,12 @@ export const auth = (state = initialState, action: ActionTypes): InitialState =>
       return {
         ...state,
         isAuth: action.isAuth,
+      };
+
+    case SET_VISIBLE_AUTH:
+      return {
+        ...state,
+        visibleAuth: action.payload,
       };
 
     default:

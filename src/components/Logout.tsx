@@ -29,4 +29,4 @@ const Logout: React.FC<ILogout> = ({ show, setVisibleLogout }) => {
   );
 };
 
-export default Logout;
+export default React.memo(Logout);

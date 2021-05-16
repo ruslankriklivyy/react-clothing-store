@@ -10,6 +10,7 @@ import {
   setCartItem,
   setStorageSize,
   setTotalPrice,
+  setVisibleCart,
 } from '../redux/actions/cart';
 import { RootState } from '../redux/reducers';
 import {
@@ -35,15 +36,15 @@ import removeSvg from '../assets/img/cancel.svg';
 import emptyCartSvg from '../assets/img/empty-cart.png';
 
 export interface ICart {
-  visibleCart: boolean;
-  setVisibleCart: (visible: boolean) => void;
   show: boolean;
 }
 
-const Cart: React.FC<ICart> = ({ visibleCart, setVisibleCart, show }) => {
+const Cart = () => {
   const dispatch = useDispatch();
   const cartBlock = React.useRef();
-  const { cartItems, totalPrice, sizeTypes } = useSelector((state: RootState) => state.cart);
+  const { cartItems, totalPrice, sizeTypes, visibleCart } = useSelector(
+    (state: RootState) => state.cart,
+  );
   const addedItems =
     cartItems &&
     Object.keys(cartItems).map((key) => {
@@ -100,9 +101,9 @@ const Cart: React.FC<ICart> = ({ visibleCart, setVisibleCart, show }) => {
   }, [sizeTypes]);
 
   return (
-    <CartWrapper ref={cartBlock} show={show}>
+    <CartWrapper ref={cartBlock} show={visibleCart}>
       <CartHeader>
-        <button onClick={() => setVisibleCart(!visibleCart)}>
+        <button onClick={() => dispatch(setVisibleCart(false))}>
           <img src={backSvg} alt="back svg" />
           Продолжить покупки
         </button>

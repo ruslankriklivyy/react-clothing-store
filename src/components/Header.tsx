@@ -5,7 +5,6 @@ import priceConvert from '../utils/priceConvert';
 import { setCategory, setCategoryId, setCategoryName } from '../redux/actions/products';
 import { Auth, Cart, BurgerMenu, Categories, Logout } from '../components';
 import { RootState } from '../redux/reducers';
-import { setAuth } from '../redux/actions/auth';
 import {
   BlockOut,
   BurgerMenuButton,
@@ -23,50 +22,32 @@ import shopCart from '../assets/img/shopping-cart.svg';
 import menuBurgerSvg from '../assets/img/menu-burger.svg';
 import userSvg from '../assets/img/user.svg';
 import { Link } from 'react-router-dom';
-interface IHeader {
-  categoriesNames: Array<string>;
-  categoriesNamesEng: Array<string>;
-  visibleCart: boolean;
-  setVisibleCart: (visible: boolean) => void;
-}
+import { setVisibleCart } from '../redux/actions/cart';
+import { setVisibleAuth } from '../redux/actions/auth';
 
-const Header: React.FC<IHeader> = React.memo(function Header({
-  categoriesNames,
-  categoriesNamesEng,
-  visibleCart,
-  setVisibleCart,
-}) {
+const Header = React.memo(function Header() {
   const dispatch = useDispatch();
   const blockOutRef = React.useRef<HTMLDivElement>(null);
 
   const { category, chosenProduct, categoryName } = useSelector(
     (state: RootState) => state.products,
   );
-  const { isAuth, user } = useSelector((state: RootState) => state.auth);
-  const { totalPrice } = useSelector((state: RootState) => state.cart);
+  const { isAuth, visibleAuth } = useSelector((state: RootState) => state.auth);
+  const { totalPrice, visibleCart } = useSelector((state: RootState) => state.cart);
 
-  const onSelectCategory = (type: string, name: string) => {
-    dispatch(setCategory(type));
-    dispatch(setCategoryName(name));
-  };
-
-  const [visibleAuthBlock, setVisibleAuthBlock] = React.useState(false);
   const [visibleBurgerMenu, setVisibleBurgerMenu] = React.useState(false);
   const [visibleLogout, setVisibleLogout] = React.useState(false);
-
-  const onSelectCloth = (id: number) => {
-    dispatch(setCategoryId(id));
-  };
 
   const escapeListener = React.useCallback(
     (e) => {
       if (e.key === 'Escape') {
-        setVisibleAuthBlock(false);
+        dispatch(setVisibleAuth(false));
+        dispatch(setVisibleCart(false));
         setVisibleBurgerMenu(false);
         setVisibleLogout(false);
       }
     },
-    [setVisibleAuthBlock, setVisibleBurgerMenu],
+    [setVisibleBurgerMenu, dispatch],
   );
   const clickListener = React.useCallback(
     (e) => {
@@ -75,13 +56,13 @@ const Header: React.FC<IHeader> = React.memo(function Header({
         blockOutRef.current &&
         e.target.className === blockOutRef.current.className
       ) {
-        setVisibleAuthBlock(false);
-        setVisibleCart(false);
+        dispatch(setVisibleAuth(false));
+        dispatch(setVisibleCart(false));
         setVisibleBurgerMenu(false);
         setVisibleLogout(false);
       }
     },
-    [blockOutRef, setVisibleAuthBlock, setVisibleBurgerMenu, setVisibleCart],
+    [blockOutRef, setVisibleBurgerMenu, dispatch],
   );
   React.useEffect(() => {
     document.addEventListener('click', clickListener);
@@ -93,10 +74,10 @@ const Header: React.FC<IHeader> = React.memo(function Header({
   }, [clickListener, escapeListener]);
 
   React.useEffect(() => {
-    visibleCart || visibleAuthBlock || visibleBurgerMenu
+    visibleCart || visibleAuth || visibleBurgerMenu
       ? document.querySelector<HTMLElement>('body')?.setAttribute('style', 'overflow: hidden')
       : document.querySelector<HTMLElement>('body')?.setAttribute('style', 'overflow: auto');
-  }, [visibleCart, visibleAuthBlock, visibleBurgerMenu]);
+  }, [visibleCart, visibleAuth, visibleBurgerMenu]);
 
   React.useEffect(() => {
     const categoryNameRef = localStorage.getItem('categoryName');
@@ -107,7 +88,6 @@ const Header: React.FC<IHeader> = React.memo(function Header({
 
   React.useEffect(() => {
     const categoryRef = localStorage.getItem('category');
-
     if (categoryRef) {
       dispatch(setCategory(JSON.parse(categoryRef)));
     }
@@ -121,46 +101,26 @@ const Header: React.FC<IHeader> = React.memo(function Header({
     localStorage.setItem('categoryName', JSON.stringify(categoryName));
   }, [categoryName]);
 
-  React.useEffect(() => {
-    const token = JSON.parse(localStorage.getItem('token') || '{}');
-    if (typeof token === 'string') {
-      dispatch(setAuth(true));
-    } else {
-      dispatch(setAuth(false));
-    }
-  }, [dispatch]);
-
   return (
     <>
       <BlockOut
         ref={blockOutRef}
         show={
-          visibleCart || visibleAuthBlock || visibleBurgerMenu || visibleLogout ? 'show' : ''
+          visibleCart || visibleAuth || visibleBurgerMenu || visibleLogout ? 'show' : ''
         }></BlockOut>
       <HeaderMain name={chosenProduct && chosenProduct.name}>
         <Logout show={visibleLogout} setVisibleLogout={setVisibleLogout} />
-        <Auth
-          show={visibleAuthBlock}
-          visibleAuthBlock={visibleAuthBlock}
-          setVisible={setVisibleAuthBlock}
-        />
+        <Auth />
         <HeaderWrapper>
           <Logo>
             <Link to="/">
               <img src={logoPng} alt="logo png" />
             </Link>
           </Logo>
-          <Categories
-            onSelectCategory={onSelectCategory}
-            categoryName={categoryName}
-            items={categoriesNames}
-            category={category}
-            links={categoriesNamesEng}
-            onSelectCloth={onSelectCloth}
-          />
+          <Categories />
           <HeaderRight>
             {!isAuth ? (
-              <HeaderImg onClick={() => setVisibleAuthBlock(!visibleAuthBlock)}>
+              <HeaderImg onClick={() => dispatch(setVisibleAuth(!visibleAuth))}>
                 <img src={userSvg} alt="user svg" />
               </HeaderImg>
             ) : (
@@ -169,24 +129,16 @@ const Header: React.FC<IHeader> = React.memo(function Header({
               </HeaderImg>
             )}
             <div>
-              <ShoppingBlockImage onClick={() => setVisibleCart(!visibleCart)}>
+              <ShoppingBlockImage onClick={() => dispatch(setVisibleCart(true))}>
                 <img src={shopCart} alt="shop cart" />
                 {priceConvert(totalPrice)} RUB
               </ShoppingBlockImage>
-              <Cart show={visibleCart} visibleCart={visibleCart} setVisibleCart={setVisibleCart} />
+              <Cart />
             </div>
             <BurgerMenuButton onClick={() => setVisibleBurgerMenu(!visibleBurgerMenu)}>
               <img src={menuBurgerSvg} alt="menuBurgerSvg" />
             </BurgerMenuButton>
-            <BurgerMenu
-              setVisibleBurgerMenu={setVisibleBurgerMenu}
-              onSelectCategory={onSelectCategory}
-              categoryName={categoryName}
-              items={categoriesNames}
-              category={category}
-              links={categoriesNamesEng}
-              show={visibleBurgerMenu}
-            />
+            <BurgerMenu setVisibleBurgerMenu={setVisibleBurgerMenu} show={visibleBurgerMenu} />
           </HeaderRight>
         </HeaderWrapper>
       </HeaderMain>
