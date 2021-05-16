@@ -1,3 +1,13 @@
+import {
+  SET_CATEGORIES,
+  SET_CATEGORY,
+  SET_CATEGORY_ID,
+  SET_CATEGORY_NAME,
+  SET_CHOSEN_PRODUCT,
+  SET_IS_FETCHING,
+  SET_PRODUCTS,
+  SET_PRODUCT_ID,
+} from '../../actionsTypes/actionsTypes';
 import { ProductsItem } from '../../types/types';
 import { ActionTypes } from '../actions/products';
 
@@ -33,15 +43,6 @@ const initialState = {
 };
 
 export type InitialState = typeof initialState;
-
-const SET_PRODUCTS = 'SET_PRODUCTS';
-const SET_CATEGORY = 'SET_CATEGORY';
-const SET_CATEGORIES = 'SET_CATEGORIES';
-const SET_PRODUCT_ID = 'SET_PRODUCT_ID';
-const SET_CHOSEN_PRODUCT = 'SET_CHOSEN_PRODUCT';
-const SET_CATEGORY_NAME = 'SET_CATEGORY_NAME';
-const SET_CATEGORY_ID = 'SET_CATEGORY_ID';
-const SET_IS_FETCHING = 'SET_IS_FETCHING';
 
 export const products = (state = initialState, action: ActionTypes): InitialState => {
   switch (action.type) {

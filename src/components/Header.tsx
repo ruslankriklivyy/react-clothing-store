@@ -1,9 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import priceConvert from '../utils/priceConvert';
-import { setCategory, setCategoryId, setCategoryName } from '../redux/actions/products';
+import { setCategory, setCategoryName } from '../redux/actions/products';
 import { Auth, Cart, BurgerMenu, Categories, Logout } from '../components';
+import { setVisibleCart } from '../redux/actions/cart';
+import { setVisibleAuth } from '../redux/actions/auth';
 import { RootState } from '../redux/reducers';
 import {
   BlockOut,
@@ -21,9 +24,6 @@ import authSvg from '../assets/img/auth.svg';
 import shopCart from '../assets/img/shopping-cart.svg';
 import menuBurgerSvg from '../assets/img/menu-burger.svg';
 import userSvg from '../assets/img/user.svg';
-import { Link } from 'react-router-dom';
-import { setVisibleCart } from '../redux/actions/cart';
-import { setVisibleAuth } from '../redux/actions/auth';
 
 const Header = React.memo(function Header() {
   const dispatch = useDispatch();
