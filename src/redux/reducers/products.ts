@@ -8,14 +8,14 @@ import {
   SET_PRODUCTS,
   SET_PRODUCT_ID,
 } from '../../actionsTypes/actionsTypes';
-import { ProductsItem } from '../../types/types';
+import { IProductsItem } from '../../interfaces/interfaces';
 import { ActionTypes } from '../actions/products';
 
 const initialState = {
-  items: [] as Array<ProductsItem>,
+  items: [] as Array<IProductsItem>,
   category: 'hoodies' as string,
   categoryName: 'Худи' as string,
-  chosenProduct: null as ProductsItem | null,
+  chosenProduct: null as IProductsItem | null,
   productId: 0 as number,
   categories: null as any,
   categoryId: 0 as number,

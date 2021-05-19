@@ -9,7 +9,7 @@ import { setChosenProduct } from '../redux/actions/products';
 import { addCartItem, setSize, setVisibleCart } from '../redux/actions/cart';
 import priceConvert from '../utils/priceConvert';
 import { RootState } from '../redux/reducers';
-import { ProductsItem } from '../types/types';
+import { IProductsItem } from '../interfaces/interfaces';
 import {
   ProductsWatch,
   ProductsWatchBlock,
@@ -34,7 +34,7 @@ const ProductOnePage = () => {
   const { chosenProduct } = useSelector((state: RootState) => state.products);
   const { sizeTypes } = useSelector((state: RootState) => state.cart);
 
-  const onAddToCart = (item: ProductsItem) => {
+  const onAddToCart = (item: IProductsItem) => {
     dispatch(addCartItem(item));
 
     dispatch(setVisibleCart(true));

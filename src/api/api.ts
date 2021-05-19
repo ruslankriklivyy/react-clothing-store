@@ -1,6 +1,6 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-import { ProductsItem } from '../types/types';
+import { IProductsItem } from '../interfaces/interfaces';
 
 const $host = axios.create({
   baseURL: 'https://607ff3b4a5be5d00176dcb21.mockapi.io/api/',
@@ -17,7 +17,7 @@ const data = $host2.get('/').then(({ data }) => data);
 console.log(data);
 
 export const productsApi = {
-  fetchAllCloths(category: string | null): Promise<Array<ProductsItem>> {
+  fetchAllCloths(category: string | null): Promise<Array<IProductsItem>> {
     return $host.get(`products${category ? `?category=${category}` : ''}`).then(({ data }) => {
       return data;
     });

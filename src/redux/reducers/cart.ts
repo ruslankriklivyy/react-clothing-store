@@ -11,15 +11,15 @@ import {
   SET_VISIBLE_CART,
 } from './../../actionsTypes/actionsTypes';
 import { ADD_CART_ITEM } from '../../actionsTypes/actionsTypes';
-import { CartItem, ProductsItem, SizeTypes } from '../../types/types';
+import { ICartItem, IProductsItem, ISizeTypes } from '../../interfaces/interfaces';
 import { ActionTypes } from '../actions/cart';
 
 const initialState = {
-  cartItems: {} as CartItem,
+  cartItems: {} as ICartItem,
   totalPrice: 0 as number,
   totalCount: 0 as number,
-  cartIds: [] as Array<number>,
-  sizeTypes: {} as SizeTypes,
+  cartIds: [] as number[],
+  sizeTypes: {} as ISizeTypes,
   visibleCart: false as boolean,
 };
 
@@ -32,15 +32,15 @@ const _get = (obj: any, path: string) => {
   }, obj[firstKey]);
 };
 
-const getTotalSum = (obj: CartItem, path: string) => {
+const getTotalSum = (obj: ICartItem, path: string) => {
   return Object.values(obj).reduce((sum, obj) => {
     const value = _get(obj, path);
     return sum + value;
   }, 0);
 };
 
-const getTotalPrice = (arr: Array<ProductsItem>) =>
-  arr.reduce((sum: number, obj: ProductsItem) => {
+const getTotalPrice = (arr: IProductsItem[]) =>
+  arr.reduce((sum: number, obj: IProductsItem) => {
     return Number(obj.price) + sum;
   }, 0);
 

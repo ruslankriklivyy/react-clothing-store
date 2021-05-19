@@ -1,41 +1,41 @@
-export type ProductsItem = {
+export interface IProductsItem {
   id: number;
   name: string;
-  sizes: Array<string>;
+  sizes: string[];
   price: string;
-  description?: Array<string>;
+  description?: string[];
   category: string;
   delivery_world_price: string;
   delivery_ukraine_price: string;
-  images?: Array<string>;
+  images?: string[];
   img?: string;
-  info?: Array<Info>;
-};
+  info?: IInfo[];
+}
 
-export type Info = {
+export interface IInfo {
   id: number;
   description: string;
   createdAt: string;
   updatedAt: string;
   clothId: number;
-};
+}
 
-export type CartItem = {
+export interface ICartItem {
   [key: number]: {
-    items: Array<ProductsItem>;
+    items: IProductsItem[];
     totalPrice: 0 | number;
   };
-};
+}
 
-export type SizeTypes = {
-  [ket: number]: {
-    size: Array<string>;
+export interface ISizeTypes {
+  [key: number]: {
+    size: string[];
   };
-};
+}
 
-export type Categories = {
+export interface ICategories {
   id: number;
   name: string;
   createdAt: string;
   updatedAt: string;
-};
+}

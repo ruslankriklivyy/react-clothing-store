@@ -1,11 +1,11 @@
 import { device } from '../utils/deviceMedia';
 import styled from 'styled-components';
-import { ProductsItem } from '../types/types';
+import { IProductsItem } from '../interfaces/interfaces';
 import { IActive } from '../pages/ProductOnePage';
 
 export const ProductsWatch = styled.div`
   min-height: calc(100vh - 122px);
-  background-color: ${(props: ProductsItem) =>
+  background-color: ${(props: IProductsItem) =>
     props.name && props.name.includes('Black') ? '#000' : '#EBE6E8'};
   padding-bottom: 140px;
 `;
@@ -103,7 +103,7 @@ export const ProductsWatchLeft = styled.div`
   .slick-next:before,
   .slick-prev:before {
     font-size: 55px;
-    color: ${(props: ProductsItem) =>
+    color: ${(props: IProductsItem) =>
       props.name && props.name.includes('Black') ? '#fff' : '#202020'};
     opacity: 1;
   }
@@ -174,12 +174,12 @@ export const ProductWatchRight = styled.div`
 export const ProductWatchPrice = styled.span`
   font-size: 28px;
   letter-spacing: 1px;
-  background: ${(props: ProductsItem) =>
+  background: ${(props: IProductsItem) =>
     props.name && props.name.includes('Black') ? '#fff' : '#000'};
   width: 170px;
   text-align: center;
   padding: 8px;
-  color: ${(props: ProductsItem) =>
+  color: ${(props: IProductsItem) =>
     props.name && props.name.includes('Black') ? '#000' : '#ebe6e8'};
   border-radius: 25px;
   @media ${device.laptopL} {
@@ -188,7 +188,8 @@ export const ProductWatchPrice = styled.span`
 `;
 
 export const ProductWatchDelivery = styled.span`
-  color: ${(props: ProductsItem) => (props.name && props.name.includes('Black') ? '#fff' : '#000')};
+  color: ${(props: IProductsItem) =>
+    props.name && props.name.includes('Black') ? '#fff' : '#000'};
   opacity: 0.6;
   letter-spacing: 1px;
   font-size: 18px;
@@ -202,7 +203,8 @@ export const ProductsWatchDescr = styled.p`
   font-size: 18px;
   letter-spacing: 1px;
   font-weight: 300;
-  color: ${(props: ProductsItem) => (props.name && props.name.includes('Black') ? '#fff' : '#000')};
+  color: ${(props: IProductsItem) =>
+    props.name && props.name.includes('Black') ? '#fff' : '#000'};
 `;
 
 export const ProductWatchBottom = styled.div`
@@ -240,7 +242,7 @@ export const ProductWatchSize = styled.a`
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  background: ${(props: IActive & ProductsItem) =>
+  background: ${(props: IActive & IProductsItem) =>
     props.active
       ? props.name && props.name.includes('Black')
         ? '#fff'
@@ -248,7 +250,7 @@ export const ProductWatchSize = styled.a`
       : props.name && props.name.includes('Black')
       ? '#474852'
       : '#fff'};
-  color: ${(props: IActive & ProductsItem) =>
+  color: ${(props: IActive & IProductsItem) =>
     props.active
       ? props.name && props.name.includes('Black')
         ? '#000'

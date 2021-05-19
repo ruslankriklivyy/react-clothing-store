@@ -34,6 +34,7 @@ import plusSvg from '../assets/img/plus.svg';
 import minusSvg from '../assets/img/remove.svg';
 import removeSvg from '../assets/img/cancel.svg';
 import emptyCartSvg from '../assets/img/empty-cart.png';
+import { IProductsItem } from '../interfaces/interfaces';
 
 export interface ICart {
   show: boolean;
@@ -45,7 +46,7 @@ const Cart = () => {
   const { cartItems, totalPrice, sizeTypes, visibleCart } = useSelector(
     (state: RootState) => state.cart,
   );
-  const addedItems =
+  const addedItems: IProductsItem[] =
     cartItems &&
     Object.keys(cartItems).map((key) => {
       return cartItems[Number(key)].items && cartItems[Number(key)].items[0];

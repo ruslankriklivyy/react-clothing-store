@@ -1,6 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
 import { productsApi } from '../../api/api';
-import { ProductsItem } from '../../types/types';
+import { IProductsItem } from '../../interfaces/interfaces';
 import { InitialState } from '../reducers/products';
 
 import {
@@ -20,17 +20,17 @@ type Thunk = ThunkAction<Promise<void>, InitialState, unknown, ActionTypes>;
 export const getAllCloths = (category: string | null): Thunk => async (dispatch) => {
   dispatch(setIsFetching(false));
   const data = await productsApi.fetchAllCloths(category);
-  const newCloths = data.filter((item: ProductsItem) => item.category === category);
+  const newCloths = data.filter((item: IProductsItem) => item.category === category);
   dispatch(setProducts(newCloths));
   dispatch(setIsFetching(true));
 };
 
 type SetOneCloth = {
   type: typeof SET_ONE_CLOTH;
-  payload: ProductsItem;
+  payload: IProductsItem;
 };
 
-export const setOneCloth = (obj: ProductsItem): SetOneCloth => ({
+export const setOneCloth = (obj: IProductsItem): SetOneCloth => ({
   type: SET_ONE_CLOTH,
   payload: obj,
 });
@@ -77,10 +77,10 @@ export const setProductId = (id: number): SetProductId => ({
 
 type SetChosenProduct = {
   type: typeof SET_CHOSEN_PRODUCT;
-  payload: ProductsItem | null;
+  payload: IProductsItem | null;
 };
 
-export const setChosenProduct = (item: ProductsItem | null): SetChosenProduct => ({
+export const setChosenProduct = (item: IProductsItem | null): SetChosenProduct => ({
   type: SET_CHOSEN_PRODUCT,
   payload: item,
 });
@@ -97,10 +97,10 @@ export const setCategoryName = (name: string): SetCategoryName => ({
 
 type SetProducts = {
   type: typeof SET_PRODUCTS;
-  payload: Array<ProductsItem>;
+  payload: Array<IProductsItem>;
 };
 
-export const setProducts = (items: Array<ProductsItem>): SetProducts => ({
+export const setProducts = (items: Array<IProductsItem>): SetProducts => ({
   type: SET_PRODUCTS,
   payload: items,
 });

@@ -12,14 +12,14 @@ import {
   SET_TOTAL_PRICE,
   SET_VISIBLE_CART,
 } from './../../actionsTypes/actionsTypes';
-import { ProductsItem } from '../../types/types';
+import { ICartItem, IProductsItem, ISizeTypes } from '../../interfaces/interfaces';
 
 type SetCartItem = {
   type: typeof SET_CART_ITEM;
-  payload: ProductsItem;
+  payload: ICartItem;
 };
 
-export const setCartItem = (obj: ProductsItem): SetCartItem => ({
+export const setCartItem = (obj: ICartItem): SetCartItem => ({
   type: SET_CART_ITEM,
   payload: obj,
 });
@@ -36,10 +36,10 @@ export const removeSize = (id: number): RemoveSize => ({
 
 type SetStorageSize = {
   type: typeof SET_STORAGE_SIZE;
-  payload: any;
+  payload: ISizeTypes;
 };
 
-export const setStorageSize = (obj: any): SetStorageSize => ({
+export const setStorageSize = (obj: ISizeTypes): SetStorageSize => ({
   type: SET_STORAGE_SIZE,
   payload: obj,
 });
@@ -68,20 +68,20 @@ export const removeCartItem = (id: number): RemoveCartItem => ({
 
 type SetCartItemId = {
   type: typeof SET_CART_ITEM_ID;
-  payload: Array<number>;
+  payload: number[];
 };
 
-export const setCartItemId = (id: Array<number>): SetCartItemId => ({
+export const setCartItemId = (id: number[]): SetCartItemId => ({
   type: SET_CART_ITEM_ID,
   payload: id,
 });
 
 type AddCartItem = {
   type: typeof ADD_CART_ITEM;
-  payload: ProductsItem;
+  payload: IProductsItem;
 };
 
-export const addCartItem = (item: ProductsItem): AddCartItem => ({
+export const addCartItem = (item: IProductsItem): AddCartItem => ({
   type: ADD_CART_ITEM,
   payload: item,
 });
