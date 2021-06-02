@@ -28,13 +28,13 @@ import {
   CartItemBottom,
   EmptyCart,
 } from '../styles/CartStyle';
+import { IProductsItem } from '../interfaces/interfaces';
 
 import backSvg from '../assets/img/back.svg';
 import plusSvg from '../assets/img/plus.svg';
 import minusSvg from '../assets/img/remove.svg';
 import removeSvg from '../assets/img/cancel.svg';
 import emptyCartSvg from '../assets/img/empty-cart.png';
-import { IProductsItem } from '../interfaces/interfaces';
 
 export interface ICart {
   show: boolean;
@@ -42,7 +42,7 @@ export interface ICart {
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const cartBlock = React.useRef();
+  const cartBlock = React.useRef<HTMLDivElement>(null);
   const { cartItems, totalPrice, sizeTypes, visibleCart } = useSelector(
     (state: RootState) => state.cart,
   );

@@ -5,8 +5,6 @@ import { ProductOnePage, PromoPage, ProductsPage } from '.';
 import { Header, Footer } from '../components';
 
 const Home = () => {
-  // const [visibleCart, setVisibleCart] = React.useState(false);
-
   return (
     <>
       <Route path="/" render={() => <Header />} />

@@ -36,7 +36,6 @@ const ProductOnePage = () => {
 
   const onAddToCart = (item: IProductsItem) => {
     dispatch(addCartItem(item));
-
     dispatch(setVisibleCart(true));
   };
 

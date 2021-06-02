@@ -3,12 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Registration from './Registration';
 import Login from './Login';
-
-import removeSvg from '../assets/img/cancel.svg';
-
 import { CloseLoginForm, LoginWrapper, RegistartionTitle } from '../styles/AuthStyle';
 import { RootState } from '../redux/reducers';
 import { setVisibleAuth } from '../redux/actions/auth';
+
+import removeSvg from '../assets/img/cancel.svg';
 
 export interface IAuth {
   show: boolean;

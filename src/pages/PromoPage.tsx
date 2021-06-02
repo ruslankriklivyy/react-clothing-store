@@ -1,29 +1,15 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { Button } from '../components';
+import { RootState } from '../redux/reducers';
 import { Container } from '../styles/ProductsStyle';
 import { PromoBlockItem, PromoBlocks, PromoMain, PromoWrapper } from '../styles/PromoStyles';
 
-const promoItems = [
-  {
-    id: 0,
-    title: 'Наш бренд дерзок',
-    text: 'разве способен на такое обычный раб из тенденций толпы?',
-  },
-  {
-    id: 1,
-    title: 'Детали бренда - наше все',
-    text: 'связь бренда и покупателя - наша философская позиция',
-  },
-  {
-    id: 2,
-    title: 'У нас есть только белый и черный. Остальное - оттенки',
-    text: 'мы плены идеями максимализма',
-  },
-];
-
 const PromoPage = () => {
+  const { promoItems } = useSelector((state: RootState) => state.products);
+
   return (
     <PromoWrapper>
       <Container>
