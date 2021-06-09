@@ -1,6 +1,6 @@
 ## Clothing Store 👚
 
-[Live demo](https://react-clothing-store-git-main-ruslankrilkivyy.vercel.app/)
+▶[Live demo](https://react-clothing-store-git-main-ruslankrilkivyy.vercel.app/)
 
 ![Header](https://github.com/ruslankriklivyy/react-clothing-store/blob/main/public/clothingStore.gif)
 
