@@ -12,3 +12,4 @@
 - Redux / Redux Thunk
 - formik
 - styled-components
+- react-slick
