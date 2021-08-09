@@ -1,20 +1,19 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 
-import { setAuth } from '../redux/actions/auth';
+
 import { LogoutBtns, LogoutWrapper } from '../styles/LogoutStyle';
 
 export interface ILogout {
   show: boolean;
   setVisibleLogout: (visible: boolean) => void;
+  setAuth: (auth: boolean) => void
 }
 
-const Logout: React.FC<ILogout> = ({ show, setVisibleLogout }) => {
-  const dispatch = useDispatch();
+const Logout: React.FC<ILogout> = ({ show, setVisibleLogout, setAuth }) => {
 
   const onLogout = () => {
     localStorage.removeItem('token');
-    dispatch(setAuth(false));
+    setAuth(false);
     setVisibleLogout(false);
   };
 

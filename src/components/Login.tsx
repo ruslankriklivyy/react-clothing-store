@@ -10,7 +10,6 @@ import {
   LoginOrRegistration,
   LoginRegistrationLink,
 } from '../utils/stylesAuthBlock';
-import { setLogin } from '../redux/actions/auth';
 import { Dispatch } from 'redux';
 
 interface FormValues {
@@ -90,8 +89,7 @@ const Login = withFormik<MyFormProps, FormValues, OtherProps>({
   },
 
   handleSubmit: (values, { props, resetForm }) => {
-    // @ts-ignore
-    props.dispatch(setLogin(values.email, values.password));
+    console.log({email: values.email, password:values.password});
     resetForm();
     values.setVisible(false);
   },

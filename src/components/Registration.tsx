@@ -1,9 +1,11 @@
 import React from 'react';
 import {withFormik, FormikProps, FormikErrors, Form, Field} from 'formik';
+
 import Button from './Button';
-import arrowSvg from '../assets/img/arrow-white.svg';
-import {userApi} from "../api/api";
 import validateForm from "../utils/validate";
+
+import arrowSvg from '../assets/img/arrow-white.svg';
+
 import {
   LoginContent,
   LoginFormItem,
@@ -92,7 +94,7 @@ const Registration = withFormik<MyFormProps, FormValues, OtherProps>({
   },
 
   handleSubmit: (values, {resetForm}) => {
-    userApi.registration(values.email, values.password)
+    console.log({email:values.email, password:values.password})
     resetForm()
     values.setVisible(false)
   },

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
 import { IProductsItem } from '../interfaces/interfaces';
 
 const $host = axios.create({
@@ -14,31 +13,5 @@ export const productsApi = {
         return data;
       })
       .catch((err) => alert(err));
-  },
-};
-
-export const userApi = {
-  registration(email: string, password: string): Promise<any> {
-    return $host
-      .post('user/registration', {
-        email,
-        password,
-        role: 'ADMIN',
-      })
-      .then(({ data }) => {
-        localStorage.setItem('token', JSON.stringify(data.token));
-        return jwt_decode(data.token);
-      });
-  },
-  login(email: string, password: string): Promise<any> {
-    return $host.post('user/login', { email, password }).then(({ data }) => {
-      localStorage.setItem('token', JSON.stringify(data.token));
-      return jwt_decode(data.token);
-    });
-  },
-  check(): Promise<any> {
-    return $host.get('user/auth').then(({ data }) => {
-      return data;
-    });
   },
 };

@@ -6,7 +6,6 @@ import priceConvert from '../utils/priceConvert';
 import { setCategory, setCategoryName } from '../redux/actions/products';
 import { Auth, Cart, BurgerMenu, Categories, Logout } from '../components';
 import { setVisibleCart } from '../redux/actions/cart';
-import { setVisibleAuth } from '../redux/actions/auth';
 import { RootState } from '../redux/reducers';
 import {
   BlockOut,
@@ -28,11 +27,12 @@ import userSvg from '../assets/img/user.svg';
 const Header = React.memo(function Header() {
   const dispatch = useDispatch();
   const blockOutRef = React.useRef<HTMLDivElement>(null);
+  const [visibleAuthBlock, setVisibleAuthBlock] = React.useState(false);
+  const [auth, setAuth] = React.useState(false);
 
   const { category, chosenProduct, categoryName } = useSelector(
     (state: RootState) => state.products,
   );
-  const { isAuth, visibleAuth } = useSelector((state: RootState) => state.auth);
   const { totalPrice, visibleCart } = useSelector((state: RootState) => state.cart);
 
   const [visibleBurgerMenu, setVisibleBurgerMenu] = React.useState(false);
@@ -41,7 +41,7 @@ const Header = React.memo(function Header() {
   const escapeListener = React.useCallback(
     (e) => {
       if (e.key === 'Escape') {
-        dispatch(setVisibleAuth(false));
+        setVisibleAuthBlock(false);
         dispatch(setVisibleCart(false));
         setVisibleBurgerMenu(false);
         setVisibleLogout(false);
@@ -56,7 +56,7 @@ const Header = React.memo(function Header() {
         blockOutRef.current &&
         e.target.className === blockOutRef.current.className
       ) {
-        dispatch(setVisibleAuth(false));
+        setVisibleAuthBlock(false);
         dispatch(setVisibleCart(false));
         setVisibleBurgerMenu(false);
         setVisibleLogout(false);
@@ -74,10 +74,10 @@ const Header = React.memo(function Header() {
   }, [clickListener, escapeListener]);
 
   React.useEffect(() => {
-    visibleCart || visibleAuth || visibleBurgerMenu
+    visibleCart || visibleAuthBlock || visibleBurgerMenu
       ? document.querySelector<HTMLElement>('body')?.setAttribute('style', 'overflow: hidden')
       : document.querySelector<HTMLElement>('body')?.setAttribute('style', 'overflow: auto');
-  }, [visibleCart, visibleAuth, visibleBurgerMenu]);
+  }, [visibleCart, visibleAuthBlock, visibleBurgerMenu]);
 
   React.useEffect(() => {
     const categoryNameRef = localStorage.getItem('categoryName');
@@ -106,11 +106,11 @@ const Header = React.memo(function Header() {
       <BlockOut
         ref={blockOutRef}
         show={
-          visibleCart || visibleAuth || visibleBurgerMenu || visibleLogout ? 'show' : ''
+          visibleCart || visibleAuthBlock || visibleBurgerMenu || visibleLogout ? 'show' : ''
         }></BlockOut>
       <HeaderMain name={chosenProduct && chosenProduct.name}>
-        <Logout show={visibleLogout} setVisibleLogout={setVisibleLogout} />
-        <Auth />
+        <Logout setAuth={setAuth} show={visibleLogout} setVisibleLogout={setVisibleLogout} />
+        <Auth visibleAuthBlock={visibleAuthBlock} setVisibleAuthBlock={setVisibleAuthBlock} />
         <HeaderWrapper>
           <Logo>
             <Link to="/">
@@ -119,8 +119,8 @@ const Header = React.memo(function Header() {
           </Logo>
           <Categories />
           <HeaderRight>
-            {!isAuth ? (
-              <HeaderImg onClick={() => dispatch(setVisibleAuth(!visibleAuth))}>
+            {!auth ? (
+              <HeaderImg onClick={() => setVisibleAuthBlock(!visibleAuthBlock)}>
                 <img src={userSvg} alt="user svg" />
               </HeaderImg>
             ) : (

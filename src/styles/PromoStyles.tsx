@@ -62,6 +62,7 @@ export const PromoBlockItem = styled.div`
     line-height: 1.3;
   }
   button {
+    width: 70%;
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
@@ -73,8 +74,12 @@ export const PromoBlockItem = styled.div`
   @media ${device.mobile} {
     width: 100%;
     min-height: 300px;
+    button {
+      width: 90%;
+      bottom: 20px;
+    }
     h4 {
-      padding-top: 90px;
+      padding-top: 70px;
       font-size: 22px;
     }
     p {
