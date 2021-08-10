@@ -3,8 +3,7 @@ import {
   PLUS_CART_ITEM,
   REMOVE_CART_ITEM,
   REMOVE_STORAGE_SIZE,
-  SET_CART_ITEM,
-  SET_CART_ITEM_ID,
+  SET_CART_ITEMS,
   SET_SIZE,
   SET_STORAGE_SIZE,
   SET_TOTAL_PRICE,
@@ -111,7 +110,6 @@ export const cart = (state = initialState, action: ActionTypes): InitialState =>
       };
 
       const totalPrice = getTotalSum(newItems, 'totalPrice');
-
       const totalCount = getTotalSum(newItems, 'items.length');
 
       return {
@@ -156,25 +154,22 @@ export const cart = (state = initialState, action: ActionTypes): InitialState =>
     case REMOVE_CART_ITEM: {
       const newItems = { ...state.cartItems };
       const currentTotalPrice = newItems[action.payload].totalPrice;
+      const currentTotalCount = newItems[action.payload].items.length;
+
       delete newItems[action.payload];
 
       return {
         ...state,
         cartItems: newItems,
         totalPrice: state.totalPrice - currentTotalPrice,
+        totalCount: state.totalCount - currentTotalCount,
       };
     }
 
-    case SET_CART_ITEM:
+    case SET_CART_ITEMS:
       return {
         ...state,
         cartItems: action.payload,
-      };
-
-    case SET_CART_ITEM_ID:
-      return {
-        ...state,
-        cartIds: [...state.cartIds, ...action.payload],
       };
 
     case SET_TOTAL_PRICE:
