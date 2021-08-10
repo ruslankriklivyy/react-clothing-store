@@ -18,10 +18,8 @@ export const SET_VISIBLE_AUTH = 'SET_VISIBLE_AUTH';
 // types for products
 export const SET_PRODUCTS = 'SET_PRODUCTS';
 export const SET_CATEGORY = 'SET_CATEGORY';
-export const SET_CATEGORIES = 'SET_CATEGORIES';
 export const SET_PRODUCT_ID = 'SET_PRODUCT_ID';
 export const SET_CHOSEN_PRODUCT = 'SET_CHOSEN_PRODUCT';
 export const SET_CATEGORY_NAME = 'SET_CATEGORY_NAME';
 export const SET_CATEGORY_ID = 'SET_CATEGORY_ID';
 export const SET_IS_FETCHING = 'SET_IS_FETCHING';
-export const SET_ONE_CLOTH = 'SET_ONE_CLOTH';

@@ -1,5 +1,4 @@
 import {
-  SET_CATEGORIES,
   SET_CATEGORY,
   SET_CATEGORY_ID,
   SET_CATEGORY_NAME,
@@ -17,7 +16,6 @@ const initialState = {
   categoryName: 'Худи' as string,
   chosenProduct: null as IProductsItem | null,
   productId: 0 as number,
-  categories: null as any,
   categoryId: 0 as number,
   isFetching: false as boolean,
   categoriesNames: [
@@ -79,12 +77,6 @@ export const products = (state = initialState, action: ActionTypes): InitialStat
       return {
         ...state,
         categoryId: action.payload,
-      };
-
-    case SET_CATEGORIES:
-      return {
-        ...state,
-        categories: action.payload,
       };
 
     case SET_CATEGORY:

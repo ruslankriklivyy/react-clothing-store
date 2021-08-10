@@ -4,13 +4,11 @@ import { IProductsItem } from '../../interfaces/interfaces';
 import { InitialState } from '../reducers/products';
 
 import {
-  SET_CATEGORIES,
   SET_CATEGORY,
   SET_CATEGORY_ID,
   SET_CATEGORY_NAME,
   SET_CHOSEN_PRODUCT,
   SET_IS_FETCHING,
-  SET_ONE_CLOTH,
   SET_PRODUCTS,
   SET_PRODUCT_ID,
 } from '../../actionsTypes/actionsTypes';
@@ -25,16 +23,6 @@ export const getAllCloths = (category: string | null): Thunk => async (dispatch)
   dispatch(setIsFetching(true));
 };
 
-type SetOneCloth = {
-  type: typeof SET_ONE_CLOTH;
-  payload: IProductsItem;
-};
-
-export const setOneCloth = (obj: IProductsItem): SetOneCloth => ({
-  type: SET_ONE_CLOTH,
-  payload: obj,
-});
-
 type SetIsFetching = {
   type: typeof SET_IS_FETCHING;
   payload: boolean;
@@ -43,16 +31,6 @@ type SetIsFetching = {
 export const setIsFetching = (isFetching: boolean): SetIsFetching => ({
   type: SET_IS_FETCHING,
   payload: isFetching,
-});
-
-type SetCategories = {
-  type: typeof SET_CATEGORIES;
-  payload: any;
-};
-
-export const setCategories = (categories: any): SetCategories => ({
-  type: SET_CATEGORIES,
-  payload: categories,
 });
 
 type SetCategoryId = {
@@ -121,7 +99,5 @@ export type ActionTypes =
   | SetCategoryName
   | SetChosenProduct
   | SetProductId
-  | SetCategories
   | SetCategoryId
-  | SetOneCloth
   | SetIsFetching;
