@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IAuth } from '../components/Auth';
+import { IAuth } from '../components/Auth/Auth';
 import { device } from '../utils/deviceMedia';
 
 export const LoginWrapper = styled.div`

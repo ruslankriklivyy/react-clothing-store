@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IBurgerMenu } from '../components/BurgerMenu';
+import { IBurgerMenu } from '../components/BurgerMenu/BurgerMenu';
 import { device } from '../utils/deviceMedia';
 
 export const BurgerMenuWrapper = styled.div`

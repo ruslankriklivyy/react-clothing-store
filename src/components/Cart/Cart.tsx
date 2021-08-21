@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import priceConvert from '../utils/priceConvert';
+import priceConvert from '../../utils/priceConvert';
 import {
   minusCartItem,
   plusCartItem,
@@ -11,8 +11,8 @@ import {
   setStorageSize,
   setTotalPrice,
   setVisibleCart,
-} from '../redux/actions/cart';
-import { RootState } from '../redux/reducers';
+} from '../../redux/actions/cart';
+import { RootState } from '../../redux/reducers';
 import {
   CartHeader,
   CartItem,
@@ -27,14 +27,14 @@ import {
   CartItemTotalPrice,
   CartItemBottom,
   EmptyCart,
-} from '../styles/CartStyle';
-import { IProductsItem } from '../interfaces/interfaces';
+} from '../../styles/CartStyle';
+import { IProductsItem } from '../../interfaces/interfaces';
 
-import backSvg from '../assets/img/back.svg';
-import plusSvg from '../assets/img/plus.svg';
-import minusSvg from '../assets/img/remove.svg';
-import removeSvg from '../assets/img/cancel.svg';
-import emptyCartSvg from '../assets/img/empty-cart.png';
+import backSvg from '../../assets/img/back.svg';
+import plusSvg from '../../assets/img/plus.svg';
+import minusSvg from '../../assets/img/remove.svg';
+import removeSvg from '../../assets/img/cancel.svg';
+import emptyCartSvg from '../../assets/img/empty-cart.png';
 
 export interface ICart {
   show: boolean;

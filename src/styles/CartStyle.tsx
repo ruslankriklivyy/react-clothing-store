@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ICart } from '../components/Cart';
+import { ICart } from '../components/Cart/Cart';
 import { device } from '../utils/deviceMedia';
 
 export const CartWrapper = styled.div`
