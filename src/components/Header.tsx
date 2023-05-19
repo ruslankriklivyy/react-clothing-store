@@ -39,8 +39,8 @@ const Header = React.memo(function Header() {
   const [visibleLogout, setVisibleLogout] = React.useState(false);
 
   const escapeListener = React.useCallback(
-    (e) => {
-      if (e.key === 'Escape') {
+    (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
         setVisibleAuthBlock(false);
         dispatch(setVisibleCart(false));
         setVisibleBurgerMenu(false);
@@ -50,11 +50,13 @@ const Header = React.memo(function Header() {
     [setVisibleBurgerMenu, dispatch],
   );
   const clickListener = React.useCallback(
-    (e) => {
+    (event: MouseEvent) => {
+      const target = event.target as HTMLDivElement;
+
       if (
-        e.target.className &&
+        target?.className &&
         blockOutRef.current &&
-        e.target.className === blockOutRef.current.className
+        target?.className === blockOutRef.current.className
       ) {
         setVisibleAuthBlock(false);
         dispatch(setVisibleCart(false));

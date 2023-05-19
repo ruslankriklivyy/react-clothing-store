@@ -1,10 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
-import App from './App';
-import styled, { createGlobalStyle } from 'styled-components';
-import store from './redux/store';
+import React from "react";
+import { Provider } from "react-redux";
+import { BrowserRouter as Router } from "react-router-dom";
+import { createRoot } from "react-dom/client";
+import { createGlobalStyle } from "styled-components";
+
+import App from "./App";
+import store from "./redux/store";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 const Global = createGlobalStyle`
   * {
@@ -33,7 +35,10 @@ const Global = createGlobalStyle`
   }
 `;
 
-ReactDOM.render(
+const container = document.getElementById("root");
+const root = createRoot(container!);
+
+root.render(
   <React.StrictMode>
     <Router>
       <Provider store={store}>
@@ -41,6 +46,9 @@ ReactDOM.render(
         <App />
       </Provider>
     </Router>
-  </React.StrictMode>,
-  document.getElementById('root'),
+  </React.StrictMode>
 );
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://cra.link/PWA
+serviceWorkerRegistration.unregister();

@@ -1,18 +1,18 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import { ProductOnePage, PromoPage, ProductsPage } from '.';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 
-import { Header, Footer } from '../components';
+import PromoPage from "./PromoPage";
+import ProductsPage from "./ProductsPage";
+import ProductOnePage from "./ProductOnePage";
 
 const Home = () => {
   return (
-    <>
-      <Route path="/" render={() => <Header />} />
-      <Route exact path="/" component={PromoPage} />
-      <Route path="/category" component={ProductsPage} />
-      <Route path={`/product/`} render={() => <ProductOnePage />} />
-      <Route path="/" component={Footer} />
-    </>
+    <Routes>
+      <Route index path="/" element={<PromoPage />} />
+      <Route path={"/category"} element={<ProductsPage />} />
+      <Route path={"/category/:slug"} element={<ProductsPage />} />
+      <Route path={"/product/:slug"} element={<ProductOnePage />} />
+    </Routes>
   );
 };
 
