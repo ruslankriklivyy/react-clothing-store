@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { device } from '../utils/deviceMedia';
+import styled from "styled-components";
+import { device } from "../utils/device-media";
 
 export const HeaderWrapper = styled.div`
   padding-top: 25px;
@@ -83,8 +83,8 @@ export const BlockOut = styled.div`
   height: 100%;
   z-index: 700;
   background: rgba(0, 0, 0, 0.5);
-  opacity: ${(props: any) => (props.show ? '1' : '0')};
-  visibility: ${(props: any) => (props.show ? 'visibility' : 'hidden')};
+  opacity: ${(props: any) => (props.show ? "1" : "0")};
+  visibility: ${(props: any) => (props.show ? "visibility" : "hidden")};
   transition: all 0.3s ease;
 `;
 

@@ -1,16 +1,18 @@
-import React from 'react';
-import validateForm from '../utils/validate';
-import { withFormik, FormikProps, FormikErrors, Form, Field } from 'formik';
-import Button from './Button';
-import arrowSvg from '../assets/img/arrow-white.svg';
+import React from "react";
+import { withFormik, FormikProps, FormikErrors, Form, Field } from "formik";
+import { Dispatch } from "redux";
+
+import validateForm from "@/utils/validate";
+import Button from "@/components/Button";
 import {
   LoginContent,
   LoginFormItem,
   ValidateErrors,
   LoginOrRegistration,
   LoginRegistrationLink,
-} from '../utils/stylesAuthBlock';
-import { Dispatch } from 'redux';
+} from "@/utils/auth-block-styles";
+
+import arrowSvg from "@/assets/img/arrow-white.svg";
 
 interface FormValues {
   email: string;
@@ -39,7 +41,9 @@ const LoginForm = (props: OtherProps & FormikProps<FormValues>) => {
         <LoginFormItem>
           <label htmlFor="email">ЭЛ.ПОЧТА</label>
           <Field id="email" type="e-mail" name="email" required />
-          {touched.email && errors.email && <ValidateErrors>{errors.email}</ValidateErrors>}
+          {touched.email && errors.email && (
+            <ValidateErrors>{errors.email}</ValidateErrors>
+          )}
         </LoginFormItem>
         <LoginFormItem>
           <label htmlFor="password">ПАРОЛЬ</label>
@@ -73,8 +77,8 @@ interface MyFormProps {
 const Login = withFormik<MyFormProps, FormValues, OtherProps>({
   mapPropsToValues: (props) => {
     return {
-      email: props.initialEmail || '',
-      password: '',
+      email: props.initialEmail || "",
+      password: "",
       setVisible: props.setVisible,
     };
   },
@@ -89,7 +93,7 @@ const Login = withFormik<MyFormProps, FormValues, OtherProps>({
   },
 
   handleSubmit: (values, { props, resetForm }) => {
-    console.log({email: values.email, password:values.password});
+    console.log({ email: values.email, password: values.password });
     resetForm();
     values.setVisible(false);
   },

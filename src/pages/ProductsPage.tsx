@@ -1,17 +1,17 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { RootState } from "../redux/reducers";
+import { RootState } from "@/redux/reducers";
 import {
   getAllCloths,
   setProductId,
   setCategoryId,
   setChosenProduct,
-} from "../redux/actions/products";
-import { ProductsMain, ProductsWrapper } from "../styles/ProductsStyle";
-import { Container } from "../styles/FooterStyle";
-import { Title, ProductsItem } from "../components";
-import { MainLayout } from "../layouts/MainLayout";
+} from "@/redux/actions/products";
+import { ProductsMain, ProductsWrapper } from "@/styles/ProductsStyle";
+import { Container } from "@/styles/FooterStyle";
+import { Title, ProductsItem } from "@/components";
+import { MainLayout } from "@/layouts/MainLayout";
 
 const ProductsPage = () => {
   const dispatch = useDispatch();

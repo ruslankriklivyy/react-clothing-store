@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { ICategories } from '../components/Categories';
-import { device } from '../utils/deviceMedia';
+import styled from "styled-components";
+import { ICategories } from "../components/Categories";
+import { device } from "../utils/device-media";
 
 export const CategoriesWrapper = styled.div`
   display: block;
@@ -20,7 +20,7 @@ export const CategoriesWrapper = styled.div`
         text-transform: uppercase;
         color: #fff;
         &::after {
-          content: '';
+          content: "";
           position: absolute;
           bottom: -5px;
           right: 0;
@@ -44,8 +44,9 @@ export const CategoriesWrapper = styled.div`
     }
   }
   @media ${device.laptopL} {
-    opacity: ${(props: ICategories) => (props.show ? '1' : '0')};
-    visibility: ${(props: ICategories) => (props.show ? 'visibility' : 'hidden')};
+    opacity: ${(props: ICategories) => (props.show ? "1" : "0")};
+    visibility: ${(props: ICategories) =>
+      props.show ? "visibility" : "hidden"};
     ul {
       flex-direction: column;
       align-items: flex-start;

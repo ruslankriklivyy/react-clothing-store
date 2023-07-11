@@ -6,60 +6,63 @@ import {
   SET_IS_FETCHING,
   SET_PRODUCTS,
   SET_PRODUCT_ID,
-} from '../../actionsTypes/actionsTypes';
-import { IProductsItem } from '../../interfaces/interfaces';
-import { ActionTypes } from '../actions/products';
+} from "@/actionsTypes/actionsTypes";
+import { IProductsItem } from "@/interfaces/interfaces";
+import { ActionTypes } from "@/redux/actions/products";
 
 const initialState = {
   items: [] as Array<IProductsItem>,
-  category: 'hoodies' as string,
-  categoryName: 'Худи' as string,
+  category: "hoodies" as string,
+  categoryName: "Худи" as string,
   chosenProduct: null as IProductsItem | null,
   productId: 0 as number,
   categoryId: 0 as number,
   isFetching: false as boolean,
   categoriesNames: [
-    'Memes.Jolybell',
-    'Шапки',
-    'Футболки',
-    'Свитшоты',
-    'Худи',
-    'Рюкзаки',
-    'Поло',
-    'FQA',
+    "Memes.Jolybell",
+    "Шапки",
+    "Футболки",
+    "Свитшоты",
+    "Худи",
+    "Рюкзаки",
+    "Поло",
+    "FQA",
   ],
   categoriesNamesEng: [
-    'memes',
-    'hats',
-    't-shirts',
-    'sweatshirts',
-    'hoodies',
-    'bags',
-    'polo',
-    'fqa',
+    "memes",
+    "hats",
+    "t-shirts",
+    "sweatshirts",
+    "hoodies",
+    "bags",
+    "polo",
+    "fqa",
   ],
   promoItems: [
     {
       id: 0,
-      title: 'Наш бренд дерзок',
-      text: 'разве способен на такое обычный раб из тенденций толпы?',
+      title: "Наш бренд дерзок",
+      text: "разве способен на такое обычный раб из тенденций толпы?",
     },
     {
       id: 1,
-      title: 'Детали бренда - наше все',
-      text: 'связь бренда и покупателя - наша философская позиция',
+      title: "Детали бренда - наше все",
+      text: "связь бренда и покупателя - наша философская позиция",
     },
     {
       id: 2,
-      title: 'У нас есть только белый и черный. Остальное - оттенки',
-      text: 'мы плены идеями максимализма',
+      title: "У нас есть только белый и черный. Остальное - оттенки",
+      text: "мы плены идеями максимализма",
     },
   ],
 };
 
 export type InitialState = typeof initialState;
 
-export const products = (state = initialState, action: ActionTypes): InitialState => {
+export const products = (
+  state = initialState,
+  action: ActionTypes
+): InitialState => {
   switch (action.type) {
     case SET_PRODUCTS:
       return {

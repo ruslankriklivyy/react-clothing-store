@@ -1,18 +1,16 @@
-import React from 'react';
+import React from "react";
 
-
-import { LogoutBtns, LogoutWrapper } from '../styles/LogoutStyle';
+import { LogoutBtns, LogoutWrapper } from "@/styles/LogoutStyle";
 
 export interface ILogout {
   show: boolean;
   setVisibleLogout: (visible: boolean) => void;
-  setAuth: (auth: boolean) => void
+  setAuth: (auth: boolean) => void;
 }
 
 const Logout: React.FC<ILogout> = ({ show, setVisibleLogout, setAuth }) => {
-
   const onLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     setAuth(false);
     setVisibleLogout(false);
   };

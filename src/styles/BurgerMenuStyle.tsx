@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { IBurgerMenu } from '../components/BurgerMenu/BurgerMenu';
-import { device } from '../utils/deviceMedia';
+import styled from "styled-components";
+import { IBurgerMenu } from "../components/BurgerMenu/BurgerMenu";
+import { device } from "../utils/device-media";
 
 export const BurgerMenuWrapper = styled.div`
   display: block;
@@ -9,9 +9,9 @@ export const BurgerMenuWrapper = styled.div`
   overflow: auto;
   position: fixed;
   top: 0;
-  right: ${(props: IBurgerMenu) => (props.show ? '0' : '-400px')};
+  right: ${(props: IBurgerMenu) => (props.show ? "0" : "-400px")};
   z-index: 900;
-  visibility: ${(props: IBurgerMenu) => (props.show ? 'visbility' : 'hidden')};
+  visibility: ${(props: IBurgerMenu) => (props.show ? "visbility" : "hidden")};
   background: #fff;
   transition: all 0.7s ease;
   @media ${device.mobileL} {

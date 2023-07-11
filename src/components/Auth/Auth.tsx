@@ -1,11 +1,15 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React from "react";
+import { useDispatch } from "react-redux";
 
-import Registration from '../Registration';
-import Login from '../Login';
-import { CloseLoginForm, LoginWrapper, RegistartionTitle } from '../../styles/AuthStyle';
+import Registration from "@/components/Registration";
+import Login from "@/components/Login";
+import {
+  CloseLoginForm,
+  LoginWrapper,
+  RegistartionTitle,
+} from "@/styles/AuthStyle";
 
-import removeSvg from '../../assets/img/cancel.svg';
+import removeSvg from "@/assets/img/cancel.svg";
 
 export interface IAuth {
   show: boolean;
@@ -16,7 +20,10 @@ interface IAuthProps {
   setVisibleAuthBlock: (visible: boolean) => void;
 }
 
-const Auth: React.FC<IAuthProps> = ({ visibleAuthBlock, setVisibleAuthBlock }) => {
+const Auth: React.FC<IAuthProps> = ({
+  visibleAuthBlock,
+  setVisibleAuthBlock,
+}) => {
   const dispatch = useDispatch();
   const [visibleLogin, setVisibleLogin] = React.useState(true);
 

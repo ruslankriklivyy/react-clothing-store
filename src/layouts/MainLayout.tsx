@@ -1,4 +1,4 @@
-import { Footer, Header } from "../components";
+import { Footer, Header } from "@/components";
 import { FC, ReactNode } from "react";
 
 interface IMainLayoutProps {

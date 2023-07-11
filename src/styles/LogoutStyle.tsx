@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { ILogout } from '../components/Logout';
-import { device } from '../utils/deviceMedia';
+import styled from "styled-components";
+import { ILogout } from "../components/Logout";
+import { device } from "../utils/device-media";
 
 export const LogoutWrapper = styled.div`
   position: absolute;
@@ -14,8 +14,8 @@ export const LogoutWrapper = styled.div`
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
   border-radius: 25px;
   background-color: #fff;
-  visibility: ${(props: ILogout) => (props.show ? 'visible' : 'hidden')};
-  opacity: ${(props: ILogout) => (props.show ? '1' : '0')};
+  visibility: ${(props: ILogout) => (props.show ? "visible" : "hidden")};
+  opacity: ${(props: ILogout) => (props.show ? "1" : "0")};
   transition: all 0.6s ease;
   h4 {
     font-weight: 500;

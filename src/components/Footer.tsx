@@ -1,7 +1,4 @@
-import React from 'react';
-
-import vkSvg from '../assets/img/vk.svg';
-import instagramSvg from '../assets/img/instagram.svg';
+import React from "react";
 
 import {
   Container,
@@ -9,9 +6,12 @@ import {
   FooterBlockLeft,
   FooterBlockSocial,
   FooterBlockWrapper,
-} from '../styles/FooterStyle';
+} from "@/styles/FooterStyle";
 
-const linksFooter = ['Служба поддержи', 'Подписаться на рассылку'];
+import vkSvg from "@/assets/img/vk.svg";
+import instagramSvg from "@/assets/img/instagram.svg";
+
+const linksFooter = ["Служба поддержи", "Подписаться на рассылку"];
 
 const Footer = () => {
   return (

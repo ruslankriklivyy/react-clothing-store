@@ -1,18 +1,17 @@
-import React from 'react';
-import {withFormik, FormikProps, FormikErrors, Form, Field} from 'formik';
+import React from "react";
+import { withFormik, FormikProps, FormikErrors, Form, Field } from "formik";
 
-import Button from './Button';
-import validateForm from "../utils/validate";
-
-import arrowSvg from '../assets/img/arrow-white.svg';
-
+import Button from "@/components/Button";
+import validateForm from "@/utils/validate";
 import {
   LoginContent,
   LoginFormItem,
   ValidateErrors,
   LoginOrRegistration,
-  LoginRegistrationLink
-} from '../utils/stylesAuthBlock';
+  LoginRegistrationLink,
+} from "@/utils/auth-block-styles";
+
+import arrowSvg from "@/assets/img/arrow-white.svg";
 
 interface FormValues {
   email: string;
@@ -28,7 +27,7 @@ interface OtherProps {
 }
 
 const RegistrationForm = (props: OtherProps & FormikProps<FormValues>) => {
-  const {touched, errors, isSubmitting, setVisibleLogin, resetForm} = props;
+  const { touched, errors, isSubmitting, setVisibleLogin, resetForm } = props;
 
   const onChangeForm = () => {
     setVisibleLogin(true);
@@ -40,25 +39,32 @@ const RegistrationForm = (props: OtherProps & FormikProps<FormValues>) => {
       <Form>
         <LoginFormItem>
           <label htmlFor="email">ЭЛ.ПОЧТА</label>
-          <Field id="email" type="e-mail" name="email" required/>
-          {touched.email && errors.email && <ValidateErrors>{errors.email}</ValidateErrors>}
+          <Field id="email" type="e-mail" name="email" required />
+          {touched.email && errors.email && (
+            <ValidateErrors>{errors.email}</ValidateErrors>
+          )}
         </LoginFormItem>
+
         <LoginFormItem>
           <label htmlFor="password">ПАРОЛЬ</label>
-          <Field id="password" type="password" name="password" required/>
+          <Field id="password" type="password" name="password" required />
           {touched.password && errors.password && (
             <ValidateErrors>{errors.password}</ValidateErrors>
           )}
         </LoginFormItem>
+
         <Button
           registration={true}
           disabled={isSubmitting}
           type="submit"
-          addToCart>
+          addToCart
+        >
           Зарегистрироваться
-          <img className="more-arrow" src={arrowSvg} alt="arrow svg"/>
+          <img className="more-arrow" src={arrowSvg} alt="arrow svg" />
         </Button>
+
         <LoginOrRegistration>или</LoginOrRegistration>
+
         <LoginRegistrationLink onClick={() => onChangeForm()}>
           Войти
         </LoginRegistrationLink>
@@ -78,9 +84,9 @@ interface MyFormProps {
 const Registration = withFormik<MyFormProps, FormValues, OtherProps>({
   mapPropsToValues: (props) => {
     return {
-      email: props.initialEmail || '',
-      password: '',
-      setVisible: props.setVisible
+      email: props.initialEmail || "",
+      password: "",
+      setVisible: props.setVisible,
     };
   },
 
@@ -93,10 +99,10 @@ const Registration = withFormik<MyFormProps, FormValues, OtherProps>({
     return errors;
   },
 
-  handleSubmit: (values, {resetForm}) => {
-    console.log({email:values.email, password:values.password})
-    resetForm()
-    values.setVisible(false)
+  handleSubmit: (values, { resetForm }) => {
+    console.log({ email: values.email, password: values.password });
+    resetForm();
+    values.setVisible(false);
   },
 })(RegistrationForm);
 

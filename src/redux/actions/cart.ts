@@ -9,8 +9,8 @@ import {
   SET_STORAGE_SIZE,
   SET_TOTAL_PRICE,
   SET_VISIBLE_CART,
-} from './../../actionsTypes/actionsTypes';
-import { ICartItem, IProductsItem, ISizeTypes } from '../../interfaces/interfaces';
+} from "@/actionsTypes/actionsTypes";
+import { ICartItem, IProductsItem, ISizeTypes } from "@/interfaces/interfaces";
 
 type SetCartItem = {
   type: typeof SET_CART_ITEMS;

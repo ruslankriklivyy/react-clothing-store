@@ -1,12 +1,12 @@
-import { device } from '../utils/deviceMedia';
-import styled from 'styled-components';
-import { IProductsItem } from '../interfaces/interfaces';
-import { IActive } from '../pages/ProductOnePage';
+import { device } from "../utils/device-media";
+import styled from "styled-components";
+import { IProductsItem } from "../interfaces/interfaces";
+import { IActive } from "../pages/ProductOnePage";
 
 export const ProductsWatch = styled.div`
   min-height: calc(100vh - 122px);
   background-color: ${(props: IProductsItem) =>
-    props.name && props.name.includes('Black') ? '#000' : '#EBE6E8'};
+    props.name && props.name.includes("Black") ? "#000" : "#EBE6E8"};
   padding-bottom: 140px;
 `;
 
@@ -104,7 +104,7 @@ export const ProductsWatchLeft = styled.div`
   .slick-prev:before {
     font-size: 55px;
     color: ${(props: IProductsItem) =>
-      props.name && props.name.includes('Black') ? '#fff' : '#202020'};
+      props.name && props.name.includes("Black") ? "#fff" : "#202020"};
     opacity: 1;
   }
 
@@ -175,12 +175,12 @@ export const ProductWatchPrice = styled.span`
   font-size: 28px;
   letter-spacing: 1px;
   background: ${(props: IProductsItem) =>
-    props.name && props.name.includes('Black') ? '#fff' : '#000'};
+    props.name && props.name.includes("Black") ? "#fff" : "#000"};
   width: 170px;
   text-align: center;
   padding: 8px;
   color: ${(props: IProductsItem) =>
-    props.name && props.name.includes('Black') ? '#000' : '#ebe6e8'};
+    props.name && props.name.includes("Black") ? "#000" : "#ebe6e8"};
   border-radius: 25px;
   @media ${device.laptopL} {
     margin: 30px auto 0 auto;
@@ -189,7 +189,7 @@ export const ProductWatchPrice = styled.span`
 
 export const ProductWatchDelivery = styled.span`
   color: ${(props: IProductsItem) =>
-    props.name && props.name.includes('Black') ? '#fff' : '#000'};
+    props.name && props.name.includes("Black") ? "#fff" : "#000"};
   opacity: 0.6;
   letter-spacing: 1px;
   font-size: 18px;
@@ -204,7 +204,7 @@ export const ProductsWatchDescr = styled.p`
   letter-spacing: 1px;
   font-weight: 300;
   color: ${(props: IProductsItem) =>
-    props.name && props.name.includes('Black') ? '#fff' : '#000'};
+    props.name && props.name.includes("Black") ? "#fff" : "#000"};
 `;
 
 export const ProductWatchBottom = styled.div`
@@ -244,18 +244,18 @@ export const ProductWatchSize = styled.a`
   transition: all 0.3s ease;
   background: ${(props: IActive & IProductsItem) =>
     props.active
-      ? props.name && props.name.includes('Black')
-        ? '#fff'
-        : '#000'
-      : props.name && props.name.includes('Black')
-      ? '#474852'
-      : '#fff'};
+      ? props.name && props.name.includes("Black")
+        ? "#fff"
+        : "#000"
+      : props.name && props.name.includes("Black")
+      ? "#474852"
+      : "#fff"};
   color: ${(props: IActive & IProductsItem) =>
     props.active
-      ? props.name && props.name.includes('Black')
-        ? '#000'
-        : '#ffffff'
-      : props.name && props.name.includes('Black')
-      ? '#fff'
-      : '#797a8c'};
+      ? props.name && props.name.includes("Black")
+        ? "#000"
+        : "#ffffff"
+      : props.name && props.name.includes("Black")
+      ? "#fff"
+      : "#797a8c"};
 `;

@@ -2,14 +2,15 @@ import React from "react";
 import Slider, { Settings } from "react-slick";
 import { useDispatch, useSelector } from "react-redux";
 
-import scrollTop from "../utils/scrollTop";
-import Button from "../components/Button";
-import Title from "../components/Title";
-import { setChosenProduct } from "../redux/actions/products";
-import { addCartItem, setSize, setVisibleCart } from "../redux/actions/cart";
-import priceConvert from "../utils/priceConvert";
-import { RootState } from "../redux/reducers";
-import { IProductsItem } from "../interfaces/interfaces";
+import scrollTop from "@/utils/scroll-top";
+import Button from "@/components/Button";
+import Title from "@/components/Title";
+import { setChosenProduct } from "@/redux/actions/products";
+import { addCartItem, setSize, setVisibleCart } from "@/redux/actions/cart";
+import formatPrice from "@/utils/format-price";
+import { RootState } from "@/redux/reducers";
+import { IProductsItem } from "@/interfaces/interfaces";
+
 import {
   ProductsWatch,
   ProductsWatchBlock,
@@ -22,9 +23,9 @@ import {
   ProductWatchSize,
   ProductWatchSizes,
   ProductWatchTypeName,
-} from "../styles/ProductOnePageStyle";
-import { Container } from "../styles/ProductsStyle";
-import { MainLayout } from "../layouts/MainLayout";
+} from "@/styles/ProductOnePageStyle";
+import { Container } from "@/styles/ProductsStyle";
+import { MainLayout } from "@/layouts/MainLayout";
 
 export interface IActive {
   active: boolean;
@@ -103,7 +104,7 @@ const ProductOnePage = () => {
               </ProductsWatchLeft>
               <ProductWatchRight>
                 <ProductWatchPrice name={chosenProduct.name}>
-                  {priceConvert(chosenProduct.price)} RUB
+                  {formatPrice(chosenProduct.price)} RUB
                 </ProductWatchPrice>
                 <ProductWatchDelivery name={chosenProduct?.name}>
                   {`(Доставка по миру - ${chosenProduct.delivery_world_price} RUB, по Украине - ${chosenProduct.delivery_ukraine_price} UAH)`}

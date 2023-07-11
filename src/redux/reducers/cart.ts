@@ -8,10 +8,10 @@ import {
   SET_STORAGE_SIZE,
   SET_TOTAL_PRICE,
   SET_VISIBLE_CART,
-} from './../../actionsTypes/actionsTypes';
-import { ADD_CART_ITEM } from '../../actionsTypes/actionsTypes';
-import { ICartItem, IProductsItem, ISizeTypes } from '../../interfaces/interfaces';
-import { ActionTypes } from '../actions/cart';
+} from "@/actionsTypes/actionsTypes";
+import { ADD_CART_ITEM } from "@/actionsTypes/actionsTypes";
+import { ICartItem, IProductsItem, ISizeTypes } from "@/interfaces/interfaces";
+import { ActionTypes } from "@/redux/actions/cart";
 
 const initialState = {
   cartItems: {} as ICartItem,
@@ -25,7 +25,7 @@ const initialState = {
 export type InitialState = typeof initialState;
 
 const _get = (obj: any, path: string) => {
-  const [firstKey, ...keys] = path.split('.');
+  const [firstKey, ...keys] = path.split(".");
   return keys.reduce((val, key) => {
     return val[key];
   }, obj[firstKey]);
@@ -43,7 +43,10 @@ const getTotalPrice = (arr: IProductsItem[]) =>
     return Number(obj.price) + sum;
   }, 0);
 
-export const cart = (state = initialState, action: ActionTypes): InitialState => {
+export const cart = (
+  state = initialState,
+  action: ActionTypes
+): InitialState => {
   switch (action.type) {
     case ADD_CART_ITEM: {
       const currentCartItem = !state.cartItems[action.payload.id]
@@ -59,8 +62,8 @@ export const cart = (state = initialState, action: ActionTypes): InitialState =>
         },
       };
 
-      const totalPrice = getTotalSum(newItems, 'totalPrice');
-      const totalCount = getTotalSum(newItems, 'items.length');
+      const totalPrice = getTotalSum(newItems, "totalPrice");
+      const totalCount = getTotalSum(newItems, "items.length");
 
       return {
         ...state,
@@ -84,9 +87,9 @@ export const cart = (state = initialState, action: ActionTypes): InitialState =>
           totalPrice: getTotalPrice(newObjItems),
         },
       };
-      const totalCount = getTotalSum(newItems, 'items.length');
+      const totalCount = getTotalSum(newItems, "items.length");
 
-      const totalPrice = getTotalSum(newItems, 'totalPrice');
+      const totalPrice = getTotalSum(newItems, "totalPrice");
 
       return {
         ...state,
@@ -99,7 +102,9 @@ export const cart = (state = initialState, action: ActionTypes): InitialState =>
     case MINUS_CART_ITEM: {
       const oldCartItems = state.cartItems[action.payload].items;
       const newObjItems =
-        oldCartItems.length > 1 ? state.cartItems[action.payload].items.slice(1) : oldCartItems;
+        oldCartItems.length > 1
+          ? state.cartItems[action.payload].items.slice(1)
+          : oldCartItems;
 
       const newItems = {
         ...state.cartItems,
@@ -109,8 +114,8 @@ export const cart = (state = initialState, action: ActionTypes): InitialState =>
         },
       };
 
-      const totalPrice = getTotalSum(newItems, 'totalPrice');
-      const totalCount = getTotalSum(newItems, 'items.length');
+      const totalPrice = getTotalSum(newItems, "totalPrice");
+      const totalCount = getTotalSum(newItems, "items.length");
 
       return {
         ...state,
@@ -121,7 +126,9 @@ export const cart = (state = initialState, action: ActionTypes): InitialState =>
     }
 
     case SET_SIZE:
-      const sizeCurrentActives = !state.sizeTypes[action.id] ? [action.size] : [action.size];
+      const sizeCurrentActives = !state.sizeTypes[action.id]
+        ? [action.size]
+        : [action.size];
 
       const newSizeItems = {
         ...state.sizeTypes,

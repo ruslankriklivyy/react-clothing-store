@@ -2,16 +2,16 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { Button } from "../components";
-import { RootState } from "../redux/reducers";
-import { Container } from "../styles/ProductsStyle";
+import { Button } from "@/components";
+import { RootState } from "@/redux/reducers";
+import { Container } from "@/styles/ProductsStyle";
 import {
   PromoBlockItem,
   PromoBlocks,
   PromoMain,
   PromoWrapper,
-} from "../styles/PromoStyles";
-import { MainLayout } from "../layouts/MainLayout";
+} from "@/styles/PromoStyles";
+import { MainLayout } from "@/layouts/MainLayout";
 
 const PromoPage = () => {
   const { promoItems } = useSelector((state: RootState) => state.products);

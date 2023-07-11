@@ -1,9 +1,9 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-import PromoPage from "./PromoPage";
-import ProductsPage from "./ProductsPage";
-import ProductOnePage from "./ProductOnePage";
+import PromoPage from "@/pages/PromoPage";
+import ProductsPage from "@/pages/ProductsPage";
+import ProductOnePage from "@/pages/ProductOnePage";
 
 const Home = () => {
   return (

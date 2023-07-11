@@ -1,7 +1,7 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import priceConvert from '../../utils/priceConvert';
+import formatPrice from "@/utils/format-price";
 import {
   minusCartItem,
   plusCartItem,
@@ -11,8 +11,8 @@ import {
   setStorageSize,
   setTotalPrice,
   setVisibleCart,
-} from '../../redux/actions/cart';
-import { RootState } from '../../redux/reducers';
+} from "@/redux/actions/cart";
+import { RootState } from "@/redux/reducers";
 import {
   CartHeader,
   CartItem,
@@ -27,14 +27,14 @@ import {
   CartItemTotalPrice,
   CartItemBottom,
   EmptyCart,
-} from '../../styles/CartStyle';
-import { IProductsItem } from '../../interfaces/interfaces';
+} from "@/styles/CartStyle";
+import { IProductsItem } from "@/interfaces/interfaces";
 
-import backSvg from '../../assets/img/back.svg';
-import plusSvg from '../../assets/img/plus.svg';
-import minusSvg from '../../assets/img/remove.svg';
-import removeSvg from '../../assets/img/cancel.svg';
-import emptyCartSvg from '../../assets/img/empty-cart.png';
+import backSvg from "@/assets/img/back.svg";
+import plusSvg from "@/assets/img/plus.svg";
+import minusSvg from "@/assets/img/remove.svg";
+import removeSvg from "@/assets/img/cancel.svg";
+import emptyCartSvg from "@/assets/img/empty-cart.png";
 
 export interface ICart {
   show: boolean;
@@ -44,7 +44,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const cartBlock = React.useRef<HTMLDivElement>(null);
   const { cartItems, totalPrice, sizeTypes, visibleCart } = useSelector(
-    (state: RootState) => state.cart,
+    (state: RootState) => state.cart
   );
   const addedItems: IProductsItem[] =
     cartItems &&
@@ -67,8 +67,8 @@ const Cart = () => {
   };
 
   React.useEffect(() => {
-    const cartItemsRef = JSON.parse(localStorage.getItem('cartItems') || '{}');
-    const totalPriceRef = localStorage.getItem('totalPrice');
+    const cartItemsRef = JSON.parse(localStorage.getItem("cartItems") || "{}");
+    const totalPriceRef = localStorage.getItem("totalPrice");
 
     if (cartItemsRef) {
       const itemKeys = Object.keys(cartItemsRef);
@@ -85,7 +85,7 @@ const Cart = () => {
   }, [dispatch]);
 
   React.useEffect(() => {
-    const sizeTypesRef = localStorage.getItem('sizeTypes');
+    const sizeTypesRef = localStorage.getItem("sizeTypes");
 
     if (sizeTypesRef) {
       dispatch(setStorageSize(JSON.parse(sizeTypesRef)));
@@ -93,12 +93,12 @@ const Cart = () => {
   }, [dispatch]);
 
   React.useEffect(() => {
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    localStorage.setItem("totalPrice", JSON.stringify(totalPrice));
   }, [cartItems, totalPrice]);
 
   React.useEffect(() => {
-    localStorage.setItem('sizeTypes', JSON.stringify(sizeTypes));
+    localStorage.setItem("sizeTypes", JSON.stringify(sizeTypes));
   }, [sizeTypes]);
 
   return (
@@ -118,7 +118,10 @@ const Cart = () => {
                 <img src={obj.images && obj.images[0]} alt="product img" />
                 <CartItemRemove
                   href="/"
-                  onClick={(e: React.MouseEvent<HTMLElement>) => onRemove(obj.id, e)}>
+                  onClick={(e: React.MouseEvent<HTMLElement>) =>
+                    onRemove(obj.id, e)
+                  }
+                >
                   <img src={removeSvg} alt="remove svg" />
                 </CartItemRemove>
               </CartItemLeft>
@@ -141,7 +144,7 @@ const Cart = () => {
                   </button>
                 </CartItemCount>
                 <CartItemTotalPrice>
-                  {priceConvert(cartItems[obj.id].totalPrice)} RUB
+                  {formatPrice(cartItems[obj.id].totalPrice)} RUB
                 </CartItemTotalPrice>
               </CartItemRight>
             </CartItem>
@@ -153,7 +156,7 @@ const Cart = () => {
         </EmptyCart>
       )}
       <CartItemBottom>
-        <span>Итого:</span> <b>{priceConvert(totalPrice)} RUB</b>
+        <span>Итого:</span> <b>{formatPrice(totalPrice)} RUB</b>
       </CartItemBottom>
     </CartWrapper>
   );

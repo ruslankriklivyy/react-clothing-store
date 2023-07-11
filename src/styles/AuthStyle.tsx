@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { IAuth } from '../components/Auth/Auth';
-import { device } from '../utils/deviceMedia';
+import styled from "styled-components";
+import { IAuth } from "../components/Auth/Auth";
+import { device } from "../utils/device-media";
 
 export const LoginWrapper = styled.div`
   position: absolute;
@@ -12,8 +12,8 @@ export const LoginWrapper = styled.div`
   min-height: 410px;
   border-radius: 25px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-  visibility: ${(props: IAuth) => (props.show ? 'visible' : 'hidden')};
-  opacity: ${(props: IAuth) => (props.show ? '1' : '0')};
+  visibility: ${(props: IAuth) => (props.show ? "visible" : "hidden")};
+  opacity: ${(props: IAuth) => (props.show ? "1" : "0")};
   transition: all 0.6s ease;
   @media ${device.laptopL} {
     top: 50%;

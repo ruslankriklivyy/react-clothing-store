@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import {device} from "./deviceMedia";
-
+import { device } from "./device-media";
 
 export const LoginContent = styled.div`
   padding: 30px;
@@ -61,7 +60,7 @@ export const LoginOrRegistration = styled.span`
   margin-top: 40px;
   &::after,
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 13px;
     z-index: 700;

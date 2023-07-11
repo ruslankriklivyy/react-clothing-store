@@ -1,7 +1,7 @@
-import { ThunkAction } from 'redux-thunk';
-import { productsApi } from '../../api/api';
-import { IProductsItem } from '../../interfaces/interfaces';
-import { InitialState } from '../reducers/products';
+import { ThunkAction } from "redux-thunk";
+import { productsApi } from "@/api/api";
+import { IProductsItem } from "@/interfaces/interfaces";
+import { InitialState } from "../reducers/products";
 
 import {
   SET_CATEGORY,
@@ -11,17 +11,21 @@ import {
   SET_IS_FETCHING,
   SET_PRODUCTS,
   SET_PRODUCT_ID,
-} from '../../actionsTypes/actionsTypes';
+} from "@/actionsTypes/actionsTypes";
 
 type Thunk = ThunkAction<Promise<void>, InitialState, unknown, ActionTypes>;
 
-export const getAllCloths = (category: string | null): Thunk => async (dispatch) => {
-  dispatch(setIsFetching(false));
-  const data = await productsApi.fetchAllCloths(category);
-  const newCloths = data.filter((item: IProductsItem) => item.category === category);
-  dispatch(setProducts(newCloths));
-  dispatch(setIsFetching(true));
-};
+export const getAllCloths =
+  (category: string | null): Thunk =>
+  async (dispatch) => {
+    dispatch(setIsFetching(false));
+    const data = await productsApi.fetchAllCloths(category);
+    const newCloths = data.filter(
+      (item: IProductsItem) => item.category === category
+    );
+    dispatch(setProducts(newCloths));
+    dispatch(setIsFetching(true));
+  };
 
 type SetIsFetching = {
   type: typeof SET_IS_FETCHING;
@@ -58,7 +62,9 @@ type SetChosenProduct = {
   payload: IProductsItem | null;
 };
 
-export const setChosenProduct = (item: IProductsItem | null): SetChosenProduct => ({
+export const setChosenProduct = (
+  item: IProductsItem | null
+): SetChosenProduct => ({
   type: SET_CHOSEN_PRODUCT,
   payload: item,
 });

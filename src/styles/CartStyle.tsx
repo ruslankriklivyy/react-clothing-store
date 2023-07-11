@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { ICart } from '../components/Cart/Cart';
-import { device } from '../utils/deviceMedia';
+import styled from "styled-components";
+import { ICart } from "../components/Cart/Cart";
+import { device } from "../utils/device-media";
 
 export const CartWrapper = styled.div`
   width: 380px;
@@ -9,9 +9,9 @@ export const CartWrapper = styled.div`
   overflow: auto;
   position: fixed;
   top: 0;
-  right: ${(props: ICart) => (props.show ? '0' : '-400px')};
+  right: ${(props: ICart) => (props.show ? "0" : "-400px")};
   z-index: 900;
-  visibility: ${(props: ICart) => (props.show ? 'visbility' : 'hidden')};
+  visibility: ${(props: ICart) => (props.show ? "visbility" : "hidden")};
   background: #fff;
   transition: all 0.7s ease;
   @media ${device.mobileL} {
@@ -54,7 +54,7 @@ export const CartTitle = styled.h2`
   letter-spacing: 1px;
   position: relative;
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 54%;
     right: 7px;
@@ -74,7 +74,7 @@ export const CartItem = styled.div`
   border-top: 2px solid #ebeef1;
   transition: all 2s ease;
   ${({ state }: any) =>
-    state === 'entering' || state === 'entered' ? 'opacity: 0' : 'opacity: 1'};
+    state === "entering" || state === "entered" ? "opacity: 0" : "opacity: 1"};
 `;
 
 export const CartItemLeft = styled.div`

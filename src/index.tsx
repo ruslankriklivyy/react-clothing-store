@@ -4,9 +4,9 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { createRoot } from "react-dom/client";
 import { createGlobalStyle } from "styled-components";
 
-import App from "./App";
-import store from "./redux/store";
-import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import App from "@/App";
+import store from "@/redux/store";
+import * as serviceWorkerRegistration from "@/service-worker-registration";
 
 const Global = createGlobalStyle`
   * {

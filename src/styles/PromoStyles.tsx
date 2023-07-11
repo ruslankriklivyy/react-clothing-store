@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { device } from '../utils/deviceMedia';
+import styled from "styled-components";
+import { device } from "../utils/device-media";
 
 export const PromoWrapper = styled.div`
   margin-top: 20px;
